@@ -99,7 +99,6 @@ function formatCurrency(num: number) {
   return `$${num}`;
 }
 
-/* ---------- Subcomponents ---------- */
 const Header: React.FC<{
   totalValue: number;
   totalProperties: number;
