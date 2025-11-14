@@ -11,17 +11,16 @@ export const PropertyOwnershipIcon = ({
     width="52"
     height="52"
     viewBox="0 0 52 52"
-    fill={bgfill}
     xmlns="http://www.w3.org/2000/svg">
-    {/* <circle
+    <circle
       cx="25.5087"
       cy="25.5079"
       r="24.6743"
       transform="rotate(-90 25.5087 25.5079)"
-      fill="white"
+      fill={bgfill}
       stroke={stroke}
-      strokeWidth="1.66718"
-    /> */}
+      stroke-width="1.66718"
+    />
     <mask
       id="mask0_340_3758"
       maskUnits="userSpaceOnUse"

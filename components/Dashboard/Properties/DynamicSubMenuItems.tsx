@@ -34,7 +34,7 @@ const DynamicSubMenuItems = ({
       )}
       <div className="space-y-3 border border-[#E5E7EB] rounded-lg  mr-2 mb-5">
         {rows.map((r, index) => (
-          <>
+          <div key={r.id}>
             <div
               key={r.id}
               className="p-4 bg-white  rounded-lg  py-4 flex items-center justify-between">
@@ -90,7 +90,7 @@ const DynamicSubMenuItems = ({
             ) : (
               <hr className="w-full border border-[#E5E7EB]" />
             )}
-          </>
+          </div>
         ))}
       </div>
     </>
