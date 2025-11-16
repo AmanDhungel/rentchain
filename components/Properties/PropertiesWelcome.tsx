@@ -19,20 +19,15 @@ const PropertiesWelcomeSection: React.FC<WelcomeSectionProps> = ({
   return (
     <div className="w-full bg-white p-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] mb-5">
       <div className="flex items-center justify-between">
-        {/* Left Section - Profile and Welcome Message */}
         <div className="flex items-center gap-4">
-          {/* Profile Picture */}
           <div className="relative">
             <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold">
               A
             </div>
-            {/* Online Status Dot */}
             <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
 
-          {/* Welcome Message and Stats */}
           <div className="flex flex-col gap-1">
-            {/* Welcome Text with Edit Icon */}
             <div className="flex items-center gap-2">
               <h2 className="text-2xl font-semibold text-gray-800">
                 Welcome Back, {userName}
@@ -42,7 +37,6 @@ const PropertiesWelcomeSection: React.FC<WelcomeSectionProps> = ({
               </button>
             </div>
 
-            {/* Stats Text */}
             <p className="text-gray-500 flex gap-1 text-sm">
               You have{" "}
               <span className="text-orange-500 flex underline">
@@ -52,12 +46,10 @@ const PropertiesWelcomeSection: React.FC<WelcomeSectionProps> = ({
           </div>
         </div>
 
-        {/* Right Section - Buttons */}
         <div className="flex items-center gap-3">
           <PropertySetupDialog />
           <StandardPropertySetupDialog />
 
-          {/* Add Request Button */}
           <button className="flex items-center gap-2 px-4 py-2.5 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
             <Image
               src={icons.RoundedPlusIcon}

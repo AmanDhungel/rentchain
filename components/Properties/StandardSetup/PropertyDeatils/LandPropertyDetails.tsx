@@ -10,6 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../ui/select";
+import Image from "next/image";
+import { icons } from "@/assets/icons/exports";
 
 type CustomAttr = {
   id?: string;
@@ -142,6 +144,11 @@ export default function LandPropertyDetailsStep({
                 type="button"
                 onClick={addAttribute}
                 className="bg-orange-500 text-white">
+                <Image
+                  alt="roundedIcon"
+                  src={icons.RoundedPlusIcon}
+                  className="scale-200"
+                />
                 Add Attribute
               </Button>
             </div>

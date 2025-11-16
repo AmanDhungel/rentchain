@@ -6,7 +6,7 @@ import {
   Upload,
   ChevronDown,
   GripVertical,
-  Image,
+  Image as ImageIcon,
 } from "lucide-react";
 
 import { Input } from "../../../ui/input";
@@ -22,6 +22,7 @@ import {
 } from "../../../ui/select";
 import { Checkbox } from "../../../ui/checkbox";
 import { Label } from "../../../ui/label";
+import Image from "next/image";
 
 export default function UnitForm({ unit, onAddRoom, onRemove }) {
   const [items, setItems] = useState([]);
@@ -104,7 +105,7 @@ export default function UnitForm({ unit, onAddRoom, onRemove }) {
           <Label
             htmlFor="mediaFile"
             className="border border-gray-400 p-2 py-1 h-7 ml-14 -mt-7 rounded-sm">
-            <Image className="w-4 h-4" /> Media 0
+            <ImageIcon className="w-4 h-4" /> Media 0
           </Label>
           <Input
             type="file"
@@ -276,7 +277,7 @@ export default function UnitForm({ unit, onAddRoom, onRemove }) {
                           </div>
 
                           {it.photo && (
-                            <img
+                            <Image
                               src={it.photo}
                               alt="preview"
                               className="mt-3 h-20 w-20 object-cover rounded"

@@ -43,6 +43,7 @@ import RectangleRooms from "./rectangle_rooms.svg";
 import RectangleBedspaces from "./rectangle_bedspaces.svg";
 import RectangleCommonArea from "./rectangle_commonarea.svg";
 import GarageMoney from "./garage_money.svg";
+import Checkbook from "./checkbook.svg";
 
 export const icons = {
   FourDots,
@@ -90,4 +91,5 @@ export const icons = {
   RectangleBedspaces,
   RectangleCommonArea,
   GarageMoney,
+  Checkbook,
 };

@@ -13,6 +13,7 @@ import {
 } from "../../../ui/select";
 import { Checkbox } from "../../../ui/checkbox";
 import { icons } from "../../../../assets/icons/exports";
+import Image from "next/image";
 
 type CustomAttr = {
   id?: string;
@@ -194,8 +195,12 @@ export default function PropertyDetailsStep({
                 type="button"
                 onClick={addAttribute}
                 className="bg-orange-500 text-white">
-                <img src={icons.RoundedPlusIcon} className="scale-200" /> Add
-                Attribute
+                <Image
+                  alt="roundedIcon"
+                  src={icons.RoundedPlusIcon}
+                  className="scale-200"
+                />{" "}
+                Add Attribute
               </Button>
             </div>
           </div>

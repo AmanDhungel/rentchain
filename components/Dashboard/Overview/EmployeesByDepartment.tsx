@@ -46,24 +46,22 @@ const EmployeesByDepartment: React.FC<EmployeesByDepartmentProps> = ({
       <div className="border-t border-gray-200 mb-6"></div>
       <div className="space-y-4">
         {data.map((department, index) => (
-          <div key={index} className="flex flex-col">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium text-gray-700">
+          <div key={index} className="flex items-center department-size-border">
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-[7.83px] font-medium text-gray-700 w-20 text-right mr-4">
                 {department.name}
               </span>
-              <span className="text-sm text-gray-600">{department.value}</span>
             </div>
-
-            <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div className=" w-full bg-gray-200 rounded-full h-1.5 ">
               <div
-                className="bg-orange-500 h-2.5 rounded-full transition-all duration-300"
+                className="bg-orange-500 h-1.5 rounded-full transition-all duration-300"
                 style={{ width: `${department.progress}%` }}></div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="flex justify-between text-xs text-gray-500 mt-4 px-1">
+      <div className="flex justify-between  text-gray-500 mt-4 px-1 ml-24 text-[9.4px]">
         <span>0</span>
         <span>20</span>
         <span>40</span>
@@ -73,12 +71,12 @@ const EmployeesByDepartment: React.FC<EmployeesByDepartmentProps> = ({
         <span>120</span>
       </div>
 
-      <div className="flex items-center gap-2 mt-6 pt-4 border-t border-gray-200">
+      <div className="flex items-center gap-2 text-[9.26px] mt-6 pt-4 border-t border-gray-200">
         <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-gray-600 text-[9.26px]">
           No of Employees increased by{" "}
           <span
-            className={`font-medium ${
+            className={`font-medium text-[9.26px] ${
               isPositiveIncrease ? "text-green-500" : "text-red-500"
             }`}>
             {isPositiveIncrease ? "+" : ""}

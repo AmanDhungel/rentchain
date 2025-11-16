@@ -50,7 +50,9 @@ const LegalInsurance = ({
         </Button>
 
         <div className="flex items-center gap-3">
-          <Button onClick={onNext}>Next →</Button>
+          <Button className="bg-orange-500" onClick={onNext}>
+            Next →
+          </Button>
         </div>
       </div>
     </div>

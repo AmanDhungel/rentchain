@@ -1,4 +1,5 @@
 // QuickAddSection.tsx
+import Image from "next/image";
 import { icons } from "../../../../assets/icons/exports";
 
 interface CardItem {
@@ -71,7 +72,7 @@ const QuickAddSection = ({ onAddFloor }: QuickAddSectionProps) => {
                   borderColor: `${item.color}`,
                 }}
                 className={`bg-[${item.bgColor}] border border-[${item.color}] items-center justify-center flex rounded-full w-8 h-8 m-auto p-1 `}>
-                <img src={item.icon} className="w-5 h-5" />
+                <Image alt="iicons" src={item.icon} className="w-5 h-5" />
               </div>
             </div>
             <p className="text-sm mt-2"> {item.title}</p>

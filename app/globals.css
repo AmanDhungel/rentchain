@@ -120,3 +120,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+.h1-dashboard-card {
+  @apply text-[14.24px] font-semibold;
+}
+
+.card-title-text {
+  @apply text-[9.26px] font-medium;
+}
+
+.viewall-style {
+  @apply text-[#6B7280] text-[9.97px] font-[400];
+}
+
+.trending-text {
+  @apply text-[8.55px] font-medium;
+}
+
+.department-size-border {
+  position: relative;
+  border-bottom: 1px dashed #ccc;
+}
+
+.department-size-border::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+  width: 70%;
+  height: 1px;
+  border: none;
+}

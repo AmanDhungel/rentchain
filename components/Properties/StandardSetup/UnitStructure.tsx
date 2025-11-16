@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { icons } from "../../../assets/icons/exports";
 import { Button } from "../../ui/button";
 import { Checkbox } from "../../ui/checkbox";
@@ -94,7 +95,9 @@ const UnitStructure = ({
         <h1 className="font-medium">Add Building Elements</h1>
         <div className="flex justify-between">
           {cardItems.map((item) => (
-            <div className="flex flex-col items-center border border-gray-300 overflow-hidden h-[99.92px] w-[122.76px] rounded-md mt-4">
+            <div
+              key={item.title}
+              className="flex flex-col items-center border border-gray-300 overflow-hidden h-[99.92px] w-[122.76px] rounded-md mt-4">
               <div className="m-auto mt-5 ">
                 <div
                   style={{
@@ -102,11 +105,12 @@ const UnitStructure = ({
                     borderColor: `${item.color}`,
                   }}
                   className={`bg-[${item.bgColor}] border border-[${item.color}] items-center justify-center flex rounded-full w-8 h-8 m-auto p-1 `}>
-                  <img src={item.icon} className="w-5 h-5" />
+                  <Image alt={item.title} src={item.icon} className="w-5 h-5" />
                 </div>
                 <p className="text-sm mt-2">{item.title}</p>
               </div>
-              <img
+              <Image
+                alt={item.title}
                 src={item.bottomleftIcon}
                 className="relative right-10 -top-[18px] "
               />
@@ -121,7 +125,9 @@ const UnitStructure = ({
         </Button>
 
         <div className="flex items-center gap-3">
-          <Button onClick={onNext}>Next →</Button>
+          <Button className="bg-orange-500" onClick={onNext}>
+            Next →
+          </Button>
         </div>
       </div>
     </div>

@@ -7,13 +7,10 @@ import TenantsCheckInOut from "@/components/Dashboard/Overview/TenantCheckInOut"
 
 const FinalDashboard = () => {
   return (
-    <div className="flex min-h-screen">
-      <div className="w-64 fixed top-0 left-0 h-full text-white">
-        <Sidebar />
-      </div>
+    <div className="flex">
       <div className="flex-1 ">
         <OwnerDashboard />
-        <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-100 md:-mt-44">
+        <div className="p-6 px-0 grid grid-cols-1 md:grid-cols-3 gap-6  ">
           <ContractStatus />
           <WorkOrderOverview />
           <TenantsCheckInOut />

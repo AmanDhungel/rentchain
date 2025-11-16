@@ -19,7 +19,7 @@ export const PropertyOwnershipIcon = ({
       transform="rotate(-90 25.5087 25.5079)"
       fill={bgfill}
       stroke={stroke}
-      stroke-width="1.66718"
+      strokeWidth="1.66718"
     />
     <mask
       id="mask0_340_3758"

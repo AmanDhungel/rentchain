@@ -4,6 +4,7 @@ import "../globals.css";
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import { Roboto } from "next/font/google";
 import Footer from "@/components/Footer";
+import AccountingLayout from "@/components/Accounting/AccountingLayout";
 
 const roboto = Roboto({
   weight: ["400", "500", "600", "700", "300", "200"],
@@ -24,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className}  antialiased`}>
-        <DashboardLayout>{children}</DashboardLayout>
+        <AccountingLayout>{children}</AccountingLayout>
         <Footer />
       </body>
     </html>

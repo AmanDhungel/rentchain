@@ -75,20 +75,19 @@ const EnhancedUnitStructure = ({
   const { setValue, watch } = methods;
   const formFloors = watch("floors");
 
-  // Sync form state with local state
   useEffect(() => {
     setLocalFloors(formFloors);
   }, [formFloors]);
 
-  // Update form when local state changes
-  useEffect(() => {
-    if (localFloors.length > 0) {
-      setValue("floors", localFloors, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
-    }
-  }, [localFloors, setValue]);
+  // // Update form when local state changes
+  // useEffect(() => {
+  //   if (localFloors.length > 0) {
+  //     setValue("floors", localFloors, {
+  //       shouldDirty: true,
+  //       shouldValidate: true,
+  //     });
+  //   }
+  // }, [localFloors, setValue]);
 
   const updateLocalFloors = (updatedFloors: FloorType[]) => {
     setLocalFloors(updatedFloors);

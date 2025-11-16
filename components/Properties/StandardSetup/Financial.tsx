@@ -38,11 +38,13 @@ const Financial = ({
 
       <div className="flex items-center justify-between mt-6">
         <Button variant="outline" onClick={onPrev} type="button">
-          Previous
+          ← Previous
         </Button>
 
-        <div className="flex items-center gap-3">
-          <Button onClick={onNext}>Next →</Button>
+        <div className=" flex items-center gap-3">
+          <Button className="bg-orange-500" onClick={onNext}>
+            Next →
+          </Button>
         </div>
       </div>
     </div>

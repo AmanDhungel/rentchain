@@ -284,7 +284,7 @@ export default function UtilitiesAssignment({
 
             <div className="flex items-center justify-between mt-6">
               <Button variant="outline" onClick={onPrev} type="button">
-                Previous
+                ← Previous
               </Button>
 
               <div className="flex items-center gap-3">

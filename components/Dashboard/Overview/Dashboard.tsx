@@ -15,16 +15,16 @@ const OwnerDashboard = () => {
     {
       icon: CalendarPlus,
       iconBgColor: "#F26522",
-      title: "Attendance Overview",
-      value: "120/154",
-      percentage: 2.1,
+      title: "Today's Collections",
+      value: "$21445",
+      percentage: 10.2,
     },
     {
       icon: AppWindow,
       iconBgColor: "#3B7080",
-      title: "Total No of Project's",
-      value: "90/125",
-      percentage: -2.1,
+      title: " Work Orders",
+      value: "120/154 ",
+      percentage: 2.1,
     },
     {
       icon: Languages,
@@ -70,17 +70,24 @@ const OwnerDashboard = () => {
     },
   ];
   return (
-    <div className="bg-slate-100 flex-1 min-h-[100vh]">
-      <div className="flex ">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+    <div className=" flex-1">
+      <div className="flex max-lg:flex-col">
+        <div
+          className={
+            "grid grid-cols-1 md:grid-cols-2 max-lg:justify-between lg:grid-cols-4 gap-3 p-6 pl-0 pr-0"
+          }>
           {StatCardData.map((card, index) => (
-            <StatsCard key={index} {...card} />
+            <StatsCard
+              key={index}
+              {...card}
+              className={index % 2 !== 0 ? "max-lg:items-start" : ""}
+            />
           ))}
         </div>
         <EmployeesByDepartment
           title="Department Size"
           buttonText="This Quarter"
-          className="flex-1 gap-6 m-6"
+          className="flex-1 gap-6 m-6 mr-0 h-96 max-lg:ml-0"
           data={[
             { name: "Engineering", value: 95, progress: 79.2 },
             { name: "Design", value: 30, progress: 25 },

@@ -7,6 +7,7 @@ import { icons } from "../../../assets/icons/exports";
 import { useFormContext } from "react-hook-form";
 import { Article } from "../../../assets/exportsiconsjsx/Article";
 import { Upload } from "lucide-react";
+import Image from "next/image";
 
 type FileChip = {
   id: string;
@@ -162,7 +163,7 @@ export default function MediaFiles({
     <div className="max-w-4xl mx-auto py-8 px-6">
       <div className="flex items-start gap-4">
         <div className="rounded-full border p-3 w-14 h-14 flex items-center justify-center">
-          <img
+          <Image
             src={icons.CloudAdd}
             alt="Media & Files Icon"
             className="w-6 h-6"
@@ -492,17 +493,15 @@ export default function MediaFiles({
 
         {/* Nav Buttons */}
         <div className="flex items-center justify-between mt-6">
-          <Button
-            onClick={onPrev}
-            variant="secondary"
-            className="bg-gray-200 text-gray-700 hover:bg-gray-300">
-            ← Previous
+          <Button variant="outline" onClick={onPrev} type="button">
+            Previous
           </Button>
-          <Button
-            className="bg-orange-500 hover:bg-orange-600 text-white"
-            onClick={handleNext}>
-            Next →
-          </Button>
+
+          <div className="flex items-center gap-3">
+            <Button className="bg-orange-500" onClick={onNext}>
+              Next →
+            </Button>
+          </div>
         </div>
       </div>
     </div>

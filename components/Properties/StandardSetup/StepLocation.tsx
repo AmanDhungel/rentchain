@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { useState, useCallback } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { icons } from "../../../assets/icons/exports";
+import Image from "next/image";
 
 const containerStyle = {
   width: "100%",
@@ -58,10 +59,10 @@ export default function StepLocation({
     <div>
       <div className="space-x-2 ml-4 mb-2">
         <Button variant="outline" className="p-4">
-          <img src={icons.QuickSetupGoogleMap} /> Google Maps{" "}
+          <Image alt="goolgemap" src={icons.QuickSetupGoogleMap} /> Google Maps{" "}
         </Button>
         <Button variant="outline" className="p-4">
-          <img src={icons.OpenStreetMap} />
+          <Image alt="OpenStreetMap" src={icons.OpenStreetMap} />
           OpenStreetMaps{" "}
         </Button>
       </div>
@@ -71,7 +72,7 @@ export default function StepLocation({
           variant="outline"
           className="w-[48%] h-20 text-2xl border-none bg-[#F6F9FF]"
           onClick={handleCurrentLocation}>
-          <img
+          <Image
             src={icons.LocationSearching}
             alt="Current Location"
             className="w-6 h-6"
@@ -86,7 +87,7 @@ export default function StepLocation({
         <Button
           className="w-[48%] border-none h-20 bg-[#F6F9FF]"
           variant="outline">
-          <img src={icons.PinBoard} alt="Pin on Map" className="w-6 h-6" />
+          <Image src={icons.PinBoard} alt="Pin on Map" className="w-6 h-6" />
           <p className="text-lg flex flex-col text-left">
             Pin on Map{" "}
             <span className="text-gray-400 text-sm font-normal">
@@ -130,7 +131,7 @@ export default function StepLocation({
             placeholder="Choose Location"
             className="border-none focus:border-none shadow-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
           />
-          <img src={icons.TravelExplore} alt="" className="mr-5" />
+          <Image src={icons.TravelExplore} alt="" className="mr-5" />
         </div>
       </div>
       <div className="mt-4 flex flex-col gap-2">
@@ -166,13 +167,16 @@ export default function StepLocation({
         </div>
       </div>
 
-      <div className="flex justify-between mt-6">
-        <Button variant="outline" onClick={onPrev}>
-          ← Previous
+      <div className="flex items-center justify-between mt-6">
+        <Button variant="outline" onClick={onPrev} type="button">
+          Previous
         </Button>
-        <Button onClick={onNext} className="bg-orange-500 hover:bg-orange-600">
-          Next →
-        </Button>
+
+        <div className="flex items-center gap-3">
+          <Button className="bg-orange-500" onClick={onNext}>
+            Next →
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -135,6 +135,18 @@ export default function Sidebar() {
         </svg>
       ),
       hasDropdown: true,
+      subItems: [
+        {
+          label: "Accounting & Billing",
+          location: "/accounting/accountingandbilling",
+          active: pathname === "/accounting/accountingandbilling",
+        },
+        {
+          label: "Standard Setup",
+          location: "/accounting/financialmanagement",
+          active: pathname === "/accounting/financialmanagement",
+        },
+      ],
     },
     {
       id: "agreements",
