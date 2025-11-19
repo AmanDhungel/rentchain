@@ -9,7 +9,6 @@ const TopBar: React.FC = () => {
   const [isOnline, setIsOnline] = useState<boolean>(true);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Keyboard shortcut handler
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent): void => {
       if ((event.ctrlKey || event.metaKey) && event.key === "/") {
@@ -45,7 +44,7 @@ const TopBar: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-white border-b border-gray-200 px-4 py-3 -ml-[25px]">
+    <div className="w-full bg-white border-b border-gray-200 px-4 py-3 -ml-[25px] max-md:ml-0 max-lg:-ml-[17px] ">
       <div className="flex items-center justify-between">
         <div className="flex items-center flex-shrink-0">
           <button
@@ -53,7 +52,7 @@ const TopBar: React.FC = () => {
             aria-label="Close door">
             <Image src={icons.DoorExit} alt="Close Door Icon" className="w-5" />
           </button>
-          <div className="flex-1 flex justify-center max-w-2xl mx-4">
+          <div className="flex-1 flex justify-center max-w-2xl mx-4  max-md:hidden">
             <div className="relative w-full max-w-md">
               {!isSearchOpen ? (
                 <button
@@ -105,7 +104,7 @@ const TopBar: React.FC = () => {
           </button>
         </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0 ">
           <button
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="More options">
@@ -135,7 +134,7 @@ const TopBar: React.FC = () => {
             <Image src={icons.Notification} alt="Grip Icon" className="w-5" />
           </button>
 
-          <div className="relative ml-2">
+          <div className="relative ml-2 max-md:ml-0">
             <div
               className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-medium"
               aria-label="User profile">

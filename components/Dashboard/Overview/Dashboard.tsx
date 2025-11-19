@@ -75,13 +75,13 @@ const OwnerDashboard = () => {
       <div className="flex max-2xl:flex-col 2xl:h-[53.5vh]">
         <div
           className={
-            "grid grid-cols-1 md:grid-cols-2 max-lg:justify-between lg:grid-cols-3 2xl:grid-cols-4 gap-3 p-6 pl-0 pr-0"
+            "grid grid-cols-2 md:grid-cols-2 max-lg:justify-between lg:grid-cols-3 2xl:grid-cols-4 gap-3 p-6 pl-0 pr-0"
           }>
           {StatCardData.map((card, index) => (
             <StatsCard
               key={index}
               {...card}
-              className={index % 2 !== 0 ? "max-lg:items-start" : ""}
+              className={index % 2 !== 0 ? "max-lg:items-start " : ""}
             />
           ))}
         </div>

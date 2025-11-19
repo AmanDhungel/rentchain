@@ -3,6 +3,8 @@ import { useState, type JSX } from "react";
 import "./Sidebar.css";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import { icons } from "@/assets/icons/exports";
 
 interface MenuItem {
   id: string;
@@ -15,7 +17,6 @@ interface MenuItem {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  console.log("Current Pathname:", pathname);
   const [expandedItems, setExpandedItems] = useState<string[]>(["dashboard"]);
 
   const toggleItem = (id: string) => {
@@ -333,6 +334,9 @@ export default function Sidebar() {
   return (
     <aside className="sidebar border border-r border-gray-200">
       <div className="sidebar-header">
+        <span className="sidebar-title flex">
+          <Image src={icons.RentChainLogo} alt="rentchain logo" width={350} />
+        </span>
         <span className="sidebar-title">MAIN MENU</span>
       </div>
 

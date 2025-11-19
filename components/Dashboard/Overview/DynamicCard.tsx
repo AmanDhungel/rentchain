@@ -27,7 +27,7 @@ const StatsCard: React.FC<StatsCardProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-xl shadow-lg border border-gray-100 p-6 flex flex-col justify-between w-full min-h-[140px] min-w-60 transition-shadow hover:shadow-xl ${className}`}>
+      className={`bg-white rounded-xl shadow-lg border border-gray-100 p-6 flex flex-col justify-between w-full min-h-[140px] md:min-w-60 transition-shadow hover:shadow-xl ${className}`}>
       <div className="flex flex-col">
         <div className="flex flex-col items-start justify-between ">
           <div

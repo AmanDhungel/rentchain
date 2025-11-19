@@ -6,25 +6,63 @@ import PropertiesWelcomeSection from "../Properties/PropertiesWelcome";
 import WelcomeSection from "./Overview/WelcomeSectionProps";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, EllipsisVertical } from "lucide-react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // sidebar (mobile)
+  const [isTopbarOpen, setIsTopbarOpen] = useState(false); // mobile topbar popup
 
+  // close both overlays when route changes
   useEffect(() => {
     setIsOpen(false);
+    setIsTopbarOpen(false);
   }, [pathname]);
 
   return (
     <div className="flex">
-      <div className="md:hidden fixed top-4 left-4 z-50">
+      <div className="md:hidden fixed top-14 left-6 z-50">
         <button
           aria-label={isOpen ? "Close menu" : "Open menu"}
           onClick={() => setIsOpen((s) => !s)}
           className="p-2 rounded-md shadow-sm bg-white/95 dark:bg-slate-800/90 backdrop-blur-sm">
           <SlidersHorizontal size={20} />
         </button>
+      </div>
+
+      <div className="md:hidden fixed top-14 right-6 z-50">
+        <button
+          aria-label={isTopbarOpen ? "Close top actions" : "Open top actions"}
+          onClick={() => setIsTopbarOpen((s) => !s)}
+          className="p-2 rounded-md shadow-sm bg-white/95 dark:bg-slate-800/90 backdrop-blur-sm">
+          <EllipsisVertical size={20} />
+        </button>
+
+        <div
+          className={`fixed inset-0 z-40 transition-opacity duration-200 ${
+            isTopbarOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+          aria-hidden={!isTopbarOpen}
+          onClick={() => setIsTopbarOpen(false)}>
+          <div className="absolute inset-0" />
+        </div>
+
+        <div
+          className={`absolute right-0 mt-14 z-50 transform transition-all duration-200 origin-top-right
+            ${
+              isTopbarOpen
+                ? "scale-100 opacity-100"
+                : "scale-95 opacity-0 pointer-events-none"
+            }`}
+          style={{ width: "min(95vw, 360px)" }}
+          role="dialog"
+          aria-modal={isTopbarOpen ? "true" : "false"}>
+          <div className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+            <TopBar />
+          </div>
+        </div>
       </div>
 
       <div className="hidden md:block md:w-72 lg:w-64 top-0 left-0 h-full text-white">
@@ -52,9 +90,14 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </aside>
 
-      <div className="flex-1 mr-5 ml-5">
-        <TopBar />
-        <AdminHeaderSection />
+      <div className="flex-1 mr-5 ml-5 max-xl:-ml-5 max-md:ml-2">
+        <div className="hidden md:block">
+          <TopBar />
+        </div>
+
+        <div className="max-md:mt-25">
+          <AdminHeaderSection />
+        </div>
         {pathname.startsWith("/properties") ? (
           <PropertiesWelcomeSection />
         ) : (

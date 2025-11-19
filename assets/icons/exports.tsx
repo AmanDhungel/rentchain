@@ -48,6 +48,7 @@ import ActivityZone from "./activity_zone.svg";
 import CreditCardClock from "./credit_card_clock.svg";
 import DataLossPrevention from "./data_loss_prevention.svg";
 import AutoPause from "./autopause.svg";
+import RentChainLogo from "./RentChain.svg";
 
 export const icons = {
   FourDots,
@@ -100,4 +101,5 @@ export const icons = {
   CreditCardClock,
   DataLossPrevention,
   AutoPause,
+  RentChainLogo,
 };
