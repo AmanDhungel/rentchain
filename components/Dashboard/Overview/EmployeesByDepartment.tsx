@@ -1,92 +1,174 @@
+"use client";
 import React from "react";
-import { Calendar } from "lucide-react";
+import { CalendarDays, ChevronDown } from "lucide-react";
 
-interface DepartmentData {
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  TooltipProps,
+} from "recharts";
+import { NameType, ValueType } from "recharts/types/component/Tooltip";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui";
+
+interface ChartData {
   name: string;
   value: number;
-  progress: number; // Progress percentage (0-100) or actual value
+  progress: number;
 }
 
-interface EmployeesByDepartmentProps {
-  title?: string;
-  buttonText?: string;
-  data?: DepartmentData[];
-  maxValue?: number;
-  increasePercentage?: number;
-  className?: string;
+interface CustomYAxisTickProps {
+  x?: number;
+  y?: number;
+  payload?: {
+    value: string;
+  };
 }
 
-const EmployeesByDepartment: React.FC<EmployeesByDepartmentProps> = ({
-  title = "Employees By Department",
-  buttonText = "This Week",
-  data = [
-    { name: "UI/UX", value: 45, progress: 37.5 },
-    { name: "Development", value: 120, progress: 100 },
-    { name: "Management", value: 25, progress: 20.8 },
-    { name: "HR", value: 35, progress: 29.2 },
-    { name: "Testing", value: 60, progress: 50 },
-    { name: "Marketing", value: 80, progress: 66.7 },
-  ],
-  increasePercentage = 20,
-  className = "",
+const chartData: ChartData[] = [
+  { name: "Engineering", value: 95, progress: 79.2 },
+  { name: "Design", value: 30, progress: 25 },
+  { name: "Product", value: 25, progress: 20.8 },
+  { name: "Sales", value: 65, progress: 54.2 },
+  { name: "Support", value: 40, progress: 33.3 },
+  { name: "Operations", value: 35, progress: 29.2 },
+];
+
+const maxChartValue = Math.max(...chartData.map((d) => d.value));
+const xAxisDomainMax = Math.ceil(maxChartValue / 20) * 20;
+const finalXAxisMax = Math.max(xAxisDomainMax, 120);
+
+const CustomBarTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({
+  active,
+  payload,
+  label,
 }) => {
-  const isPositiveIncrease = increasePercentage >= 0;
+  if (active && payload && payload.length) {
+    // We can confidently assert the payload type here since we know the structure of ChartData
+    const data = payload[0].payload as ChartData;
+    return (
+      <div className="custom-tooltip bg-white p-2 rounded-md shadow-lg text-sm border border-gray-200">
+        <p className="font-semibold text-gray-800">{label}</p>
+        <p className="text-gray-700">{`Value: ${data.value}`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const CustomYAxisTick: React.FC<CustomYAxisTickProps> = (props) => {
+  const { x, y, payload } = props;
+
+  if (!payload) return null;
 
   return (
-    <div
-      className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 ${className}`}>
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
-        <button className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-          <Calendar size={16} className="text-gray-600" />
-          <span className="text-sm text-gray-700">{buttonText}</span>
-        </button>
-      </div>
-
-      <div className="border-t border-gray-200 mb-6"></div>
-      <div className="space-y-4">
-        {data.map((department, index) => (
-          <div key={index} className="flex items-center department-size-border">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-[7.83px] font-medium text-gray-700 w-20 text-right mr-4">
-                {department.name}
-              </span>
-            </div>
-            <div className=" w-full bg-gray-200 rounded-full h-1.5 ">
-              <div
-                className="bg-orange-500 h-1.5 rounded-full transition-all duration-300"
-                style={{ width: `${department.progress}%` }}></div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex justify-between  text-gray-500 mt-4 px-1 ml-24 text-[9.4px]">
-        <span>0</span>
-        <span>20</span>
-        <span>40</span>
-        <span>60</span>
-        <span>80</span>
-        <span>100</span>
-        <span>120</span>
-      </div>
-
-      <div className="flex items-center gap-2 text-[9.26px] mt-6 pt-4 border-t border-gray-200">
-        <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-        <span className="text-sm text-gray-600 text-[9.26px]">
-          No of Employees increased by{" "}
-          <span
-            className={`font-medium text-[9.26px] ${
-              isPositiveIncrease ? "text-green-500" : "text-red-500"
-            }`}>
-            {isPositiveIncrease ? "+" : ""}
-            {increasePercentage}%
-          </span>{" "}
-          from last Week
-        </span>
-      </div>
-    </div>
+    <g transform={`translate(${x},${y})`}>
+      <text
+        x={-10}
+        y={0}
+        dy={5}
+        textAnchor="end"
+        fill="#4b5563"
+        className="text-sm font-medium">
+        {payload.value}
+      </text>
+    </g>
   );
 };
 
-export default EmployeesByDepartment;
+const TenantsByPropertiesChart: React.FC = () => {
+  return (
+    <Card>
+      <CardHeader className="flex justify-between items-center">
+        <CardTitle>Tenants by Properties</CardTitle>
+        <Button variant={"outline"}>
+          <CalendarDays className="h-4 w-4 mr-2 text-gray-500" />
+          This Year
+          <ChevronDown className="h-4 w-4 ml-2 text-gray-500" />
+        </Button>
+      </CardHeader>
+      <CardContent>
+        <div className="w-full" style={{ height: "300px" }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={chartData}
+              layout="vertical"
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              barCategoryGap="20%">
+              {/* CartesianGrid adjusted to remove horizontal lines and keep vertical (dashed) lines */}
+              <CartesianGrid
+                strokeDasharray="3 3"
+                horizontal={false} // This removes the lines that cut across the horizontal bars
+                stroke="#e0e0e0"
+              />
+
+              <XAxis
+                type="number"
+                stroke="#a0a0a0"
+                axisLine={true}
+                tickLine={false}
+                tick={{ fontSize: 12, fill: "#6b7280" }}
+                domain={[0, finalXAxisMax]}
+                interval="preserveStartEnd"
+                ticks={[0, 20, 40, 60, 80, 100, 120]}
+              />
+              <YAxis
+                dataKey="name"
+                type="category"
+                tick={<CustomYAxisTick />}
+                axisLine={false}
+                tickLine={false}
+                width={100}
+              />
+              <Tooltip
+                cursor={{ fill: "rgba(255, 119, 40, 0.1)" }}
+                contentStyle={{
+                  border: "none",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  fontSize: "12px",
+                }}
+                content={
+                  <CustomBarTooltip
+                    active={undefined}
+                    payload={undefined}
+                    label={undefined}
+                  />
+                } // TooltipProps need to be passed here, set to undefined initially
+              />
+              <Bar
+                dataKey="value"
+                fill="#ff7728"
+                barSize={16}
+                radius={[4, 4, 4, 4]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="mt-4 border-t border-gray-100 pt-4 px-2">
+          <div className="flex items-center text-xs text-gray-600">
+            <span
+              className="w-2 h-2 rounded-full mr-2"
+              style={{ backgroundColor: "#ff7728" }}></span>
+            No of Tenants increased by{" "}
+            <span className="font-semibold text-green-600 mx-1">+20%</span> from
+            last year
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default TenantsByPropertiesChart;

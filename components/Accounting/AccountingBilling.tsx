@@ -1,12 +1,8 @@
+"use client";
 import React from "react";
 import {
-  FileText,
-  Plus,
-  Bell,
   Clock,
   Receipt,
-  BarChart3,
-  FilePlus,
   CreditCard,
   RotateCcw,
   Banknote,
@@ -21,13 +17,13 @@ import {
   Activity,
   ArrowDownRight,
   XCircle,
-  ArrowRight,
   LucideIcon,
   TriangleAlert,
   MoveRight,
   PlusIcon,
   TrendingUp,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // --- Type Definitions ---
 
@@ -138,38 +134,47 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   </div>
 );
 
-const ARAgingCard: React.FC = () => (
-  <DashboardCard title="AR Aging" icon={Clock} className="h-full flex flex-col">
-    <div className="flex flex-col items-center justify-center text-3xl  text-blue-500 mb-2">
-      $38,900
-      <span className="text-sm text-gray-500 mb-4">Total Outstanding</span>
-    </div>
-    <hr className="rounded-md border-gray-400 w-[97%] m-auto my-2" />
+const ARAgingCard: React.FC = () => {
+  const router = useRouter();
 
-    <div className="flex flex-col space-y-2 mb-6 text-sm">
-      {AR_AGING_DATA.map((item, index) => (
-        <div key={item.label} className="flex justify-between items-center">
-          <span
-            className={`${index === 1 ? "text-orange-600" : "text-gray-900"} ${
-              index === 3 ? "text-red-500 font-bold" : ""
-            }`}>
-            {item.label}
-          </span>
-          <span
-            className={`${index === 0 ? "text-blue-600" : "text-gray-900"} ${
-              index === 3 ? "text-red-500 font-bold" : ""
-            }`}>
-            {item.amount}
-          </span>
-        </div>
-      ))}
-    </div>
+  return (
+    <DashboardCard
+      title="AR Aging"
+      icon={Clock}
+      className="h-full flex flex-col">
+      <div className="flex flex-col items-center justify-center text-3xl  text-blue-500 mb-2">
+        $38,900
+        <span className="text-sm text-gray-500 mb-4">Total Outstanding</span>
+      </div>
+      <hr className="rounded-md border-gray-400 w-[97%] m-auto my-2" />
 
-    <button className="w-full bg-orange-600 text-white font-semibold py-3 rounded-xl mt-auto transition hover:bg-orange-700">
-      View Details
-    </button>
-  </DashboardCard>
-);
+      <div className="flex flex-col space-y-2 mb-6 text-sm">
+        {AR_AGING_DATA.map((item, index) => (
+          <div key={item.label} className="flex justify-between items-center">
+            <span
+              className={`${
+                index === 1 ? "text-orange-600" : "text-gray-900"
+              } ${index === 3 ? "text-red-500 font-bold" : ""}`}>
+              {item.label}
+            </span>
+            <span
+              className={`${index === 0 ? "text-blue-600" : "text-gray-900"} ${
+                index === 3 ? "text-red-500 font-bold" : ""
+              }`}>
+              {item.amount}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <button
+        onClick={() => router.push("/accounting/accountingandbilling/araging")}
+        className="w-full bg-orange-600 text-white font-semibold py-3 rounded-xl mt-auto transition hover:bg-orange-700">
+        View Details
+      </button>
+    </DashboardCard>
+  );
+};
 
 // Receipts and Failed Payments Card
 const ReceiptsCard: React.FC = () => {
@@ -177,6 +182,7 @@ const ReceiptsCard: React.FC = () => {
   const failedCount = 3;
   const totalReceipts = 3600;
   const failedPercentage = (failedAmount / totalReceipts) * 100;
+  const router = useRouter();
 
   return (
     <DashboardCard
@@ -201,7 +207,11 @@ const ReceiptsCard: React.FC = () => {
         ></div>
       </div>
 
-      <button className="w-full bg-orange-600 text-white font-semibold py-3 rounded-xl mt-auto transition hover:bg-orange-700">
+      <button
+        onClick={() =>
+          router.push("/accounting/accountingandbilling/receiptandpayment")
+        }
+        className="w-full bg-orange-600 text-white font-semibold py-3 rounded-xl mt-auto transition hover:bg-orange-700">
         View Payments
       </button>
     </DashboardCard>

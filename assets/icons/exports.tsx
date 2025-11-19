@@ -44,6 +44,10 @@ import RectangleBedspaces from "./rectangle_bedspaces.svg";
 import RectangleCommonArea from "./rectangle_commonarea.svg";
 import GarageMoney from "./garage_money.svg";
 import Checkbook from "./checkbook.svg";
+import ActivityZone from "./activity_zone.svg";
+import CreditCardClock from "./credit_card_clock.svg";
+import DataLossPrevention from "./data_loss_prevention.svg";
+import AutoPause from "./autopause.svg";
 
 export const icons = {
   FourDots,
@@ -92,4 +96,8 @@ export const icons = {
   RectangleCommonArea,
   GarageMoney,
   Checkbook,
+  ActivityZone,
+  CreditCardClock,
+  DataLossPrevention,
+  AutoPause,
 };

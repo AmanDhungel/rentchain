@@ -22,44 +22,42 @@ const StatsCard: React.FC<StatsCardProps> = ({
   className = "",
 }) => {
   const isPositive = percentage >= 0;
-  const percentageColor = isPositive ? "text-green-500" : "text-red-500";
+  const percentageColor = isPositive ? "text-green-600" : "text-red-600";
   const PercentageIcon = isPositive ? ChevronUp : ChevronDown;
 
   return (
     <div
-      className={`bg-white rounded-sm shadow-sm border border-gray-200 p-6 pb-0 w-60 h-42 ${className}`}>
+      className={`bg-white rounded-xl shadow-lg border border-gray-100 p-6 flex flex-col justify-between w-full min-h-[140px] min-w-60 transition-shadow hover:shadow-xl ${className}`}>
       <div className="flex flex-col">
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex flex-col items-start justify-between ">
           <div
-            className={`p-2 rounded-lg`}
+            className={`p-3 rounded-xl flex`}
             style={{ backgroundColor: iconBgColor }}>
-            <Icon size={20} style={{ color: "white" }} />
+            <Icon size={24} style={{ color: "white" }} />
           </div>
-        </div>
 
-        <div className="flex-grow">
-          <h3 className="card-title-text text-[10px] text-gray-500 uppercase tracking-wide mb-2">
-            {title}
-          </h3>
+          <div className="flex flex-col mt-2">
+            <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
+              {title}
+            </h3>
 
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className="h1-dashboard-card flex gap-2   text-gray-800">
-              {value}{" "}
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-bold text-gray-900">{value}</span>
               <div
-                className={`trending-text flex items-center gap-1 ${percentageColor}`}>
-                <PercentageIcon size={8} className="trending-text" />
-                <span className="trending-text">
+                className={`flex gap-1 items-center text-xs font-semibold ${percentageColor}`}>
+                <PercentageIcon size={12} />
+                <span>
                   {isPositive ? "+" : ""}
                   {percentage}%
                 </span>
               </div>
-            </span>
+            </div>
           </div>
         </div>
 
-        <button className="viewall-style hover:text-blue-800 transition-colors text-left mt-auto">
+        <p className="text-sm text-gray-400 font-semibold hover:text-blue-800 transition-colors  mt-4">
           {viewDetailsText}
-        </button>
+        </p>
       </div>
     </div>
   );

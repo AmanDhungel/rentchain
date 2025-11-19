@@ -139,7 +139,7 @@ export default function Sidebar() {
         {
           label: "Accounting & Billing",
           location: "/accounting/accountingandbilling",
-          active: pathname === "/accounting/accountingandbilling",
+          active: pathname.startsWith("/accounting/accountingandbilling"),
         },
         {
           label: "Standard Setup",

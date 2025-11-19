@@ -59,7 +59,7 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
               src={icons.RoundedPlusIcon}
               className="scale-200"
             />
-            <span>Add Project</span>
+            <span>Add Property</span>
           </button>
 
           {/* Add Request Button */}
@@ -69,7 +69,7 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
               src={icons.RoundedPlusIcon}
               className="scale-200"
             />
-            <span>Add Request</span>
+            <span>Add Tenant</span>
           </button>
         </div>
       </div>
