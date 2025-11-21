@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import {
   DollarSign,
@@ -11,6 +12,7 @@ import {
   ClipboardList,
   ArrowRight,
   BookOpen,
+  MoveLeft,
 } from "lucide-react";
 
 // Shadcn imports (assuming they are available)
@@ -25,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 // --- Data Structure ---
 interface AccountEntry {
@@ -160,7 +163,6 @@ const SummaryCard: React.FC<{
   </Card>
 );
 
-// Account Row Component
 const AccountRow: React.FC<{ entry: AccountEntry; isNested: boolean }> = ({
   entry,
   isNested,
@@ -170,13 +172,16 @@ const AccountRow: React.FC<{ entry: AccountEntry; isNested: boolean }> = ({
       "flex items-center p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors " +
       (isNested ? "pl-10 text-sm" : "pl-4 text-base font-semibold")
     }>
-    <div className="flex-1 min-w-[150px] max-w-xs space-y-0.5">
+    <div className="flex-1 flex gap-2 items-center min-w-[150px]   space-y-0.5">
+      <p className="text-lg text-gray-500 md:-ml-5 md:mr-5">{entry.code}</p>
       <p className="font-medium text-gray-800">
-        {entry.code} {entry.name}
+        {entry.name}
+        {entry.description && (
+          <p className="text-xs text-gray-500 font-normal">
+            {entry.description}
+          </p>
+        )}
       </p>
-      {entry.description && (
-        <p className="text-xs text-gray-500 font-normal">{entry.description}</p>
-      )}
     </div>
 
     <div className="w-24 text-right text-sm font-semibold text-green-600">
@@ -208,7 +213,6 @@ const AccountRow: React.FC<{ entry: AccountEntry; isNested: boolean }> = ({
   </div>
 );
 
-// Account Group Header Component
 const AccountGroupHeader: React.FC<{
   group: AccountGroup;
   toggleGroup: (id: string) => void;
@@ -235,7 +239,6 @@ const AccountGroupHeader: React.FC<{
   </div>
 );
 
-// Main Dashboard Component
 const ChartOfAccounts: React.FC = () => {
   const [accounts, setAccounts] = useState(mockAccounts);
 
@@ -251,11 +254,13 @@ const ChartOfAccounts: React.FC = () => {
   const totalIncome = 189450; // Calculated from mock data
 
   return (
-    <div className="p-4 md:p-8 bg-gray-50 min-h-screen font-inter">
-      {/* Header */}
+    <div className="p-4 md:p-8 pl-0 md:pl-0 min-h-screen font-inter">
       <header className="mb-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="flex  gap-2 text-2xl font-bold text-gray-900">
+            <Link href={"/accounting/accountingandbilling"} className="mt-auto">
+              <MoveLeft />
+            </Link>
             Chart of Accounts
           </h1>
           <div className="flex space-x-3">
@@ -271,7 +276,7 @@ const ChartOfAccounts: React.FC = () => {
             </Button>
           </div>
         </div>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-gray-500 mt-1 ml-9">
           Property accounting structure
         </p>
       </header>

@@ -36,12 +36,12 @@ interface CustomYAxisTickProps {
 }
 
 const chartData: ChartData[] = [
-  { name: "Engineering", value: 95, progress: 79.2 },
-  { name: "Design", value: 30, progress: 25 },
-  { name: "Product", value: 25, progress: 20.8 },
-  { name: "Sales", value: 65, progress: 54.2 },
-  { name: "Support", value: 40, progress: 33.3 },
-  { name: "Operations", value: 35, progress: 29.2 },
+  { name: "Oakview", value: 95, progress: 79.2 },
+  { name: "Hilltop", value: 30, progress: 25 },
+  { name: "BlueStone", value: 25, progress: 20.8 },
+  { name: "Greenleaf", value: 65, progress: 54.2 },
+  { name: "Riverbay", value: 40, progress: 33.3 },
+  { name: "Summit", value: 35, progress: 29.2 },
 ];
 
 const maxChartValue = Math.max(...chartData.map((d) => d.value));
@@ -54,7 +54,6 @@ const CustomBarTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({
   label,
 }) => {
   if (active && payload && payload.length) {
-    // We can confidently assert the payload type here since we know the structure of ChartData
     const data = payload[0].payload as ChartData;
     return (
       <div className="custom-tooltip bg-white p-2 rounded-md shadow-lg text-sm border border-gray-200">
@@ -105,10 +104,9 @@ const TenantsByPropertiesChart: React.FC = () => {
               layout="vertical"
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
               barCategoryGap="20%">
-              {/* CartesianGrid adjusted to remove horizontal lines and keep vertical (dashed) lines */}
               <CartesianGrid
                 strokeDasharray="3 3"
-                horizontal={false} // This removes the lines that cut across the horizontal bars
+                horizontal={false}
                 stroke="#e0e0e0"
               />
 
@@ -144,7 +142,7 @@ const TenantsByPropertiesChart: React.FC = () => {
                     payload={undefined}
                     label={undefined}
                   />
-                } // TooltipProps need to be passed here, set to undefined initially
+                }
               />
               <Bar
                 dataKey="value"

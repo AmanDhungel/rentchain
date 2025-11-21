@@ -107,7 +107,13 @@ const tenantsCheckInOut = {
   ],
 };
 
-const CustomPieTooltip = ({ active, payload }) => {
+const CustomPieTooltip = ({
+  active,
+  payload,
+}: {
+  active?: boolean;
+  payload?: any;
+}) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     if (data.name === "invisible") return null;
@@ -124,57 +130,70 @@ const CustomPieTooltip = ({ active, payload }) => {
   return null;
 };
 
-const TenantCheckInOutItem = ({ tenant, isLate = false }) => (
-  <div className="flex items-start">
-    <Avatar className="h-10 w-10 shrink-0 mr-3">
-      <AvatarImage
-        src={tenant.avatar}
-        alt={tenant.name}
-        onError={(e) => (e.currentTarget.style.display = "none")}
-      />
-      <AvatarFallback className="bg-gray-200 text-gray-700 text-sm font-medium">
-        {tenant.name
-          .split(" ")
-          .map((n) => n[0])
-          .join("")}
-      </AvatarFallback>
-    </Avatar>
-    <div className="flex-grow">
-      <div className="flex justify-between items-center">
-        <p className="text-sm font-semibold text-gray-900">{tenant.name}</p>
-        <Badge
-          className={`px-2 py-0.5 text-xs font-medium rounded-full ${tenant.badgeColor}`}>
-          {isLate ? `${tenant.daysLate}` : tenant.term}
-        </Badge>
-      </div>
-      <p className="text-xs text-gray-500">{tenant.property}</p>
+const TenantCheckInOutItem = ({
+  tenant,
+  isLate = false,
+}: {
+  tenant: any;
+  isLate?: boolean;
+}) => {
+  console.log("tenant", tenant);
+  return (
+    <div className="flex items-start">
+      <Avatar className="h-10 w-10 shrink-0 mr-3">
+        <AvatarImage
+          src={tenant.avatar}
+          alt={tenant.name}
+          onError={(e) => (e.currentTarget.style.display = "none")}
+        />
+        <AvatarFallback className="bg-gray-200 text-gray-700 text-sm font-medium">
+          {tenant.name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")}
+        </AvatarFallback>
+      </Avatar>
+      <div className="flex-grow">
+        <div className="flex justify-between items-center">
+          <p className="text-sm font-semibold text-gray-900">{tenant.name}</p>
+          <Badge
+            className={`px-2 py-0.5 text-xs font-medium rounded-full ${tenant.badgeColor}`}>
+            {isLate ? `${tenant.daysLate}` : tenant.term}
+          </Badge>
+        </div>
+        <p className="text-xs text-gray-500">{tenant.property}</p>
 
-      <div className="grid grid-cols-3 gap-2 text-xs text-gray-600 mt-3 border-t border-gray-100 pt-2">
-        <div className="flex items-center space-x-1">
-          <Clock className="h-3 w-3 text-gray-400" />
-          <span className="font-medium text-gray-900">Check In</span>
-        </div>
-        <div className="flex items-center space-x-1">
-          <Clock className="h-3 w-3 text-gray-400" />
-          <span className="font-medium text-gray-900">Check Out</span>
-        </div>
-        <div className="flex items-center space-x-1">
-          <CalendarDays className="h-3 w-3 text-gray-400" />
-          <span className="font-medium text-gray-900">Duration</span>
-        </div>
-        <div className="col-span-1 text-gray-500 font-medium">
-          {tenant.checkIn}
-        </div>
-        <div className="col-span-1 text-gray-500 font-medium">
-          {tenant.checkOut}
-        </div>
-        <div className="col-span-1 text-gray-500 font-medium">
-          {tenant.duration}
-        </div>
+        {tenant.id === "t1" ? (
+          ""
+        ) : (
+          <div className="grid grid-cols-3 gap-2 text-xs text-gray-600 mt-3 border-t border-gray-100 pt-2">
+            <div className="flex items-center space-x-1">
+              <Clock className="h-3 w-3 text-gray-400" />
+              <span className="font-medium text-gray-900">Check In</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Clock className="h-3 w-3 text-gray-400" />
+              <span className="font-medium text-gray-900">Check Out</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <CalendarDays className="h-3 w-3 text-gray-400" />
+              <span className="font-medium text-gray-900">Duration</span>
+            </div>
+            <div className="col-span-1 text-gray-500 font-medium">
+              {tenant.checkIn}
+            </div>
+            <div className="col-span-1 text-gray-500 font-medium">
+              {tenant.checkOut}
+            </div>
+            <div className="col-span-1 text-gray-500 font-medium">
+              {tenant.duration}
+            </div>
+          </div>
+        )}
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function ContractStatus() {
   const pieChartData = workOrderData.breakdown;
@@ -192,7 +211,7 @@ export default function ContractStatus() {
   //     : tenantsData.filter((t) => t.type === filter);
 
   return (
-    <div className="p-4 md:p-8 px-0 md:px-0  min-h-screen font-sans">
+    <div className="p-4 md:p-8 px-0 md:px-0 min-h-fit font-sans">
       <div className="grid grid-cols-1 2xl:grid-cols-3 gap-6">
         <Card className="shadow-lg border-gray-100 rounded-xl transition-shadow duration-300 hover:shadow-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-gray-100">
@@ -453,31 +472,9 @@ export default function ContractStatus() {
                       </button>
                     ))}
                   </div>
-
-                  <button className="flex items-center gap-1 text-sm text-gray-500 border rounded-md px-2 py-1">
-                    <CalendarDays size={16} /> 10/25 - 09/26
-                  </button>
                 </div>
               </div>
-              {/* <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-8 px-3 text-xs text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 rounded-xl">
-                  All
-                </Button>
 
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 px-3 text-xs text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 rounded-xl">
-                Short Term
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 px-3 text-xs text-gray-700 border-gray-300 shadow-sm hover:bg-gray-50 rounded-xl">
-                Long Term
-              </Button> */}
               <Button
                 variant="outline"
                 className="text-gray-700 border-gray-300 h-8 px-3 text-sm flex items-center shadow-sm hover:bg-gray-50 rounded-xl">

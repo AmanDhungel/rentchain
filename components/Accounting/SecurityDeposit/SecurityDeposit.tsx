@@ -9,6 +9,7 @@ import {
   ChevronDown,
   Eye,
   DollarSign,
+  MoveLeft,
 } from "lucide-react";
 import { H2, Small, Text, cx } from "@/lib/Typography";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
 
 // --- Data Structures ---
 
@@ -206,15 +208,18 @@ const DepositsTable: React.FC = () => (
   </div>
 );
 
-// --- Main Component ---
-
 export function SecurityDepositsDashboard() {
+  const router = useRouter();
   return (
-    <div className="p-4 sm:p-6 md:p-10 lg:p-12 max-w-7xl mx-auto">
+    <div className="p-4 pl-0 sm:pl-0 md:pl-0 lg:pl-0 sm:p-6 md:p-10 lg:p-12  mx-auto">
       <div className="flex justify-between items-center border-b pb-4 mb-6">
         <div className="flex items-center space-x-3">
-          <Button variant="ghost" size="icon" className="hover:bg-transparent">
-            <ArrowLeft className="h-5 w-5 text-gray-700" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-transparent cursor-pointer"
+            onClick={() => router.back()}>
+            <MoveLeft className="h-5 w-5 text-gray-700" />
           </Button>
           <div>
             <H2 className=" font-bold">Security Deposits</H2>

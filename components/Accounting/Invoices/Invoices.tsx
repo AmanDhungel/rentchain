@@ -49,7 +49,9 @@ import {
   Send,
   FileText,
   CheckCircle,
+  MoveLeft,
 } from "lucide-react";
+import Link from "next/link";
 
 export type InvoiceStatus = "Paid" | "Overdue" | "Sent" | "Draft";
 
@@ -340,9 +342,9 @@ export default function InvoicesDashboard() {
     <div className="p-6 pl-0 min-h-screen font-sans">
       <header className="flex justify-between items-center mb-6">
         <div className="flex items-center">
-          <Button variant="ghost" size="icon" className="mr-2">
-            <ArrowLeft className="h-5 w-5 text-gray-600" />
-          </Button>
+          <Link href={"/accounting/accountingandbilling"} className="mr-2">
+            <MoveLeft className="h-5 w-5 text-gray-600" />
+          </Link>
           <h1 className="text-2xl font-semibold text-gray-800">Invoices</h1>
         </div>
         <div className="flex items-center space-x-3">

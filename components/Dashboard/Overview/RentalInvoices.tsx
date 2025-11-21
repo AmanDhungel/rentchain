@@ -197,7 +197,7 @@ const invoices = [
 
 export default function RentalInvoices() {
   return (
-    <div className="flex min-h-screen w-full flex-col  px-0 md:px-0 p-4 pl-0 md:p-8 md:pl-0 font-sans">
+    <div className="flex min-h-screen w-full flex-col  px-0 md:px-0 p-4 pt-0 pl-0 md:p-8 md:pl-0 md:pt-0 font-sans">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <Card className="shadow-sm border-gray-100">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">

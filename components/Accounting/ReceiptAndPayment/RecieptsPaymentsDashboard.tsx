@@ -1,4 +1,3 @@
-// components/ReceiptsPaymentsDashboard.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -10,6 +9,7 @@ import {
   CheckCircle,
   XCircle,
   Plus,
+  MoveLeft,
 } from "lucide-react";
 import { H2, Small, Text, cx } from "@/lib/Typography";
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+import RecordPaymentDialog from "./ReceiptForm";
 
 // --- 1. Data Structures ---
 
@@ -409,6 +411,7 @@ const SummaryCard: React.FC<{
 
 export function ReceiptsPaymentsDashboard() {
   const [activeTab, setActiveTab] = useState<Tab>("Payments");
+  const router = useRouter();
 
   const renderTable = () => {
     switch (activeTab) {
@@ -427,8 +430,12 @@ export function ReceiptsPaymentsDashboard() {
     <div className="p-4 sm:p-6 md:p-10 lg:p-12 lg:pl-0 md:pl-0 sm:pl-0">
       <div className="flex justify-between items-center border-b pb-4 mb-6">
         <div className="flex items-center space-x-3">
-          <Button variant="ghost" size="icon" className="hover:bg-transparent">
-            <ArrowLeft className="h-5 w-5 text-gray-700" />
+          <Button
+            onClick={() => router.back()}
+            variant="ghost"
+            size="icon"
+            className="hover:bg-transparent cursor-pointer">
+            <MoveLeft className="h-7 w-7 text-gray-700" />
           </Button>
           <div>
             <H2 className=" font-bold">Receipts & Payments</H2>
@@ -441,7 +448,7 @@ export function ReceiptsPaymentsDashboard() {
             Export
           </Button>
           <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold">
-            Record Payment
+            <RecordPaymentDialog />
           </Button>
         </div>
       </div>

@@ -24,6 +24,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // --- Type Definitions ---
 
@@ -66,6 +67,7 @@ interface LinkItemProps {
   icon: LucideIcon;
   title: string;
   color?: string;
+  href?: string;
 }
 
 interface ActivityItemProps extends ActivityItemData {}
@@ -279,13 +281,14 @@ const LinkItem: React.FC<LinkItemProps> = ({
   icon: Icon,
   title,
   color = "text-gray-600",
+  href,
 }) => (
-  <a
-    href="#"
+  <Link
+    href={href ? href : ""}
     className="flex items-center  p-3  border border-gray-200 shadow-sm rounded-lg transition hover:bg-gray-50 text-gray-800">
     <Icon className={`w-5 h-5 mr-3 ${color}`} />
     <span className="text-sm">{title}</span>
-  </a>
+  </Link>
 );
 
 const ActivityItem: React.FC<ActivityItemProps> = ({
@@ -418,9 +421,21 @@ const AccountingBilling: React.FC = () => {
           titleClass="text-gray-600 font-semibold"
           className="lg:col-span-1">
           <div className="flex flex-col space-y-1">
-            <LinkItem icon={ListChecks} title="Chart of Accounts" />
-            <LinkItem icon={Files} title="Manage Invoices" />
-            <LinkItem icon={Lock} title="Security Deposits" />
+            <LinkItem
+              icon={ListChecks}
+              title="Chart of Accounts"
+              href="/accounting/accountingandbilling/chartsofaccounts"
+            />
+            <LinkItem
+              icon={Files}
+              title="Manage Invoices"
+              href="/accounting/accountingandbilling/invoices"
+            />
+            <LinkItem
+              icon={Lock}
+              title="Security Deposits"
+              href="/accounting/accountingandbilling/security-deposits"
+            />
           </div>
         </DashboardCard>
 
@@ -429,9 +444,21 @@ const AccountingBilling: React.FC = () => {
           titleClass="text-gray-600 font-semibold"
           className="lg:col-span-1">
           <div className="flex flex-col space-y-1">
-            <LinkItem icon={BookOpen} title="Financial Reports" />
-            <LinkItem icon={Building} title="Tax & Municipal" />
-            <LinkItem icon={PieChart} title="AR Aging Analysis" />
+            <LinkItem
+              icon={BookOpen}
+              title="Financial Reports"
+              href="/accounting/accountingandbilling/financialreport"
+            />
+            <LinkItem
+              icon={Building}
+              title="Tax & Municipal"
+              href="/accounting/accountingandbilling/taxandmunicipalreporting"
+            />
+            <LinkItem
+              icon={PieChart}
+              title="AR Aging Analysis"
+              href="/accounting/accountingandbilling/araging"
+            />
           </div>
         </DashboardCard>
       </div>

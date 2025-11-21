@@ -143,7 +143,7 @@ export default function Sidebar() {
           active: pathname.startsWith("/accounting/accountingandbilling"),
         },
         {
-          label: "Standard Setup",
+          label: "Financial Management",
           location: "/accounting/financialmanagement",
           active: pathname === "/accounting/financialmanagement",
         },
@@ -184,6 +184,13 @@ export default function Sidebar() {
         </svg>
       ),
       hasDropdown: true,
+      subItems: [
+        {
+          label: "Manage Utilities",
+          location: "/utilities/metersandbilling",
+          active: pathname.startsWith("/utilities/metersandbilling"),
+        },
+      ],
     },
     {
       id: "complaints",
