@@ -28,10 +28,10 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
+import { icons } from "@/assets/icons/exports";
+import Link from "next/link";
 
-// --- MOCK DATA ---
-
-// Data for the 'Providers' tab (from image_3c77b9.png)
 const providerData = {
   name: "City Electric Company",
   type: "Electricity Provider",
@@ -45,7 +45,6 @@ const providerData = {
   email: "lorem@email.com",
 };
 
-// Data for the 'Accounts' tab (from image_3c7ade.png)
 const utilityAccounts = [
   {
     id: "Sunset Towers Main",
@@ -84,7 +83,6 @@ const utilityAccounts = [
   },
 ];
 
-// Data for the 'Tariffs' tab (from image_3c7b3f.png)
 const tariffs = [
   {
     id: "Residential Standard",
@@ -135,7 +133,6 @@ const tariffs = [
   },
 ];
 
-// Data for the 'Service Tickets' tab (from image_3c7b9a.png)
 const serviceTicketData = {
   id: "CEC-2024-001",
   provider: "City Electric Company",
@@ -149,11 +146,6 @@ const serviceTicketData = {
   status: "Acknowledged",
 };
 
-// --- UTILITY/STYLE COMPONENTS ---
-
-/**
- * Renders a small status chip (like 'Active', 'Preferred', 'Residential', 'Medium').
- */
 const StatusChip = ({
   label,
   color,
@@ -175,20 +167,14 @@ const StatusChip = ({
   );
 };
 
-// --- TAB CONTENT COMPONENTS ---
-
-/**
- * Renders the 'Providers' Tab Content.
- */
 const ProvidersTab = () => (
   <TabsContent value="providers" className="mt-6 space-y-8">
-    {/* Search and Filter */}
     <div className="flex justify-between items-center space-x-4">
-      <div className="relative w-full max-w-lg">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+      <div className="flex bg-[#f6f9ff] shadow-sm p-2 rounded-xl items-center w-full max-w-lg">
+        <Search className=" h-5 w-5 text-gray-400" />
         <Input
           placeholder="Search providers..."
-          className="pl-10 h-12 rounded-xl border-gray-200 shadow-sm focus-visible:ring-orange-500/50"
+          className="pl-10 h-12 shadow-none focus-visible:ring-0"
         />
       </div>
       <Button
@@ -199,7 +185,6 @@ const ProvidersTab = () => (
       </Button>
     </div>
 
-    {/* Provider Detail Card */}
     <Card className="rounded-xl shadow-lg p-6 border-gray-100">
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center space-x-3">
@@ -220,7 +205,6 @@ const ProvidersTab = () => (
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8 text-sm">
-        {/* Left Column (Details) */}
         <div>
           <DetailRow
             label="Service Areas"
@@ -236,7 +220,6 @@ const ProvidersTab = () => (
             isTime={true}
           />
         </div>
-        {/* Middle Column (Metrics) */}
         <div className="mt-4 md:mt-0">
           <DetailRow label="Reliability" value={providerData.reliability} />
           <DetailRow label="Response Time" value={providerData.responseTime} />
@@ -246,7 +229,6 @@ const ProvidersTab = () => (
             isRating={true}
           />
         </div>
-        {/* Right Column (Contact Info - bottom aligned in image) */}
         <div className="flex flex-col justify-end space-y-2 mt-4 md:mt-0">
           <div className="flex items-center space-x-3 text-gray-600">
             <Phone className="h-4 w-4 text-gray-500" />
@@ -265,7 +247,6 @@ const ProvidersTab = () => (
 
       <Separator className="my-6" />
 
-      {/* Action Buttons */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Button
           variant="outline"
@@ -284,7 +265,6 @@ const ProvidersTab = () => (
   </TabsContent>
 );
 
-// Helper for Provider Tab Detail Row
 const DetailRow = ({
   label,
   value,
@@ -310,9 +290,6 @@ const DetailRow = ({
   </div>
 );
 
-/**
- * Renders the 'Accounts' Tab Content.
- */
 const AccountsTab = () => (
   <TabsContent value="accounts" className="mt-6 space-y-6">
     {utilityAccounts.map((account) => (
@@ -330,7 +307,6 @@ const AccountsTab = () => (
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-12 mt-4 text-sm">
-          {/* Left Column */}
           <div>
             <DetailRow label="Current Balance" value={account.balance} />
             <DetailRow label="Properties" value={account.properties} />
@@ -338,14 +314,12 @@ const AccountsTab = () => (
               <DetailRow label="Account Manager" value={account.manager} />
             )}
           </div>
-          {/* Right Column */}
           <div className="md:text-right">
             <DetailRow label="Next Bill Date" value={account.nextBillDate} />
             <DetailRow label="Meters" value={`${account.meters} meter(s)`} />
           </div>
         </div>
 
-        {/* Contact Info (if available, aligned to the bottom left) */}
         {(account.phone || account.email) && (
           <div className="flex items-center space-x-6 mt-4 pt-4 border-t border-gray-100 text-sm">
             {account.phone && (
@@ -360,7 +334,7 @@ const AccountsTab = () => (
                 <span>{account.email}</span>
               </div>
             )}
-            {account.phone && ( // Mocking the third phone number in the image
+            {account.phone && (
               <div className="flex items-center space-x-2 text-gray-600">
                 <Phone className="h-4 w-4 text-gray-500" />
                 <span>{account.phone}</span>
@@ -373,9 +347,6 @@ const AccountsTab = () => (
   </TabsContent>
 );
 
-/**
- * Renders the 'Tariffs' Tab Content.
- */
 const TariffsTab = () => (
   <TabsContent value="tariffs" className="mt-6 space-y-6">
     {tariffs.map((tariff) => (
@@ -395,7 +366,6 @@ const TariffsTab = () => (
           <StatusChip label={tariff.type} color="gray" />
         </div>
 
-        {/* Rate Structure */}
         <h5 className="text-sm font-bold text-gray-800 mb-2">
           Rate Structure: {tariff.structure}
         </h5>
@@ -406,7 +376,6 @@ const TariffsTab = () => (
           </div>
         ))}
 
-        {/* Fixed Charges */}
         <h5 className="text-sm font-bold text-gray-800 mt-4 mb-2">
           Fixed Charges
         </h5>
@@ -430,12 +399,8 @@ const TariffsTab = () => (
   </TabsContent>
 );
 
-/**
- * Renders the 'Service Tickets' Tab Content.
- */
 const ServiceTicketsTab = () => (
   <TabsContent value="service-tickets" className="mt-6 space-y-6">
-    {/* Action */}
     <div className="flex justify-end">
       <Button className="bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/30 h-10 px-4 flex items-center space-x-2 rounded-xl">
         <Plus className="h-4 w-4" />
@@ -445,7 +410,6 @@ const ServiceTicketsTab = () => (
 
     <h3 className="text-lg font-bold text-gray-800">Service Tickets</h3>
 
-    {/* Service Ticket Detail Card */}
     <Card className="rounded-xl p-6 border-gray-100 shadow-md">
       <div className="flex justify-between items-start mb-4">
         <div>
@@ -470,12 +434,10 @@ const ServiceTicketsTab = () => (
       <Separator className="my-4" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-12 text-sm">
-        {/* Left Column (Property & Contact) */}
         <div>
           <DetailRow label="Property" value={serviceTicketData.property} />
           <DetailRow label="Contact" value={serviceTicketData.contact} />
         </div>
-        {/* Right Column (Requested By & Date) */}
         <div>
           <DetailRow
             label="Requested By"
@@ -490,7 +452,6 @@ const ServiceTicketsTab = () => (
 
       <Separator className="my-4" />
 
-      {/* Actions */}
       <div className="flex space-x-3">
         <Button
           variant="outline"
@@ -514,9 +475,9 @@ const UtilityProvidersDashboard = () => {
 
   const tabInfo = {
     providers: "3 providers",
-    accounts: "3 accounts", // Mock count
-    tariffs: "2 tariffs", // Mock count
-    "service-tickets": "1 active ticket", // Mock count
+    accounts: "3 accounts",
+    tariffs: "2 tariffs",
+    "service-tickets": "1 active ticket",
   };
 
   const currentInfo = tabInfo[activeTab] || tabInfo.providers;
@@ -526,7 +487,9 @@ const UtilityProvidersDashboard = () => {
       <header className="bg-white p-4 pl-0  sticky top-0 z-10">
         <div className=" mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <MoveLeft className="h-5 w-5 text-gray-500 cursor-pointer" />
+            <Link href="/utilities/metersandbilling" className="cursor-pointer">
+              <MoveLeft className="h-5 w-5 text-gray-500 cursor-pointer" />
+            </Link>
             <div>
               <h1 className="text-xl font-bold text-gray-900">
                 Utility Providers
@@ -535,16 +498,19 @@ const UtilityProvidersDashboard = () => {
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <Button className="bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/30 h-10 px-4 flex items-center space-x-2 rounded-xl">
-              <Plus className="h-4 w-4" />
+            <button className="flex items-center gap-2 px-4 py-2.5 bg-orange-500 text-white rounded-lg hover:bg-[#2C5966] transition-colors">
+              <Image
+                alt="RoundedPlusIcon"
+                src={icons.RoundedPlusIcon}
+                className="scale-200"
+              />
               <span>Add Provider</span>
-            </Button>
+            </button>
           </div>
         </div>
       </header>
 
       <main className=" mx-auto p-4 pl-0 md:pl-0 md:p-8">
-        {/* 2. Tabs Navigation */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="bg-transparent h-auto p-0 justify-between border-b border-gray-200 w-full">
             <TabsTrigger

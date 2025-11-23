@@ -11,9 +11,8 @@ import { SlidersHorizontal, EllipsisVertical } from "lucide-react";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false); // sidebar (mobile)
-  const [isTopbarOpen, setIsTopbarOpen] = useState(false); // mobile topbar popup
+  const [isTopbarOpen, setIsTopbarOpen] = useState(false);
 
-  // close both overlays when route changes
   useEffect(() => {
     setIsOpen(false);
     setIsTopbarOpen(false);

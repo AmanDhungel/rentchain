@@ -30,6 +30,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import UtilityStepForm from "./StepFormUtility";
+import UtilityStepformDIalog from "./UtilityStepformDIalog";
 
 // --- MOCK DATA ---
 
@@ -150,20 +152,14 @@ const StatusChip = ({
   );
 };
 
-// --- TAB CONTENT COMPONENTS ---
-
-/**
- * Renders the 'Meters' Tab Content (List View).
- */
 const MetersTab = () => (
   <TabsContent value="meters" className="mt-6 space-y-8">
-    {/* Search and Filter */}
     <div className="flex justify-between items-center space-x-4">
-      <div className="relative w-full max-w-lg">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+      <div className="p-2 flex bg-[#f6f9ff] border-gray-200 rounded-xl items-center w-full max-w-lg shadow-sm">
+        <Search className=" h-5 w-5 text-gray-400" />
         <Input
           placeholder="Search meters..."
-          className="pl-10 h-12 rounded-xl border-gray-200 shadow-sm focus-visible:ring-orange-500/50"
+          className="outline-none border-none shadow-none focus:outline-none focus:ring-0 bg-transparent  focus-visible:ring-0"
         />
       </div>
       <Button
@@ -562,19 +558,17 @@ const MetersAndBillingDashboard = () => {
           <div className="flex items-center text-center space-x-3">
             <Link
               href={"/utilities/metersandbilling/utilityprovider"}
-              className="text-sm font-medium text-gray-700 h-10 p-2  mt-a text-center rounded-xl">
-              Providers
+              className="text-sm font-medium text-gray-700 ">
+              <Button className="py-5.5" variant={"outline"}>
+                Providers
+              </Button>
             </Link>
-            <Button className="bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/30 h-10 px-4 flex items-center space-x-2 rounded-xl">
-              <Plus className="h-4 w-4" />
-              <span>Add Meter</span>
-            </Button>
+            <UtilityStepformDIalog />
           </div>
         </div>
       </header>
 
       <main className=" mx-auto p-4 pl-0 md:pl-0 md:p-8">
-        {/* 2. Tabs Navigation */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="bg-transparent h-auto w-full p-0 justify-start border-b border-gray-200">
             <TabsTrigger
@@ -599,7 +593,6 @@ const MetersAndBillingDashboard = () => {
             </TabsTrigger>
           </TabsList>
 
-          {/* 3. Tab Content */}
           <MetersTab />
           <ReadingsTab />
           <AllocationsTab />
