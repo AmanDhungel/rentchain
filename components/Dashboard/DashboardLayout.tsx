@@ -7,11 +7,16 @@ import WelcomeSection from "./Overview/WelcomeSectionProps";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SlidersHorizontal, EllipsisVertical } from "lucide-react";
+import AccountingHeaderSection from "../Accounting/AccountingHeader";
+import Image from "next/image";
+import { icons } from "@/assets/icons/exports";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false); // sidebar (mobile)
+  const [isOpen, setIsOpen] = useState(false);
   const [isTopbarOpen, setIsTopbarOpen] = useState(false);
+
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     setIsOpen(false);
@@ -59,15 +64,23 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           role="dialog"
           aria-modal={isTopbarOpen ? "true" : "false"}>
           <div className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-            <TopBar />
+            <TopBar
+              sidebarCollapsed={sidebarCollapsed}
+              setSidebarCollapsed={setSidebarCollapsed}
+            />
           </div>
         </div>
       </div>
 
-      <div className="hidden md:block md:w-72 lg:w-64 top-0 left-0 h-full text-white">
+      {/* Desktop sidebar: when sidebarCollapsed === true we hide it */}
+      <div
+        className={`${
+          sidebarCollapsed ? "hidden" : "hidden  md:block"
+        } md:w-72 lg:w-64 top-0 left-0 h-full text-white`}>
         <Sidebar />
       </div>
 
+      {/* overlay for mobile when menu open */}
       <div
         className={`fixed inset-0 z-40 transition-opacity duration-300 ${
           isOpen
@@ -79,9 +92,13 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
+      {/* mobile aside */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-50 w-72 max-w-[80%] transform bg-white border-r border-gray-200 shadow-lg transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full"} md:hidden`}
+        className={`fixed top-0 left-0 bottom-0 z-50 w-72 max-w-[80%] transform bg-white border-r border-gray-200 shadow-lg transition-transform duration-1000 ease-in-out ${
+          isOpen
+            ? "transition-transform duration-1000 translate-x-0"
+            : "transition-transform duration-1000 -translate-x-full"
+        } md:hidden`}
         role="dialog"
         aria-modal="true">
         <div className="h-full overflow-y-auto">
@@ -89,18 +106,28 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </aside>
 
-      <div className="flex-1 mr-5 ml-5 max-xl:-ml-5 max-md:ml-2">
+      <div className="flex-1 mr-5 ml-5  max-md:ml-2">
         <div className="hidden md:block">
-          <TopBar />
+          <TopBar
+            sidebarCollapsed={sidebarCollapsed}
+            setSidebarCollapsed={setSidebarCollapsed}
+          />
         </div>
 
-        <div className="max-md:mt-25">
-          <AdminHeaderSection />
-        </div>
+        {pathname.startsWith("/dashboard") ||
+        pathname.startsWith("/properties") ? (
+          <div className="max-md:mt-25">
+            <AdminHeaderSection />
+          </div>
+        ) : (
+          ""
+        )}
         {pathname.startsWith("/properties") ? (
           <PropertiesWelcomeSection />
+        ) : pathname.startsWith("/accounting") ? (
+          <AccountingHeaderSection />
         ) : (
-          <WelcomeSection />
+          pathname.startsWith("/dashboard") && <WelcomeSection />
         )}
         {children}
       </div>

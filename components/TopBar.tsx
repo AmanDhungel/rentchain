@@ -3,8 +3,15 @@ import { Search, Circle, Languages } from "lucide-react";
 
 import { icons } from "../assets/icons/exports";
 import Image from "next/image";
+type TopBarProps = {
+  setSidebarCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  sidebarCollapsed?: boolean;
+};
 
-const TopBar: React.FC = () => {
+const TopBar: React.FC<TopBarProps> = ({
+  setSidebarCollapsed,
+  sidebarCollapsed,
+}) => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isOnline, setIsOnline] = useState<boolean>(true);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -43,14 +50,22 @@ const TopBar: React.FC = () => {
     }
   };
 
+  console.log("Sidebar Collapsed:", sidebarCollapsed);
   return (
     <div className="w-full bg-white border-b border-gray-200 px-4 py-3 -ml-[25px] max-md:ml-0 max-lg:-ml-[17px] ">
       <div className="flex items-center justify-between">
         <div className="flex items-center flex-shrink-0">
           <button
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className={`p-2 rounded-lg hover:bg-gray-100 transform transition-transform duration-200 ease-in-out ${
+              sidebarCollapsed ? "rotate-180" : ""
+            }`}
+            onClick={() => setSidebarCollapsed((s) => !s)}
             aria-label="Close door">
-            <Image src={icons.DoorExit} alt="Close Door Icon" className="w-5" />
+            <Image
+              src={icons.DoorExit}
+              alt="Close Door Icon"
+              className={`w-5 `}
+            />
           </button>
           <div className="flex-1 flex justify-center max-w-2xl mx-4  max-md:hidden">
             <div className="relative w-full max-w-md">

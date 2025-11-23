@@ -31,7 +31,12 @@ const AdminHeaderSection: React.FC = () => {
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: "", href: "/" },
-    { label: "Dashboard", href: "/dashboard" },
+    {
+      label: pathname.startsWith("/dashboard") ? "Dashboard" : "Properties",
+      href: pathname.startsWith("/dashboard")
+        ? "/dashboard/overview"
+        : "/properties/manageproperties",
+    },
     { label: pathname.split("/").pop() || "Overview" },
   ];
 
@@ -116,13 +121,11 @@ const AdminHeaderSection: React.FC = () => {
             )}
           </div>
 
-          {/* Date Button */}
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
             <Calendar size={16} className="text-gray-600" />
             <span className="text-gray-700">{selectedDate}</span>
           </button>
 
-          {/* Toggle Section Button */}
           <button
             onClick={toggleSection}
             className="p-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors"
@@ -132,7 +135,6 @@ const AdminHeaderSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-600">
         {breadcrumbs.map((item, index) => (
           <div key={index} className="flex items-center gap-2">

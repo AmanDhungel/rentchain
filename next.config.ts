@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         pathname: "/api/portraits/**",
       },
     ],
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "placehold.co"],
   },
   typescript: {
     ignoreBuildErrors: true,

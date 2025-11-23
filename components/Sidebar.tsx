@@ -118,6 +118,18 @@ export default function Sidebar() {
         </svg>
       ),
       hasDropdown: true,
+      subItems: [
+        {
+          label: "Manage Tenants",
+          location: "/tenant/managetenant",
+          active: pathname.startsWith("/tenant/managetenants"),
+        },
+        {
+          label: "Directory",
+          location: "/tenant/Directory",
+          active: pathname === "/tenant/Directory",
+        },
+      ],
     },
     {
       id: "accounting",
