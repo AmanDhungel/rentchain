@@ -189,6 +189,29 @@ export default function Sidebar() {
         </svg>
       ),
       hasDropdown: true,
+      subItems: [
+        {
+          label: "Manage Agreements",
+          location: "/agreement/managementagrrement",
+          active: pathname.startsWith("/agreement/managementagrrement"),
+        },
+        {
+          label: "Agreements Builder",
+          location: "/agreement/managementagrrement",
+          active: pathname.startsWith("/agreement/managementagrrement"),
+        },
+        {
+          label: "Enhanced Agreement Builder",
+          location: "/agreement/enhancedagreementbuilder",
+          active: pathname.startsWith("/agreement/enhancedagreementbuilder"),
+          isPremium: true,
+        },
+        {
+          label: "AI Assistance",
+          location: "/agreement/managementagrrement",
+          active: pathname.startsWith("/agreement/managementagrrement"),
+        },
+      ],
     },
     {
       id: "utilities",
