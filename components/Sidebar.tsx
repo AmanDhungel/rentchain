@@ -11,7 +11,12 @@ interface MenuItem {
   label: string;
   icon: JSX.Element;
   badge?: string;
-  subItems?: { label: string; location: string; active?: boolean }[];
+  subItems?: {
+    label: string;
+    location: string;
+    active?: boolean;
+    isPremium?: boolean;
+  }[];
   hasDropdown?: boolean;
 }
 
@@ -122,12 +127,18 @@ export default function Sidebar() {
         {
           label: "Manage Tenants",
           location: "/tenant/managetenant",
-          active: pathname.startsWith("/tenant/managetenants"),
+          active: pathname.startsWith("/tenant/managetenant"),
         },
         {
           label: "Directory",
-          location: "/tenant/Directory",
-          active: pathname === "/tenant/Directory",
+          location: "/tenant/directory",
+          active: pathname === "/tenant/directory",
+        },
+        {
+          label: "Invitations",
+          location: "/tenant/invitations",
+          active: pathname === "/tenant/invitations",
+          isPremium: true,
         },
       ],
     },
@@ -388,9 +399,16 @@ export default function Sidebar() {
                     <li key={index} className="submenu-item">
                       <Link
                         href={subItem.location}
-                        className={`submenu-link ${
+                        className={`submenu-link flex items-center ${
                           subItem.active ? "active" : ""
                         }`}>
+                        {subItem.isPremium && (
+                          <Image
+                            src={icons.Premium}
+                            alt="premium"
+                            className="mr-2 flex -mt-0.5"
+                          />
+                        )}{" "}
                         {subItem.label}
                       </Link>
                     </li>

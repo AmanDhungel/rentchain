@@ -72,7 +72,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
 
-      {/* Desktop sidebar: when sidebarCollapsed === true we hide it */}
       <div
         className={`${
           sidebarCollapsed ? "hidden" : "hidden  md:block"
@@ -80,7 +79,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <Sidebar />
       </div>
 
-      {/* overlay for mobile when menu open */}
       <div
         className={`fixed inset-0 z-40 transition-opacity duration-300 ${
           isOpen
@@ -92,7 +90,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      {/* mobile aside */}
       <aside
         className={`fixed top-0 left-0 bottom-0 z-50 w-72 max-w-[80%] transform bg-white border-r border-gray-200 shadow-lg transition-transform duration-1000 ease-in-out ${
           isOpen
@@ -106,7 +103,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </aside>
 
-      <div className="flex-1 mr-5 ml-5  max-md:ml-2">
+      <div className="flex-1 mr-5 ml-5 max-md:ml-2">
         <div className="hidden md:block">
           <TopBar
             sidebarCollapsed={sidebarCollapsed}

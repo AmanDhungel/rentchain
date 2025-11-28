@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, FC } from "react";
+import React, { FC } from "react";
 import {
   Home,
   DollarSign,
@@ -11,17 +11,17 @@ import {
   MapPin,
   Calendar,
   Copy,
-  Eye,
-  Download,
-  X,
   Instagram,
   Linkedin,
   Facebook,
   Phone,
   Star,
   Verified,
-  Bookmark,
   LucideIcon,
+  Twitter,
+  TrendingUp,
+  Shield,
+  MoveLeft,
 } from "lucide-react";
 import {
   Button,
@@ -38,13 +38,14 @@ import Documents from "./Documents";
 import Billing from "./Billing";
 import Setting from "./Settings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { icons } from "@/assets/icons/exports";
 
 interface Stat {
   icon: LucideIcon;
   label: string;
   value: string;
   badge: boolean;
-  color: "blue" | "green" | "purple" | "red";
+  color: string;
 }
 
 interface PersonalInfoItem {
@@ -107,11 +108,6 @@ interface TenantData {
   leases: Lease[];
 }
 
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
 type TenantProfileProps = {
   data: TenantData;
 };
@@ -120,20 +116,6 @@ interface BadgeProps {
   children: React.ReactNode;
   variant?: "default" | "success" | "blue" | "red";
   className?: string;
-}
-
-interface TabsTriggerProps {
-  children: React.ReactNode;
-  value: string;
-  activeTab: string;
-  onClick: (value: string) => void;
-  className?: string;
-}
-
-interface TabsContentProps {
-  children: React.ReactNode;
-  value: string;
-  activeTab: string;
 }
 
 const Badge: FC<BadgeProps> = ({
@@ -174,14 +156,6 @@ const Progress: FC<{ value: number; className?: string }> = ({
   </div>
 );
 
-interface TabsProps {
-  children: React.ReactNode;
-  defaultValue?: string;
-  activeTab?: string;
-  className?: string;
-  onChange?: (value: string) => void;
-}
-
 const tenantData: TenantData = {
   name: "Michael Walker",
   status: "Tenant Profile Management",
@@ -193,28 +167,28 @@ const tenantData: TenantData = {
       label: "Active Leases",
       value: "1",
       badge: true,
-      color: "blue",
+      color: "blue-500",
     },
     {
       icon: DollarSign,
       label: "Total Paid",
       value: "$7,850",
       badge: false,
-      color: "green",
+      color: "green-500",
     },
     {
-      icon: Activity,
+      icon: TrendingUp,
       label: "Payment Reliability",
       value: "75%",
       badge: false,
-      color: "purple",
+      color: "[#AB47BC]",
     },
     {
-      icon: ShieldCheck,
+      icon: Shield,
       label: "KYC Status",
       value: "Verified",
       badge: false,
-      color: "red",
+      color: "red-500",
     },
   ],
   personalInfo: [
@@ -295,7 +269,7 @@ const InfoItem: FC<InfoItemProps> = ({
   copyable = false,
   className = "",
 }) => (
-  <div className={`flex items-center justify-between text-sm ${className}`}>
+  <div className={`flex  items-center  justify-between text-sm ${className}`}>
     <div className="flex items-center text-gray-500">
       <Icon className="h-4 w-4 mr-3" />
       {label}
@@ -321,29 +295,20 @@ const InfoItem: FC<InfoItemProps> = ({
   </div>
 );
 
-const StatCard: FC<Stat> = ({ icon: Icon, label, value, badge, color }) => {
-  let iconClass = "p-3 rounded-full";
-  const badgeClass = "text-red-600 bg-red-100 border-red-200 border-2";
-
-  if (color === "blue") iconClass += " bg-blue-100 text-blue-600";
-  else if (color === "green") iconClass += " bg-green-100 text-green-600";
-  else if (color === "purple") iconClass += " bg-purple-100 text-purple-600";
-
+const StatCard: FC<Stat> = ({ icon: Icon, label, value, color }) => {
   return (
-    <Card className="flex flex-col items-start p-4">
-      <div className="flex items-center justify-between w-full">
-        <div className={iconClass}>
-          <Icon className="h-6 w-6" />
+    <Card className="flex h-24 items-start justify-center p-4">
+      <div className="flex items-center">
+        <div className={`text-${color}`}>
+          <Icon className="h-8 w-8" />
         </div>
-        {badge && (
-          <div className={badgeClass}>
-            <ShieldCheck className="h-4 w-4" />
+        <div className="-mt-3 ml-2">
+          <div
+            className={`text-sm text-white py-1 px-4 rounded-md mt-1 bg-${color}`}>
+            {label}
           </div>
-        )}
-      </div>
-      <div className="mt-3">
-        <div className="text-2xl font-bold text-gray-900">{value}</div>
-        <div className="text-sm text-gray-500 mt-1">{label}</div>
+          <div className="text-xl  text-gray-900 ml-2">{value}</div>
+        </div>
       </div>
     </Card>
   );
@@ -358,83 +323,6 @@ const RatingBar: FC<RatingBreakdownItem> = ({ stars, percentage }) => (
       {percentage}%
     </span>
   </div>
-);
-
-interface LeaseRowProps {
-  lease: Lease;
-}
-
-const LeaseRow: FC<LeaseRowProps> = ({ lease }) => (
-  <div className="border-b last:border-b-0 py-4 grid grid-cols-12 items-center text-sm">
-    <div className="col-span-12 md:col-span-4 flex flex-col md:flex-row items-start md:items-center">
-      <span className="font-semibold text-gray-900">{lease.name}</span>
-      <Badge
-        variant={lease.status === "Active" ? "success" : "blue"}
-        className="md:ml-2 mt-1 md:mt-0">
-        {lease.status}
-      </Badge>
-    </div>
-    <div className="col-span-12 md:col-span-6 grid grid-cols-2 gap-y-2 mt-2 md:mt-0 md:grid-cols-4 md:gap-0 text-gray-600">
-      <span className="truncate">
-        <span className="md:hidden font-medium text-xs text-gray-500">
-          Start:{" "}
-        </span>
-        {lease.startDate}
-      </span>
-      <span className="truncate">
-        <span className="md:hidden font-medium text-xs text-gray-500">
-          End:{" "}
-        </span>
-        {lease.endDate}
-      </span>
-      <span className="truncate">
-        <span className="md:hidden font-medium text-xs text-gray-500">
-          Rent:{" "}
-        </span>
-        {lease.monthlyRent}
-      </span>
-      <span className="truncate">
-        <span className="md:hidden font-medium text-xs text-gray-500">
-          Deposit:{" "}
-        </span>
-        {lease.deposit}
-      </span>
-    </div>
-    <div className="col-span-12 md:col-span-2 flex justify-end space-x-3 mt-2 md:mt-0">
-      <Eye className="h-4 w-4 text-gray-500 hover:text-gray-900 cursor-pointer" />
-      <Download className="h-4 w-4 text-gray-500 hover:text-gray-900 cursor-pointer" />
-    </div>
-  </div>
-);
-
-interface LeasesTabContentProps {
-  leases: Lease[];
-}
-
-const LeasesTabContent: FC<LeasesTabContentProps> = ({ leases }) => (
-  <Card className="p-6">
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-xl font-semibold">All Leases</h2>
-      <Button variant="default">Add Leases</Button>
-    </div>
-
-    <div className="hidden md:grid grid-cols-12 text-xs font-semibold uppercase text-gray-500 border-b pb-2 mb-2">
-      <span className="col-span-4">Lease</span>
-      <span className="col-span-6 grid grid-cols-4">
-        <span>Start Date</span>
-        <span>End Date</span>
-        <span>Monthly Rent</span>
-        <span>Deposit</span>
-      </span>
-      <span className="col-span-2 text-right">Actions</span>
-    </div>
-
-    <div className="space-y-2">
-      {leases.map((lease, index) => (
-        <LeaseRow key={index} lease={lease} />
-      ))}
-    </div>
-  </Card>
 );
 
 const ProfileSidebar: React.FC<TenantProfileProps> = ({
@@ -461,7 +349,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       </div>
     </Card>
 
-    <Card>
+    <Card className="-mt-10 rounded-t-none">
       <CardHeader className="flex flex-row justify-between items-center pb-3">
         <CardTitle>Personal Information</CardTitle>
         <div className="flex space-x-2 text-gray-500">
@@ -482,7 +370,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       </CardContent>
     </Card>
 
-    <Card>
+    <Card className="-mt-10 rounded-t-none">
       <CardHeader className="flex flex-row justify-between items-center pb-3">
         <CardTitle>Current Lease Summary</CardTitle>
         <div className="flex space-x-2 text-gray-500">
@@ -504,7 +392,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       </CardContent>
     </Card>
 
-    <Card>
+    <Card className="-mt-10 rounded-t-none">
       <CardHeader className="flex flex-row justify-between items-center pb-3">
         <CardTitle>Payment Performance</CardTitle>
         <div className="flex space-x-2 text-gray-500">
@@ -531,7 +419,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       </CardContent>
     </Card>
 
-    <Card>
+    <Card className="-mt-10 rounded-t-none">
       <CardHeader className="pb-3">
         <CardTitle>Tenant Rating</CardTitle>
         <p className="text-xs text-gray-500">
@@ -571,7 +459,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       </CardContent>
     </Card>
 
-    <Card>
+    <Card className="-mt-10 rounded-t-none">
       <CardHeader className="flex flex-row justify-between items-center pb-3">
         <CardTitle>Contact</CardTitle>
         <Button
@@ -597,7 +485,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       </CardContent>
     </Card>
 
-    <Card>
+    <Card className="-mt-10 rounded-t-none">
       <CardHeader className="flex flex-row justify-between items-center pb-3">
         <CardTitle>Social Links</CardTitle>
         <div className="flex space-x-2 text-gray-500">
@@ -607,14 +495,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       </CardHeader>
       <CardContent className="flex space-x-4">
         <Instagram className="h-6 w-6 text-pink-600 cursor-pointer" />
-        <X className="h-6 w-6 text-gray-900 cursor-pointer" />
-        <div className="h-6 w-6 bg-green-500 rounded-full flex items-center justify-center text-white cursor-pointer">
-          <i className="fab fa-whatsapp"></i>
-        </div>
-        <Bookmark
-          className="h-6 w-6 text-red-600 cursor-pointer"
-          title="Pinterest Placeholder"
-        />
+        <Twitter className="h-6 w-6 text-blue-700 cursor-pointer" />
         <Linkedin className="h-6 w-6 text-blue-700 cursor-pointer" />
         <Facebook className="h-6 w-6 text-blue-600 cursor-pointer" />
       </CardContent>
@@ -634,32 +515,32 @@ const MainContent: React.FC<TenantProfileProps> = ({ data }) => (
       <TabsList className="w-full flex justify-between border-b border-gray-200 rounded-none bg-transparent p-0">
         <TabsTrigger
           value="leases"
-          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
           Leases
         </TabsTrigger>
         <TabsTrigger
           value="payments"
-          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
           Payments
         </TabsTrigger>
         <TabsTrigger
           value="kyc"
-          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
           KYC
         </TabsTrigger>
         <TabsTrigger
           value="documents"
-          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
           Documents
         </TabsTrigger>
         <TabsTrigger
           value="billing"
-          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
           Billing
         </TabsTrigger>
         <TabsTrigger
           value="settings"
-          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
           Settings
         </TabsTrigger>
       </TabsList>
@@ -690,7 +571,27 @@ const TenantProfile: FC = () => {
   const data: TenantData = tenantData;
 
   return (
-    <div className="min-h-screen  p-4 md:p-8 font-sans">
+    <div className="min-h-screen pl-0 md:pl-0  p-4 md:p-8 font-sans">
+      <div className="flex justify-between items-center mb-10 ">
+        <h1 className="flex gap-2">
+          <MoveLeft /> Companies
+          <span className="text-gray-400"> / BrightWave Innovations </span>
+        </h1>
+        <div className="flex gap-2 pt-0 -mt-5">
+          <Button className="mt-4 h-10 bg-orange-500 hover:bg-orange-600 text-white">
+            <Image
+              src={icons.RoundedPlusIcon}
+              alt="back"
+              width={20}
+              height={20}
+            />{" "}
+            Add Deal
+          </Button>
+          <Button className="mt-4 h-10 bg-black text-white">
+            <Mail /> Send Email
+          </Button>
+        </div>
+      </div>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1">
           <ProfileSidebar data={data} />

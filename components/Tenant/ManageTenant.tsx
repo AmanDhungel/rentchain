@@ -18,6 +18,7 @@ import {
 import { Input } from "../ui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AddTenantDialog from "./TenantProfile/AddTenantForm";
 
 type TenantStatus = "Active" | "Applicant" | "Moved Out";
 type KycStatus = "Verified" | "Expired" | "Pending" | "Rejected";
@@ -676,12 +677,7 @@ export default function ManageTenant() {
             <ActionButton label="Export" icon={Download} />
             <ActionButton label="Invitations" icon={Send} />
             <ActionButton label="Directory" icon={Users} />
-            <ActionButton
-              label="Add Tenants"
-              icon={Plus}
-              primary={true}
-              large={true}
-            />
+            <AddTenantDialog />
           </div>
         </div>
       </header>
