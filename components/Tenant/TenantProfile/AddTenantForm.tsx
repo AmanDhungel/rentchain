@@ -1,4 +1,3 @@
-// AddTenantDialog.tsx
 "use client";
 
 import React, { FC, Fragment, useMemo, useState } from "react";
@@ -16,7 +15,6 @@ import {
   LucideIcon,
 } from "lucide-react";
 
-/* shadcn/ui components - adjust paths if different in your project */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -40,6 +38,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils"; // optional helper for classNames, remove if not present
 import Image from "next/image";
 import { icons } from "@/assets/icons/exports";
+import useDialogOpen from "@/context/Dialog";
 
 /* ---------------------------
    Types & initial values
@@ -600,7 +599,6 @@ const StepContentMap: Record<number, FC> = {
 };
 
 export const AddTenantDialog: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const methods = useForm<TenantFormData>({
@@ -626,11 +624,11 @@ export const AddTenantDialog: FC = () => {
   const handlePrevious = () => {
     setCurrentStep((s) => Math.max(1, s - 1));
   };
+  const { open, setIsOpen } = useDialogOpen();
 
   const onSubmit = (data: TenantFormData) => {
-    console.log("Submitting Tenant Data:", data);
     window.alert("Tenant Created Successfully! Check console for data.");
-    setIsOpen(false);
+    setIsOpen();
     setCurrentStep(1);
     reset(INITIAL_VALUES);
   };
@@ -639,7 +637,7 @@ export const AddTenantDialog: FC = () => {
 
   return (
     <div className=" bg-gray-50 ">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <button className="flex items-center gap-2 px-4 py-2.5 bg-orange-500 text-white rounded-lg hover:bg-[#2C5966] transition-colors">
             <Image

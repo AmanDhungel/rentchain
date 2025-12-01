@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
 import { Search, Circle, Languages } from "lucide-react";
-
-import { icons } from "../assets/icons/exports";
 import Image from "next/image";
+import React, { useState, useRef, useEffect } from "react";
+import { icons } from "../assets/icons/exports";
 import AvatarDropdown from "./Auth/Profile";
 type TopBarProps = {
   setSidebarCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,7 +53,7 @@ const TopBar: React.FC<TopBarProps> = ({
   return (
     <div className="w-full bg-white border-b border-gray-200 px-4 py-3 -ml-[25px] max-md:ml-0 max-lg:-ml-[17px] ">
       <div className="flex items-center justify-between">
-        <div className="flex items-center flex-shrink-0">
+        <div className="flex items-center shrink-0">
           <button
             className={`p-2 rounded-lg hover:bg-gray-100 transform transition-transform duration-200 ease-in-out ${
               sidebarCollapsed ? "rotate-180" : ""
@@ -119,7 +118,7 @@ const TopBar: React.FC<TopBarProps> = ({
           </button>
         </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0 ">
+        <div className="flex items-center gap-2 shrink-0 ">
           <button
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="More options">
@@ -152,12 +151,10 @@ const TopBar: React.FC<TopBarProps> = ({
           <div className="relative ml-2 max-md:ml-0">
             <AvatarDropdown />
             <div
-              className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${
+              className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${
                 isOnline ? "bg-green-500" : "bg-gray-400"
               }`}
-              aria-label={isOnline ? "Online" : "Offline"}>
-              {/* <Circle size={12} className="text-white" /> */}
-            </div>
+              aria-label={isOnline ? "Online" : "Offline"}></div>
           </div>
         </div>
       </div>

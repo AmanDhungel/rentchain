@@ -1,8 +1,7 @@
-import React from "react";
 import ContractStatus from "@/components/Dashboard/Overview/ContactStatus";
-import RentalInvoices from "@/components/Dashboard/Overview/RentalInvoices";
-import PropertiesTodo from "@/components/Dashboard/Overview/PropertiesTodo";
 import OwnerDashboard from "@/components/Dashboard/Overview/Dashboard";
+import PropertiesTodo from "@/components/Dashboard/Overview/PropertiesTodo";
+import RentalInvoices from "@/components/Dashboard/Overview/RentalInvoices";
 
 const FinalDashboard = () => {
   return (

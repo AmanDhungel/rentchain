@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import useAuthStore from "@/context/User";
 
 type User = {
   id: string;
@@ -40,6 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const { loginData } = useAuthStore();
 
   const refreshAccessToken = useCallback(async (): Promise<string | null> => {
     try {
@@ -91,8 +93,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       try {
         const res = await axios.post("/api/auth/login", { email, password });
-        setAccessToken(res.accessToken ?? null);
-        setUser(res.user ?? null);
+        console.log("rsessdadasdasdadasdasd", res);
+        setAccessToken(res.data.accessToken ?? null);
+        setUser(res.data.user ?? null);
+        loginData(res.data.user);
         router.push("/dashboard/overview");
         setLoading(false);
       } catch (err) {

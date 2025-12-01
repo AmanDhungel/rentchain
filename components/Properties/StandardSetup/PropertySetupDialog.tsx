@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import useDialogOpen from "@/context/Dialog";
 import { icons } from "../../../assets/icons/exports";
 import {
   Dialog,
@@ -11,8 +12,9 @@ import {
 import StandardPropertySetup from "./StandardPropertySetup";
 
 export default function StandardPropertySetupDialog() {
+  const { open, setIsOpen } = useDialogOpen();
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <button className="flex items-center gap-2 px-4 py-2.5 bg-[#3B7080] text-white rounded-lg hover:bg-[#2C5966] transition-colors">
           <Image

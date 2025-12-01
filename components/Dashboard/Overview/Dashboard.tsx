@@ -1,5 +1,3 @@
-import React from "react";
-import StatsCard from "./DynamicCard";
 import {
   AppWindow,
   CalendarPlus,
@@ -8,7 +6,7 @@ import {
   ListCheck,
   UserStar,
 } from "lucide-react";
-import EmployeesByDepartment from "./EmployeesByDepartment";
+import StatsCard from "./DynamicCard";
 import TenantsByPropertiesChart from "./EmployeesByDepartment";
 
 const OwnerDashboard = () => {

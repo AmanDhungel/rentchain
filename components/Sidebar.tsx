@@ -284,6 +284,7 @@ export default function Sidebar() {
           label: "Enhanced Management",
           location: "/occupancy/enhancedmanagement",
           active: pathname.startsWith("/occupancy/enhancedmanagement"),
+          isPremium: true,
         },
       ],
     },

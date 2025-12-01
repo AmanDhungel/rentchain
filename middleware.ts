@@ -36,5 +36,10 @@ export const config = {
     "/profile/:path*",
     "/admin/:path*",
     "/properties/:path*",
+    "/occupancy/:path*",
+    "/utilities/:path*",
+    "/agreement/:path*",
+    "/tenant/:path*",
+    "/accounting/:path*",
   ],
 };

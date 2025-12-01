@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Building, Eye, EyeOff } from "lucide-react";
 import { useAuthContext } from "./AuthContext";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface SignInFormData {
   email: string;
@@ -22,6 +24,7 @@ const RentChainAuth: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { login, register, loading } = useAuthContext();
+  const router = useRouter();
 
   const {
     register: registerSignIn,
@@ -38,6 +41,7 @@ const RentChainAuth: React.FC = () => {
   const onSignInSubmit = async (data: SignInFormData) => {
     try {
       await login(data.email, data.password);
+      toast.success("Login successful");
     } catch (err: any) {
       alert(err?.message || "Login failed");
     }
@@ -53,6 +57,8 @@ const RentChainAuth: React.FC = () => {
         password: data.password,
         confirmPassword: data.confirmPassword,
       });
+      toast.success("Registration successful! Please sign in.");
+      router.push("/");
     } catch (err: any) {
       alert(err?.message || "Registration failed");
     }
