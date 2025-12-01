@@ -137,7 +137,6 @@ const TenantCheckInOutItem = ({
   tenant: any;
   isLate?: boolean;
 }) => {
-  console.log("tenant", tenant);
   return (
     <div className="flex items-start">
       <Avatar className="h-10 w-10 shrink-0 mr-3">
@@ -149,11 +148,11 @@ const TenantCheckInOutItem = ({
         <AvatarFallback className="bg-gray-200 text-gray-700 text-sm font-medium">
           {tenant.name
             .split(" ")
-            .map((n) => n[0])
+            .map((n: string) => n[0])
             .join("")}
         </AvatarFallback>
       </Avatar>
-      <div className="flex-grow">
+      <div className="grow">
         <div className="flex justify-between items-center">
           <p className="text-sm font-semibold text-gray-900">{tenant.name}</p>
           <Badge
@@ -335,7 +334,6 @@ export default function ContractStatus() {
           </CardContent>
         </Card>
 
-        {/* 2. Work Order Overview Card */}
         <Card className="shadow-lg border-gray-100 rounded-xl transition-shadow duration-300 hover:shadow-xl">
           <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-gray-100">
             <CardTitle className="text-lg font-semibold text-gray-800">

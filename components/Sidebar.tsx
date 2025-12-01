@@ -1,9 +1,9 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, type JSX } from "react";
 import "./Sidebar.css";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
 import { icons } from "@/assets/icons/exports";
 
 interface MenuItem {
@@ -192,8 +192,8 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Manage Agreements",
-          location: "/agreement/managementagrrement",
-          active: pathname.startsWith("/agreement/managementagrrement"),
+          location: "/agreement/managementagreement",
+          active: pathname.startsWith("/agreement/managementagreement"),
         },
         {
           label: "Agreements Builder",
@@ -210,6 +210,7 @@ export default function Sidebar() {
           label: "AI Assistance",
           location: "/agreement/managementagrrement",
           active: pathname.startsWith("/agreement/managementagrrement"),
+          isPremium: true,
         },
       ],
     },
@@ -273,6 +274,18 @@ export default function Sidebar() {
         </svg>
       ),
       hasDropdown: true,
+      subItems: [
+        {
+          label: "Occupants",
+          location: "/occupancy/occupants",
+          active: pathname.startsWith("/occupancy/occupants"),
+        },
+        {
+          label: "Enhanced Management",
+          location: "/occupancy/enhancedmanagement",
+          active: pathname.startsWith("/occupancy/enhancedmanagement"),
+        },
+      ],
     },
     {
       id: "parking",

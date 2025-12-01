@@ -87,7 +87,7 @@ const CustomYAxisTick: React.FC<CustomYAxisTickProps> = (props) => {
 
 const TenantsByPropertiesChart: React.FC = () => {
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader className="flex justify-between items-center">
         <CardTitle>Tenants by Properties</CardTitle>
         <Button variant={"outline"}>

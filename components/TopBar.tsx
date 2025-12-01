@@ -3,6 +3,7 @@ import { Search, Circle, Languages } from "lucide-react";
 
 import { icons } from "../assets/icons/exports";
 import Image from "next/image";
+import AvatarDropdown from "./Auth/Profile";
 type TopBarProps = {
   setSidebarCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
   sidebarCollapsed?: boolean;
@@ -50,7 +51,6 @@ const TopBar: React.FC<TopBarProps> = ({
     }
   };
 
-  console.log("Sidebar Collapsed:", sidebarCollapsed);
   return (
     <div className="w-full bg-white border-b border-gray-200 px-4 py-3 -ml-[25px] max-md:ml-0 max-lg:-ml-[17px] ">
       <div className="flex items-center justify-between">
@@ -150,17 +150,13 @@ const TopBar: React.FC<TopBarProps> = ({
           </button>
 
           <div className="relative ml-2 max-md:ml-0">
-            <div
-              className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-medium"
-              aria-label="User profile">
-              U
-            </div>
+            <AvatarDropdown />
             <div
               className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${
                 isOnline ? "bg-green-500" : "bg-gray-400"
               }`}
               aria-label={isOnline ? "Online" : "Offline"}>
-              <Circle size={12} className="text-white" />
+              {/* <Circle size={12} className="text-white" /> */}
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Building, Eye, EyeOff } from "lucide-react";
+import { useAuthContext } from "./AuthContext";
 
 interface SignInFormData {
   email: string;
@@ -20,6 +21,7 @@ interface JoinPlatformFormData {
 const RentChainAuth: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { login, register, loading } = useAuthContext();
 
   const {
     register: registerSignIn,
@@ -33,14 +35,27 @@ const RentChainAuth: React.FC = () => {
     formState: { errors: joinErrors },
   } = useForm<JoinPlatformFormData>();
 
-  const onSignInSubmit = (data: SignInFormData) => {
-    console.log("Sign In Data:", data);
-    // Handle sign in logic here
+  const onSignInSubmit = async (data: SignInFormData) => {
+    try {
+      await login(data.email, data.password);
+    } catch (err: any) {
+      alert(err?.message || "Login failed");
+    }
   };
 
-  const onJoinSubmit = (data: JoinPlatformFormData) => {
-    console.log("Join Platform Data:", data);
-    // Handle join platform logic here
+  const onJoinSubmit = async (data: JoinPlatformFormData) => {
+    try {
+      await register({
+        fullName: data.fullName,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        role: data.platformRole,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      });
+    } catch (err: any) {
+      alert(err?.message || "Registration failed");
+    }
   };
 
   return (
@@ -48,7 +63,6 @@ const RentChainAuth: React.FC = () => {
       className="min-h-screen flex items-center justify-center p-4"
       style={{ backgroundColor: "#eefdfc" }}>
       <div className="w-full max-w-md">
-        {/* Header with Logo */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <div
@@ -70,9 +84,7 @@ const RentChainAuth: React.FC = () => {
           )}
         </div>
 
-        {/* Form Container */}
         <div className="bg-white rounded-2xl shadow-lg p-8">
-          {/* Toggle Buttons */}
           <div className="flex mb-8 bg-gray-100 rounded-lg p-1">
             <button
               onClick={() => setIsSignIn(true)}
@@ -94,9 +106,7 @@ const RentChainAuth: React.FC = () => {
             </button>
           </div>
 
-          {/* Forms */}
           {isSignIn ? (
-            /* Sign In Form */
             <form
               onSubmit={handleSignInSubmit(onSignInSubmit)}
               className="space-y-6">
@@ -104,7 +114,6 @@ const RentChainAuth: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Platform Access
                 </h3>
-
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -169,13 +178,13 @@ const RentChainAuth: React.FC = () => {
 
                 <button
                   type="submit"
+                  disabled={loading}
                   className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transition-all shadow-md">
-                  Access Platform
+                  {loading ? "Processing..." : "Access Platform"}
                 </button>
               </div>
             </form>
           ) : (
-            /* Join Platform Form */
             <form
               onSubmit={handleJoinSubmit(onJoinSubmit)}
               className="space-y-6">
@@ -270,6 +279,7 @@ const RentChainAuth: React.FC = () => {
                       </p>
                     )}
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Password
@@ -279,7 +289,7 @@ const RentChainAuth: React.FC = () => {
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-colors pr-12"
-                        {...registerSignIn("password", {
+                        {...registerJoin("password", {
                           required: "Password is required",
                           minLength: {
                             value: 6,
@@ -298,9 +308,9 @@ const RentChainAuth: React.FC = () => {
                         )}
                       </button>
                     </div>
-                    {signInErrors.password && (
+                    {joinErrors.password && (
                       <p className="text-red-500 text-sm mt-1">
-                        {signInErrors.password.message}
+                        {joinErrors.password.message}
                       </p>
                     )}
                   </div>
@@ -312,10 +322,10 @@ const RentChainAuth: React.FC = () => {
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
+                        placeholder="Confirm your password"
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-colors pr-12"
-                        {...registerSignIn("password", {
-                          required: "Password is required",
+                        {...registerJoin("confirmPassword", {
+                          required: "Confirm your password",
                           minLength: {
                             value: 6,
                             message: "Password must be at least 6 characters",
@@ -333,9 +343,9 @@ const RentChainAuth: React.FC = () => {
                         )}
                       </button>
                     </div>
-                    {signInErrors.password && (
+                    {joinErrors.confirmPassword && (
                       <p className="text-red-500 text-sm mt-1">
-                        {signInErrors.password.message}
+                        {joinErrors.confirmPassword.message}
                       </p>
                     )}
                   </div>
@@ -343,8 +353,9 @@ const RentChainAuth: React.FC = () => {
 
                 <button
                   type="submit"
+                  disabled={loading}
                   className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transition-all shadow-md mt-6">
-                  Join RentChain Platform
+                  {loading ? "Processing..." : "Join RentChain Platform"}
                 </button>
               </div>
             </form>

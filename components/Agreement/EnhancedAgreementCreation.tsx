@@ -127,7 +127,7 @@ interface Clause {
   text: string;
 }
 
-interface Compliance {
+export interface Compliance {
   id: string;
   category: string;
   description: string;
@@ -136,7 +136,7 @@ interface Compliance {
   documentationRequired: boolean;
 }
 
-interface FormValues {
+export interface FormValues {
   status: string;
   startDate: string;
   endDate: string;
@@ -180,32 +180,6 @@ interface FormValues {
 
 type FieldPath<TFieldValues extends FormValues> = keyof TFieldValues;
 
-// const useFieldArray = (
-//   control: Control<FormValues>,
-//   name: FieldPath<FormValues>
-// ) => {
-//   const [fields, setFields] = useState<any[]>(
-//     control.data[name as keyof FormValues] as any
-//   );
-
-//   const append = useCallback((value: any) => {
-//     setFields((prev) => [...prev, { ...value, id: String(Date.now()) }]);
-//   }, []);
-
-//   const remove = useCallback((index: number) => {
-//     setFields((prev) => prev.filter((_, i) => i !== index));
-//   }, []);
-
-//   // Sync mock fields back to the main control data via a side effect
-//   useEffect(() => {
-//     // This is a crucial step in the mock to keep the main form data updated
-//     // In a real RHF setup, this happens automatically. Here we simulate it.
-//     (control.data as any)[name] = fields;
-//   }, [fields, control.data, name]);
-
-//   return { fields, append, remove, update: () => {} }; // Simplified mock return
-// };
-
 const ProgressStep: React.FC<{
   number: number;
   label: string;
@@ -234,7 +208,7 @@ const ProgressStep: React.FC<{
   );
 };
 
-const Stepper: React.FC<{ currentStep: number }> = ({ currentStep }) => {
+export const Stepper: React.FC<{ currentStep: number }> = ({ currentStep }) => {
   const steps: { key: StepKey; label: string }[] = [
     { key: "basicInfo", label: "Basic Info" },
     { key: "parties", label: "Parties" },
@@ -277,14 +251,14 @@ const FormSectionTitle: React.FC<{
   </div>
 );
 
-interface StepProps {
+export interface StepProps {
   register: UseFormRegister<FormValues>;
   control: Control<FormValues>;
   watch: UseFormWatch<FormValues>;
   setValue: UseFormSetValue<FormValues>;
 }
 
-const BasicInfoStep: React.FC<StepProps> = ({ register, control }) => {
+export const BasicInfoStep: React.FC<StepProps> = ({ register, control }) => {
   return (
     <div className="space-y-8">
       <FormSectionTitle
@@ -411,8 +385,7 @@ const BasicInfoStep: React.FC<StepProps> = ({ register, control }) => {
   );
 };
 
-// Step 2: Parties (image_6bf8b5.png)
-const PartiesStep: React.FC<StepProps> = ({ register, control }) => {
+export const PartiesStep: React.FC<StepProps> = ({ register, control }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "parties",
@@ -586,7 +559,11 @@ const PartiesStep: React.FC<StepProps> = ({ register, control }) => {
   );
 };
 
-const UnitsSpacesStep: React.FC<StepProps> = ({ register, control, watch }) => {
+export const UnitsSpacesStep: React.FC<StepProps> = ({
+  register,
+  control,
+  watch,
+}) => {
   const { fields, append, remove } = useFieldArray({ control, name: "units" });
 
   const mockAvailableUnits = [
@@ -867,8 +844,7 @@ const UnitsSpacesStep: React.FC<StepProps> = ({ register, control, watch }) => {
   );
 };
 
-// Step 4: Rent & Deposits (image_6ba2fa.png)
-const RentDepositsStep: React.FC<StepProps> = ({
+export const RentDepositsStep: React.FC<StepProps> = ({
   register,
   control,
   watch,
@@ -1058,8 +1034,7 @@ const RentDepositsStep: React.FC<StepProps> = ({
   );
 };
 
-// Step 5: Utilities & Services (image_6ba2d8.png)
-const UtilitiesServicesStep: React.FC<StepProps> = ({
+export const UtilitiesServicesStep: React.FC<StepProps> = ({
   register,
   control,
   watch,
@@ -1225,8 +1200,11 @@ const UtilitiesServicesStep: React.FC<StepProps> = ({
   );
 };
 
-// Step 6: SLA & Terms (image_6ba29d.png & image_6ba25f.png)
-const SLATermsStep: React.FC<StepProps> = ({ register, control, watch }) => {
+export const SLATermsStep: React.FC<StepProps> = ({
+  register,
+  control,
+  watch,
+}) => {
   const { fields, append, remove } = useFieldArray({ control, name: "slas" });
 
   const addSLA = () => {
@@ -1410,8 +1388,7 @@ const SLATermsStep: React.FC<StepProps> = ({ register, control, watch }) => {
   );
 };
 
-// Step 7: Clauses & Compliance (image_6b9f38.png)
-const ClausesComplianceStep: React.FC<StepProps> = ({
+export const ClausesComplianceStep: React.FC<StepProps> = ({
   register,
   control,
   watch,
@@ -1647,7 +1624,7 @@ const ReviewSection: React.FC<{ title: string; children: React.ReactNode }> = ({
   </Card>
 );
 
-const ReviewValidateStep: React.FC<StepProps> = ({ control, watch }) => {
+export const ReviewValidateStep: React.FC<StepProps> = ({ control, watch }) => {
   const parties = watch("parties");
   const clauses = watch("clauses");
   const compliance = watch("compliance");
@@ -1765,7 +1742,7 @@ const ReviewValidateStep: React.FC<StepProps> = ({ control, watch }) => {
   );
 };
 
-const initialValues: FormValues = {
+export const initialValues: FormValues = {
   status: "Draft",
   startDate: "2025-01-01",
   endDate: "2026-01-01",

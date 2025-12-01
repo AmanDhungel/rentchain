@@ -72,7 +72,7 @@ const OwnerDashboard = () => {
   ];
   return (
     <div className=" flex-1">
-      <div className="flex max-2xl:flex-col 2xl:h-[53.5vh]">
+      <div className="flex justify-between gap-4 max-2xl:flex-col 2xl:h-[53.5vh]">
         <div
           className={
             "grid grid-cols-2 md:grid-cols-2 max-lg:justify-between lg:grid-cols-3 2xl:grid-cols-4 gap-3 p-6 pl-0 pr-0"
@@ -85,7 +85,7 @@ const OwnerDashboard = () => {
             />
           ))}
         </div>
-        <div className="w-full 2xl:w-[590px] ml-auto mt-6">
+        <div className="flex-1  ml-auto mt-6">
           <TenantsByPropertiesChart />
         </div>
       </div>
