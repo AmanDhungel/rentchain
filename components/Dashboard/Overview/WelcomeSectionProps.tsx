@@ -55,8 +55,8 @@ const WelcomeSection: React.FC<WelcomeSectionProps> = ({
               You have{" "}
               <span className="text-orange-500 flex">
                 <span className="underline">{properties} properties</span>
-                <span className="relative inline-block h-1 w-1 m-1 my-2">
-                  <span className="absolute top-[7px] -left-2 right-0 border-b w-[50px] border-orange-500"></span>
+                <span className="relative inline-block h-1 w-1 m-1 my-[9px]">
+                  <span className="absolute top-[7.2px] -left-2 right-0 border-b w-[50px] border-orange-500"></span>
                   <span className="block h-1 w-1 bg-orange-500 rounded-full"></span>
                 </span>
                 <span className="underline">{activeleases} active leases</span>

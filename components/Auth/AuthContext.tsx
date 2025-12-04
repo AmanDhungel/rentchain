@@ -93,7 +93,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       try {
         const res = await axios.post("/api/auth/login", { email, password });
-        console.log("rsessdadasdasdadasdasd", res);
         setAccessToken(res.data.accessToken ?? null);
         setUser(res.data.user ?? null);
         loginData(res.data.user);

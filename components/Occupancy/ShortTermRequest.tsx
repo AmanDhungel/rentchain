@@ -13,6 +13,7 @@ import React, { useState, useCallback } from "react";
 import { Button, Card } from "../ui";
 import { Badge } from "../ui/badge";
 import { Textarea } from "../ui/textarea";
+import Link from "next/link";
 
 // const Badge = ({ children, variant, className = "" }) => {
 //   let style =
@@ -658,19 +659,21 @@ const ShortTermRequestDetail = () => {
   return (
     <div className="min-h-screen pl-0 md:pl-0 p-4 md:p-8 font-sans">
       <div className="mx-auto">
-        {/* Header */}
         <div className="flex justify-between items-start mb-6 border-b pb-4">
           <div>
-            <div className="flex items-center text-gray-500 mb-1">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              <p className="text-sm">
-                Request from {requestData.tenantName} •{" "}
-                {requestData.dateSubmitted}
-              </p>
+            <div className="flex items-center  mb-1">
+              <Link href="/occupancy/occupants">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+              </Link>
+
+              <h1 className="text-2xl font-bold text-gray-900">
+                Short-term Stay Request
+              </h1>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Short-term Stay Request
-            </h1>
+            <p className="text-sm text-gray-500">
+              Request from {requestData.tenantName} •{" "}
+              {requestData.dateSubmitted}
+            </p>
           </div>
           <div className="flex flex-col items-end space-y-2">
             <Badge variant="highpriority">High Priority</Badge>

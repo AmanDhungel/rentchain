@@ -9,6 +9,10 @@ import {
   SlidersHorizontal,
   Trash2,
   LucideIcon,
+  Users,
+  CircleX,
+  TrendingUp,
+  Clock4,
 } from "lucide-react";
 
 import { useState, useMemo } from "react";
@@ -75,19 +79,19 @@ const mockRequests = [
   },
 ];
 
-const calculateStats = ({ requests }: { requests: typeof mockRequests }) => {
-  const total = requests?.length;
-  const pending = requests?.filter(
+const calculateStats = () => {
+  const total = mockRequests?.length;
+  const pending = mockRequests?.filter(
     (r: { status: string }) => r.status === "Pending"
   ).length;
-  const approved = requests?.filter((r) => r.status === "Approved").length;
-  const rejected = requests?.filter((r) => r.status === "Rejected").length;
+  const approved = mockRequests?.filter((r) => r.status === "Approved").length;
+  const rejected = mockRequests?.filter((r) => r.status === "Rejected").length;
 
   return [
     {
       title: "Total Requests",
       value: total,
-      icon: User,
+      icon: Users,
       color: "text-blue-500",
       bgColor: "bg-blue-50",
       iconBgColor: "bg-blue-100",
@@ -95,7 +99,7 @@ const calculateStats = ({ requests }: { requests: typeof mockRequests }) => {
     {
       title: "Pending Approval",
       value: pending,
-      icon: Timer,
+      icon: Clock4,
       color: "text-orange-500",
       bgColor: "bg-orange-50",
       iconBgColor: "bg-orange-100",
@@ -103,7 +107,7 @@ const calculateStats = ({ requests }: { requests: typeof mockRequests }) => {
     {
       title: "Approved",
       value: approved,
-      icon: Check,
+      icon: TrendingUp,
       color: "text-green-500",
       bgColor: "bg-green-50",
       iconBgColor: "bg-green-100",
@@ -111,7 +115,7 @@ const calculateStats = ({ requests }: { requests: typeof mockRequests }) => {
     {
       title: "Rejected",
       value: rejected,
-      icon: X,
+      icon: CircleX,
       color: "text-red-500",
       bgColor: "bg-red-50",
       iconBgColor: "bg-red-100",
@@ -124,7 +128,6 @@ const StatCard = ({
   value,
   icon: Icon,
   color,
-  bgColor,
   iconBgColor,
 }: {
   title: string;
@@ -134,21 +137,16 @@ const StatCard = ({
   bgColor: string;
   iconBgColor: string;
 }) => (
-  <Card className="flex flex-col justify-between h-full p-4">
-    <div className="flex justify-between items-start">
-      <div className={`p-2 rounded-full ${iconBgColor}`}>
+  <Card className="flex justify-between h-full p-4 py-10">
+    <div className="flex items-center">
+      <div className={`p-2 rounded-sm ${iconBgColor}`}>
         <Icon className={`h-6 w-6 ${color}`} />
       </div>
       <Trash2 className="h-4 w-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div
-        className={`h-5 w-5 rounded-full ${color.replace(
-          "text-",
-          "bg-"
-        )}`}></div>
-    </div>
-    <div className="mt-4">
-      <p className="text-sm font-medium text-gray-500">{title}</p>
-      <p className="text-3xl font-bold mt-1 text-gray-900">{value}</p>
+      <div className="">
+        <p className="text-sm font-medium text-gray-500">{title}</p>
+        <p className={`text-3xl font-bold mt-1 ${color}`}>{value}</p>
+      </div>
     </div>
   </Card>
 );
@@ -212,9 +210,7 @@ const RequestDetailCard = ({
   const router = useRouter();
 
   return (
-    <Card
-      className="mt-4 p-6 cursor-pointer hover:shadow-lg transition-shadow"
-      onClick={() => router.push(`/occupancy/occupants/${data.name}`)}>
+    <Card className="mt-4 p-6 cursor-pointer hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start border-b pb-4 mb-4">
         <div>
           <h4 className="text-xl font-semibold text-gray-900">{data.name}</h4>
@@ -268,7 +264,7 @@ const RequestDetailCard = ({
           variant="outline"
           size="sm"
           onClick={() => router.push(`/occupancy/occupants/${data.name}`)}
-          className="rounded-full">
+          className="rounded-full cursor-pointer">
           Review Details
         </Button>
       </div>
@@ -313,21 +309,21 @@ const OccupancyManagementDashboard = () => {
     alert(`${newStatus} request for ID ${id}!`);
   };
 
-  const currentStats = calculateStats(filteredRequests as any);
+  const currentStats = calculateStats();
 
   const availableStatuses = ["All", "Pending", "Approved", "Rejected"];
 
   return (
     <div className="min-h-screen p-4 pl-0 md:pl-0 md:p-8 font-sans">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center">
-          <ArrowLeft className="h-5 w-5 text-gray-500 mr-4 cursor-pointer hover:text-gray-700" />
+      <div className="flex items-center mb-8">
+        <ArrowLeft className="h-5 w-5 text-gray-500 mr-4 cursor-pointer hover:text-gray-700" />
+        <div className="flex flex-col ">
           <h1 className="text-2xl font-bold text-gray-900">
             Occupancy Management
           </h1>
-        </div>
-        <div className="text-sm text-gray-600">
-          Review and approve occupancy requests
+          <p className="text-sm text-gray-600">
+            Review and approve occupancy requests
+          </p>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import { DollarSign, Funnel, Search, TriangleAlert, Users } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { icons } from "../../../assets/icons/exports";
 import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Metrics {
   unitsFilledPercent: number;
@@ -115,7 +116,6 @@ const Header: React.FC<{
   tenents,
 }) => {
   const moreCount = Math.max(0, tenents.length - 4);
-  console.log("tenents", tenents);
   return (
     <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
       <h2 className="text-lg font-semibold">Properties Portfolio</h2>
@@ -126,15 +126,15 @@ const Header: React.FC<{
             <div className="flex items-center -space-x3">
               <div className="flex items-center">
                 {tenents.slice(0, 4).map((t, i) => (
-                  <Image
-                    width={100}
-                    height={100}
+                  <Avatar
                     key={t}
-                    src={t}
-                    alt="tenant"
                     className={`w-9 h-9 rounded-full border-2 border-white object-cover`}
-                    style={{ marginLeft: i === 0 ? 0 : -10 }}
-                  />
+                    style={{ marginLeft: i === 0 ? 0 : -10 }}>
+                    <AvatarImage src={t} alt={t} />
+                    <AvatarFallback className="bg-orange-500 text-white">
+                      P
+                    </AvatarFallback>
+                  </Avatar>
                 ))}
                 {moreCount > 0 && (
                   <div

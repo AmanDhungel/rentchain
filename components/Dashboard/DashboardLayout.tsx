@@ -1,15 +1,13 @@
 "use client";
+import { SlidersHorizontal, EllipsisVertical } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import AccountingHeaderSection from "../Accounting/AccountingHeader";
+import PropertiesWelcomeSection from "../Properties/PropertiesWelcome";
 import Sidebar from "../Sidebar";
 import TopBar from "../TopBar";
 import AdminHeaderSection from "./Overview/Header";
-import PropertiesWelcomeSection from "../Properties/PropertiesWelcome";
 import WelcomeSection from "./Overview/WelcomeSectionProps";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { SlidersHorizontal, EllipsisVertical } from "lucide-react";
-import AccountingHeaderSection from "../Accounting/AccountingHeader";
-import Image from "next/image";
-import { icons } from "@/assets/icons/exports";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -111,8 +109,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           />
         </div>
 
-        {pathname.startsWith("/dashboard") ||
-        pathname.startsWith("/properties") ? (
+        {pathname.startsWith("/properties/standardsetup") ? (
+          ""
+        ) : pathname.startsWith("/dashboard") ||
+          pathname.startsWith("/properties") ? (
           <div className="max-md:mt-25">
             <AdminHeaderSection />
           </div>
@@ -120,7 +120,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           ""
         )}
         {pathname.startsWith("/properties") ? (
-          <PropertiesWelcomeSection />
+          pathname.startsWith("/properties/standardsetup") ? (
+            ""
+          ) : (
+            <PropertiesWelcomeSection />
+          )
         ) : pathname.startsWith("/accounting") ? (
           <AccountingHeaderSection />
         ) : (

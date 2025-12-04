@@ -1,7 +1,7 @@
 "use client";
 import { User, Settings, LogOut, ChevronDown, ChevronUp } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useAuthStore from "@/context/User";
 import { logoutAction } from "@/services/Logout";

@@ -103,6 +103,7 @@ export default function Sidebar() {
           label: "Enhanced Setup",
           location: "/properties/enhancedsetup",
           active: pathname === "/properties/enhancedsetup",
+          isPremium: true,
         },
       ],
     },
@@ -256,6 +257,29 @@ export default function Sidebar() {
         </svg>
       ),
       hasDropdown: true,
+      subItems: [
+        {
+          label: "Complaints and Disputes",
+          location: "/complaints/complaint-and-dispute",
+          active: pathname.startsWith("/complaints/complaint-and-dispute"),
+        },
+        {
+          label: "Work Orders",
+          location: "/complaints/complaint-and-dispute",
+          active: pathname.startsWith(
+            "/occupancy/enhancedmanagement/asdsadsadsdads"
+          ),
+          isPremium: true,
+        },
+        {
+          label: "Vendors",
+          location: "/complaints/complaint-and-dispute",
+          active: pathname.startsWith(
+            "/occupancy/enhancedmanagement/asdsadsadsdads"
+          ),
+          isPremium: true,
+        },
+      ],
     },
     {
       id: "occupancy",

@@ -140,3 +140,7 @@
 .department-size-border {
   position: relative;
 }
+
+button {
+  @apply cursor-pointer;
+}
