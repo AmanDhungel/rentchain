@@ -193,8 +193,8 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Manage Agreements",
-          location: "/agreement/managementagreement",
-          active: pathname.startsWith("/agreement/managementagreement"),
+          location: "/agreement/manageagreement",
+          active: pathname.startsWith("/agreement/manageagreement"),
         },
         {
           label: "Agreements Builder",

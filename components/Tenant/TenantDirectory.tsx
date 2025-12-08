@@ -18,6 +18,8 @@ import {
   LucideIcon,
   UserStar,
   MessageSquareWarning,
+  TrendingUp,
+  TrendingDown,
 } from "lucide-react";
 import { Button, Card, CardContent, Input } from "../ui";
 import {
@@ -31,6 +33,7 @@ import {
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { MultiStepTenantInvitationForm } from "./InviteTenant";
+import { useRouter } from "next/navigation";
 
 const FilterSelect: React.FC<{
   options: { value: string; label: string }[];
@@ -42,7 +45,7 @@ const FilterSelect: React.FC<{
   <select
     value={value}
     onChange={(e) => onChange(e.target.value)}
-    className={`flex h-10 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:border-black focus:ring-black focus:outline-none ${className}`}>
+    className={`flex h-10 w-fit rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:border-black focus:ring-black focus:outline-none ${className}`}>
     <option value="">{placeholder}</option>
     {options.map((option) => (
       <option key={option.value} value={option.value}>
@@ -203,14 +206,15 @@ const propertyOptions = [
 
 const StatBadge = ({ status }: { status: string }) => {
   let color = "bg-gray-100 text-gray-800";
-  if (status === "Active") color = "bg-green-100 text-green-600";
-  if (status === "Applicant") color = "bg-blue-100 text-blue-600";
-  if (status === "Moved Out") color = "bg-red-100 text-red-600";
+  if (status === "Active") color = "bg-green-500 text-white";
+  if (status === "Applicant") color = "bg-sky-500 text-white";
+  if (status === "Moved Out") color = "bg-red-500 text-white";
   if (status === "Overdue") color = "bg-red-500 text-white";
 
   return (
-    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${color}`}>
-      {status}
+    <span
+      className={`flex itesm-center w-fit px-3 py-1  text-xs font-semibold rounded-sm ${color}`}>
+      <p className="h-2 w-2 mt-1 mr-2 rounded-full bg-white" /> {status}
     </span>
   );
 };
@@ -240,31 +244,9 @@ const RenewalIndicator = ({ probability }: { probability: number }) => {
   const isGood = probability >= 50;
   const color = isGood ? "text-green-600" : "text-red-600";
   const arrow = isGood ? (
-    <svg
-      className="w-4 h-4 ml-1"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-    </svg>
+    <TrendingUp className="w-4 h-4 ml-2" />
   ) : (
-    <svg
-      className="w-4 h-4 ml-1 transform rotate-90"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-    </svg>
+    <TrendingDown className="w-4 h-4 ml-2" />
   );
 
   return (
@@ -304,7 +286,7 @@ const statsData = [
   },
   {
     id: 5,
-    icon: Activity,
+    icon: TrendingUp,
     title: "Avg Renewal Rate",
     value: "37%",
     colorClasses: { bg: "bg-purple-500", text: "text-purple-600" },
@@ -381,6 +363,7 @@ const TenantDirectory = () => {
   const totalEntries = initialTenants.length;
   const showingStart = Math.min(filteredTenants.length, startIndex + 1);
   const showingEnd = Math.min(filteredTenants.length, endIndex);
+  const router = useRouter();
 
   return (
     <div className="p-6 pl-0 space-y-8 min-h-screen font-sans">
@@ -424,12 +407,12 @@ const TenantDirectory = () => {
         ))}
       </div>
 
-      <div className="p-4 border-b border-gray-100 flex flex-wrap gap-4 items-center">
-        <div className="flex border bg-[#f6f9ff] border-gray-300 rounded-lg px-3 py-2 items-center">
+      <div className="flex p-4 border-b border-gray-100  gap-4 items-center">
+        <div className="flex border bg-white! border-gray-300 w-full rounded-lg px-3   items-center">
           <Search className="w-4 h-4 text-gray-400" />
           <Input
-            placeholder="Search invitations..."
-            className="pl-10  focus:border-0 focus-visible:ring-0"
+            placeholder="Search Tenant Directory..."
+            className="pl-10 bg-white!  focus:border-0 focus-visible:ring-0"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -438,7 +421,7 @@ const TenantDirectory = () => {
           />
         </div>
 
-        <div className="flex  gap-3 ml-auto">
+        <div className="flex   gap-3 ml-auto">
           <FilterSelect
             options={statusOptions}
             value={statusFilter}
@@ -489,7 +472,7 @@ const TenantDirectory = () => {
         <TableBody>
           {paginatedTenants.length > 0 ? (
             paginatedTenants.map((tenant) => (
-              <TableRow key={tenant.id}>
+              <TableRow key={tenant.id} className="cursor-pointer">
                 <TableCell>
                   <input
                     type="checkbox"
@@ -551,7 +534,12 @@ const TenantDirectory = () => {
                 </TableCell>
                 <TableCell className="">
                   <div className="flex justify-center  space-x-2">
-                    <Eye className="w-5 h-5 text-gray-500 hover:text-black cursor-pointer" />
+                    <Eye
+                      className="w-5 h-5 text-gray-500 hover:text-black cursor-pointer"
+                      onClick={() =>
+                        router.push(`/tenant/directory/${tenant.id}`)
+                      }
+                    />
                     <RefreshCw className="w-5 h-5 text-gray-500 hover:text-black cursor-pointer" />
                     <FileText className="w-5 h-5 text-gray-500 hover:text-black cursor-pointer" />
                   </div>

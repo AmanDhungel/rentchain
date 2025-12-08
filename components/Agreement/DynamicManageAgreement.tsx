@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
   ChevronLeft,
   Pencil,
@@ -9,12 +8,16 @@ import {
   Home,
   ClipboardCheck,
   Handshake,
+  LayoutDashboard,
+  TabletSmartphone,
+  Landmark,
+  ConciergeBell,
+  ReceiptText,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import React from "react";
 import { Button, Card, CardContent, CardHeader } from "../ui";
-import { TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-
-// --- TYPESCRIPT INTERFACES ---
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 type TabKey =
   | "overview"
@@ -55,8 +58,8 @@ const Badge: React.FC<BadgeProps> = ({
   const variants: Record<BadgeVariant, string> = {
     "status-active": "bg-orange-500 text-white",
     "status-pending": "bg-yellow-500 text-white",
-    excellent: "bg-emerald-100 text-emerald-700 font-normal",
-    good: "bg-orange-100 text-orange-700 font-normal",
+    excellent: "bg-emerald-500 text-white font-normal",
+    good: "bg-orange-500 text-white font-normal!",
     owner: "bg-gray-100 text-gray-600 font-normal",
     tenant: "bg-gray-100 text-gray-600 font-normal",
     interest: "bg-orange-600 text-white font-medium",
@@ -71,7 +74,7 @@ const Badge: React.FC<BadgeProps> = ({
   };
   return (
     <div
-      className={`inline-flex items-center rounded-full px-3 py-0.5 text-xs font-semibold transition-colors ${variants[variant]} ${className}`}
+      className={`inline-flex items-center rounded-sm px-3 py-0.5 text-xs font-semibold transition-colors ${variants[variant]} ${className}`}
       {...props}>
       {children}
     </div>
@@ -129,7 +132,8 @@ const SectionTitle: React.FC<{
   children: React.ReactNode;
   count?: number;
   badgeVariant?: BadgeVariant;
-}> = ({ children, count, badgeVariant = "utility-pill" }) => {
+  title?: string;
+}> = ({ children, count, title, badgeVariant = "utility-pill" }) => {
   const label = String(children ?? "");
   const firstWord = label.split(" ")[0].toLowerCase();
 
@@ -138,7 +142,7 @@ const SectionTitle: React.FC<{
       <h2 className="text-lg font-semibold text-gray-800">{children}</h2>
       {count !== undefined && (
         <Badge variant={badgeVariant}>
-          {count} {firstWord}
+          {count} {title ? title : firstWord}
         </Badge>
       )}
     </div>
@@ -402,20 +406,18 @@ const UnitsSpacesTab: React.FC = () => {
             {unitData.items.map((item, index) => (
               <div
                 key={index}
-                className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                className="flex justify-between items-center p-3 bg-[#F6F8FF] rounded-lg">
                 <div>
                   <p className="font-medium text-gray-800">{item.name}</p>
                   <p className="text-xs text-gray-500">{item.type}</p>
                 </div>
-                <div className="flex space-x-2 items-center">
+                <div className="flex flex-col items-end space-x-2 ">
                   <Badge
                     variant={getConditionBadge(item.condition)}
-                    className="uppercase">
+                    className="uppercase rounded-[5px]! text-white! p-2! px-5!">
                     {item.condition}
                   </Badge>
-                  <Badge
-                    variant={item.responsible === "Owner" ? "owner" : "tenant"}
-                    className="uppercase">
+                  <Badge className="bg-transparent! text-gray-400! uppercase font-normal! text-xs!">
                     {item.responsible}
                   </Badge>
                 </div>
@@ -436,11 +438,13 @@ const UnitsSpacesTab: React.FC = () => {
             {unitData.conditions.map((c, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between border-b pb-2">
-                <span className="text-sm text-gray-700">{c.aspect}:</span>
+                className="flex items-center justify-between bg-[#F6F8FF] p-2 py-4! rounded-sm  pb-2">
+                <span className="text-sm text-gray-700 font-bold">
+                  {c.aspect}:
+                </span>
                 <Badge
                   variant={getConditionBadge(c.condition)}
-                  className="uppercase">
+                  className="uppercase px-5 py-2">
                   {c.condition}
                 </Badge>
               </div>
@@ -492,7 +496,7 @@ const RentDepositsTab: React.FC = () => {
             <h4 className="text-sm font-semibold text-gray-700 mb-3">
               Late Fee Policy
             </h4>
-            <div className="grid grid-cols-2 gap-x-12">
+            <div className="grid grid-cols-2 gap-x-12 bg-[#F6F8FF] p-2 rounded-sm">
               <DetailItem label="Type" value={rentData.lateFeeType} />
               <DetailItem label="Amount" value={rentData.lateFeeAmount} />
               <DetailItem label="Cap" value={rentData.lateFeeCap} />
@@ -508,7 +512,7 @@ const RentDepositsTab: React.FC = () => {
           </h3>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex justify-between items-start p-4 bg-gray-50 rounded-lg">
+          <div className="flex justify-between items-start p-4 bg-[#F6F8FF] rounded-lg">
             <div className="space-y-0.5">
               <p className="font-medium text-gray-800">Security Deposit</p>
               <p className="text-sm text-gray-600">
@@ -525,7 +529,7 @@ const RentDepositsTab: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-between items-start p-4 bg-gray-50 rounded-lg">
+          <div className="flex justify-between items-start p-4 bg-[#F6F8FF] rounded-lg">
             <div className="space-y-0.5">
               <p className="font-medium text-gray-800">Key Deposit</p>
               <p className="text-sm text-gray-600">
@@ -800,7 +804,6 @@ const SLATermsTab: React.FC = () => {
         <h3 className="text-xl font-semibold text-gray-800">
           Service Level Agreements
         </h3>{" "}
-        {/* Re-using title style for the second section */}
         <Card>
           <CardContent className="p-6 space-y-4">
             {terms.map((term, index) => (
@@ -816,9 +819,7 @@ const SLATermsTab: React.FC = () => {
   );
 };
 
-// 6. Compliance Tab
 const ComplianceTab: React.FC = () => {
-  // Mock Data based on image_b2f97d.png
   const complianceData = [
     {
       title: "Fire safety equipment inspection",
@@ -858,7 +859,7 @@ const ComplianceTab: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <SectionTitle count={complianceData.length}>
+      <SectionTitle count={complianceData.length} title="requirements">
         Compliance Requirements
       </SectionTitle>
       <div className="space-y-4">
@@ -926,25 +927,25 @@ const AgreementDetailDashboard: React.FC = () => {
     {
       key: "overview",
       label: "Overview",
-      icon: <Home className="w-4 h-4 mr-2" />,
+      icon: <LayoutDashboard className="w-4 h-4 mr-2" />,
       component: <OverviewTab />,
     },
     {
       key: "units",
       label: "Units & Spaces",
-      icon: <Building className="w-4 h-4 mr-2" />,
+      icon: <TabletSmartphone className="w-4 h-4 mr-2" />,
       component: <UnitsSpacesTab />,
     },
     {
       key: "rent",
       label: "Rent & Deposits",
-      icon: <DollarSign className="w-4 h-4 mr-2" />,
+      icon: <Landmark className="w-4 h-4 mr-2" />,
       component: <RentDepositsTab />,
     },
     {
       key: "utilities",
       label: "Utilities",
-      icon: <Zap className="w-4 h-4 mr-2" />,
+      icon: <ConciergeBell className="w-4 h-4 mr-2" />,
       component: <UtilitiesTab />,
     },
     {
@@ -956,7 +957,7 @@ const AgreementDetailDashboard: React.FC = () => {
     {
       key: "compliance",
       label: "Compliance",
-      icon: <ClipboardCheck className="w-4 h-4 mr-2" />,
+      icon: <ReceiptText className="w-4 h-4 mr-2" />,
       component: <ComplianceTab />,
     },
   ];
@@ -969,21 +970,26 @@ const AgreementDetailDashboard: React.FC = () => {
         status="Active"
       />
 
-      <div className="mt-4  w-full  flex justify-between">
-        <TabsList>
-          {tabs.map((tab) => (
-            <TabsTrigger key={tab.key} value={tab.key}>
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </div>
+      <Tabs defaultValue="overview">
+        <div className="mt-4  w-full  flex justify-between">
+          <TabsList defaultValue="units" className="w-full bg-white! ">
+            {tabs.map((tab) => (
+              <TabsTrigger
+                key={tab.key}
+                value={tab.key}
+                className="shadow-none! rounded-none data-[state=active]:border-b-2 data-[state=active]:text-orange-600 data-[state=active]:border-b-orange-600 border-b-2 border-b-gray-200">
+                {tab.icon} {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
 
-      {tabs.map((tab) => (
-        <TabsContent key={tab.key} value={tab.key}>
-          {tab.component}
-        </TabsContent>
-      ))}
+        {tabs.map((tab) => (
+          <TabsContent key={tab.key} value={tab.key}>
+            {tab.component}
+          </TabsContent>
+        ))}
+      </Tabs>
     </div>
   );
 };

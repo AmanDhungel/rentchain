@@ -1,4 +1,3 @@
-import React, { useState, useMemo } from "react";
 import {
   ArrowRight,
   ArrowLeft,
@@ -16,6 +15,16 @@ import {
   Trash2,
   Clock,
 } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import {
+  Controller,
+  Control,
+  UseFormRegister,
+  UseFormWatch,
+  UseFormSetValue,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import {
   Button,
   Card,
@@ -28,18 +37,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui";
-import {
-  Controller,
-  Control,
-  UseFormRegister,
-  UseFormWatch,
-  UseFormSetValue,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
 import { Checkbox } from "../ui/checkbox";
-import { SelectGroup, SelectItem, SelectLabel } from "../ui/select";
-import { Textarea } from "../ui/textarea";
 import {
   Dialog,
   DialogContent,
@@ -49,6 +47,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { SelectGroup, SelectItem, SelectLabel } from "../ui/select";
+import { Textarea } from "../ui/textarea";
 
 type StepKey =
   | "basicInfo"
@@ -859,7 +859,6 @@ export const RentDepositsStep: React.FC<StepProps> = ({
         title="Rent Schedule & Deposits"
       />
 
-      {/* Rent Schedule */}
       <Card>
         <CardHeader>
           <h3 className="text-base font-medium text-gray-800">Rent Schedule</h3>
@@ -873,9 +872,15 @@ export const RentDepositsStep: React.FC<StepProps> = ({
                 control={control}
                 render={({ field }) => (
                   <Select {...field}>
-                    <option value="Daily">Daily</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Quarterly">Quarterly</option>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Select period" />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectItem value="Daily">Daily</SelectItem>
+                      <SelectItem value="Monthly">Monthly</SelectItem>
+                      <SelectItem value="Quarterly">Quarterly</SelectItem>
+                    </SelectContent>
                   </Select>
                 )}
               />
@@ -895,8 +900,14 @@ export const RentDepositsStep: React.FC<StepProps> = ({
                 control={control}
                 render={({ field }) => (
                   <Select {...field}>
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
+                    <SelectTrigger className="w-[140px]">
+                      <SelectValue placeholder="Select currency" />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectItem value="USD">USD</SelectItem>
+                      <SelectItem value="EUR">EUR</SelectItem>
+                    </SelectContent>
                   </Select>
                 )}
               />
@@ -958,8 +969,16 @@ export const RentDepositsStep: React.FC<StepProps> = ({
                     control={control}
                     render={({ field }) => (
                       <Select {...field}>
-                        <option value="Yearly">Yearly</option>
-                        <option value="Bi-Annually">Bi-Annually</option>
+                        <SelectTrigger className="w-[200px]">
+                          <SelectValue placeholder="Select billing" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectItem value="Yearly">Yearly</SelectItem>
+                          <SelectItem value="Bi-Annually">
+                            Bi-Annually
+                          </SelectItem>
+                        </SelectContent>
                       </Select>
                     )}
                   />
@@ -970,7 +989,6 @@ export const RentDepositsStep: React.FC<StepProps> = ({
         </CardContent>
       </Card>
 
-      {/* Late Fee Policy */}
       <Card>
         <CardHeader>
           <h3 className="text-base font-medium text-gray-800">
@@ -1013,21 +1031,6 @@ export const RentDepositsStep: React.FC<StepProps> = ({
               />
             </div>
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Deposits (Simplified) */}
-      <Card>
-        <CardHeader>
-          <h3 className="text-base font-medium text-gray-800">
-            Deposits (Mocked)
-          </h3>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <p className="text-sm text-gray-500">
-            Deposit fields are complex and mocked for brevity. They would
-            typically involve detailed inputs for amount, interest, and terms.
-          </p>
         </CardContent>
       </Card>
     </div>
@@ -1074,7 +1077,7 @@ export const UtilitiesServicesStep: React.FC<StepProps> = ({
       <div className="space-y-6">
         {fields.map((field, index) => (
           <Card key={field.id}>
-            <CardHeader className="flex-row justify-between items-center p-4 pb-0">
+            <CardHeader className="flex justify-between items-center p-4 pb-0">
               <h3 className="text-lg font-medium">
                 Utility {index + 1} - {watch(`utilities.${index}.utilityType`)}
               </h3>
@@ -1089,36 +1092,67 @@ export const UtilitiesServicesStep: React.FC<StepProps> = ({
                   name={`utilities.${index}.utilityType`}
                   control={control}
                   render={({ field: controllerField }) => (
-                    <Select {...controllerField}>
-                      <option value="Electricity">Electricity</option>
-                      <option value="Water">Water</option>
-                      <option value="Internet">Internet</option>
-                    </Select>
+                    <div className="flex flex-col">
+                      <Label>Utility Type</Label>
+                      <Select {...controllerField}>
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Select utility" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectItem value="Electricity">
+                            Electricity
+                          </SelectItem>
+                          <SelectItem value="Water">Water</SelectItem>
+                          <SelectItem value="Internet">Internet</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
                 />
                 <Controller
                   name={`utilities.${index}.billingType`}
                   control={control}
                   render={({ field: controllerField }) => (
-                    <Select {...controllerField}>
-                      <option value="Excluded (Tenant pays direct)">
-                        Excluded (Tenant pays direct)
-                      </option>
-                      <option value="Included in Rent">Included in Rent</option>
-                      <option value="Shared Responsibility">
-                        Shared Responsibility
-                      </option>
-                    </Select>
+                    <div className="flex flex-col">
+                      <Label>Billing Type</Label>
+                      <Select {...controllerField}>
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Select responsibility" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectItem value="Excluded (Tenant pays direct)">
+                            Excluded (Tenant pays direct)
+                          </SelectItem>
+                          <SelectItem value="Included in Rent">
+                            Included in Rent
+                          </SelectItem>
+                          <SelectItem value="Shared Responsibility">
+                            Shared Responsibility
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
                 />
                 <Controller
                   name={`utilities.${index}.responsibility`}
                   control={control}
                   render={({ field: controllerField }) => (
-                    <Select {...controllerField}>
-                      <option value="Tenant">Tenant</option>
-                      <option value="Owner">Owner</option>
-                    </Select>
+                    <div className="flex flex-col">
+                      <Label>Utility Type</Label>
+                      <Select {...controllerField}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select payer" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectItem value="Tenant">Tenant</SelectItem>
+                          <SelectItem value="Owner">Owner</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
                 />
               </div>
@@ -1134,8 +1168,11 @@ export const UtilitiesServicesStep: React.FC<StepProps> = ({
                   />
                 </div>
                 <div>
-                  <Label>Grace Period (Days)</Label>
+                  <Label htmlFor={`utilities.${index}.gracePeriod`}>
+                    Grace Period (Days)
+                  </Label>
                   <Input
+                    id={`utilities.${index}.gracePeriod`}
                     type="number"
                     placeholder="5"
                     {...register(`utilities.${index}.gracePeriod`, {
@@ -1144,22 +1181,27 @@ export const UtilitiesServicesStep: React.FC<StepProps> = ({
                   />
                 </div>
               </div>
-              <div className="flex items-center space-x-2 mt-4 mb-4">
+              <div className="flex  space-x-2 mt-4 mb-4">
                 <Controller
                   name={`utilities.${index}.depositRequired`}
                   control={control}
                   render={({ field }) => (
-                    <Checkbox
-                      id={`deposit-${field.name}`}
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <div className="flex  gap-2">
+                      <Checkbox
+                        id={`deposit-${field.name}`}
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <Label
+                        htmlFor={
+                          `deposit-${field.name}` as FieldPath<FormValues>
+                        }
+                        className="mt-0.5">
+                        Utility deposit required
+                      </Label>
+                    </div>
                   )}
                 />
-                <Label
-                  htmlFor={`deposit-${field.name}` as FieldPath<FormValues>}>
-                  utility deposit required
-                </Label>
               </div>
               {watch(`utilities.${index}.depositRequired`) && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1210,11 +1252,11 @@ export const SLATermsStep: React.FC<StepProps> = ({
   const addSLA = () => {
     const newSLA: SLA = {
       id: String(Date.now()),
-      category: "Maintenance",
-      availability: "Weekdays Only",
+      category: "",
+      availability: "",
       description: "",
-      responseTime: 24,
-      resolutionTime: 72,
+      responseTime: 0,
+      resolutionTime: 0,
       escalationProcedure: "",
       contactPerson: "",
       contactPhone: "",
@@ -1237,7 +1279,7 @@ export const SLATermsStep: React.FC<StepProps> = ({
       <div className="space-y-6">
         {fields.map((field, index) => (
           <Card key={field.id}>
-            <CardHeader className="flex-row justify-between items-center p-4 pb-0">
+            <CardHeader className="flex! justify-between items-center p-4 pb-0">
               <h3 className="text-lg font-medium">
                 SLA {index + 1} - {watch(`slas.${index}.category`)}
               </h3>
@@ -1248,37 +1290,60 @@ export const SLATermsStep: React.FC<StepProps> = ({
             </CardHeader>
             <CardContent className="p-4 pt-4 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Controller
-                  name={`slas.${index}.category`}
-                  control={control}
-                  render={({ field: controllerField }) => (
-                    <Select {...controllerField}>
-                      <option value="Maintenance">Maintenance</option>
-                      <option value="Security">Security</option>
-                      <option value="Cleaning">Cleaning</option>
-                    </Select>
-                  )}
-                />
-                <Controller
-                  name={`slas.${index}.availability`}
-                  control={control}
-                  render={({ field: controllerField }) => (
-                    <Select {...controllerField}>
-                      <option value="Weekdays Only">Weekdays Only</option>
-                      <option value="24/7">24/7</option>
-                    </Select>
-                  )}
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="availability">Availability</Label>
+                  <Controller
+                    name={`slas.${index}.category`}
+                    control={control}
+                    render={({ field: controllerField }) => (
+                      <Select {...controllerField}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Maintenance">
+                            Maintenance
+                          </SelectItem>
+                          <SelectItem value="Security">Security</SelectItem>
+                          <SelectItem value="Cleaning">Cleaning</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="availability">Availability</Label>
+                  <Controller
+                    name={`slas.${index}.availability`}
+                    control={control}
+                    render={({ field: controllerField }) => (
+                      <Select {...controllerField}>
+                        <SelectTrigger id="availability">
+                          <SelectValue placeholder="Select option" />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectItem value="Weekdays Only">
+                            Weekdays Only
+                          </SelectItem>
+                          <SelectItem value="24/7">24/7</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
               </div>
-              <div>
+              <div className="space-y-2">
                 <Label>Description</Label>
                 <Textarea
+                  className="bg-[#f6f9ff]"
                   placeholder="Describe the service level commitment..."
                   {...register(`slas.${index}.description`)}
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+                <div className="space-y-2">
                   <Label>Response Time (Hours)</Label>
                   <Input
                     type="number"
@@ -1288,7 +1353,7 @@ export const SLATermsStep: React.FC<StepProps> = ({
                     })}
                   />
                 </div>
-                <div>
+                <div className="space-y-2">
                   <Label>Resolution Time (Hours)</Label>
                   <Input
                     type="number"
@@ -1299,22 +1364,23 @@ export const SLATermsStep: React.FC<StepProps> = ({
                   />
                 </div>
               </div>
-              <div>
+              <div className="space-y-2">
                 <Label>Escalation Procedure</Label>
                 <Textarea
+                  className="bg-[#f6f9ff]"
                   placeholder="Define escalation steps if SLA is breached..."
                   {...register(`slas.${index}.escalationProcedure`)}
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+                <div className="space-y-2">
                   <Label>Contact Person</Label>
                   <Input
                     placeholder="primary contact name"
                     {...register(`slas.${index}.contactPerson`)}
                   />
                 </div>
-                <div>
+                <div className="space-y-2">
                   <Label>Contact Phone</Label>
                   <Input
                     placeholder="Phone number"
@@ -1322,7 +1388,7 @@ export const SLATermsStep: React.FC<StepProps> = ({
                   />
                 </div>
               </div>
-              <div>
+              <div className="space-y-2">
                 <Label>Penalty Clause (Optional)</Label>
                 <Input
                   placeholder="Penalties for SLA breaches..."
@@ -1333,57 +1399,58 @@ export const SLATermsStep: React.FC<StepProps> = ({
           </Card>
         ))}
       </div>
-
-      <FormSectionTitle
-        icon={<FileText className="w-5 h-5" />}
-        title="Agreement Terms & Conditions"
-      />
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label>Termination Clause</Label>
-          <Textarea
-            placeholder="Define conditions under which the agreement can be terminated..."
-            {...register("terms_termination")}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label>Renewal Terms</Label>
-          <Textarea
-            placeholder="Define how the agreement can be renewed..."
-            {...register("terms_renewal")}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label>Modification Policy</Label>
-          <Textarea
-            placeholder="Define how changes to the agreement will be handled..."
-            {...register("terms_modification")}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label>Dispute Resolution</Label>
-          <Textarea
-            placeholder="Define dispute resolution mechanisms..."
-            {...register("terms_dispute")}
-          />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Card className="p-4">
+        <FormSectionTitle
+          icon={<FileText className="w-5 h-5" />}
+          title="Agreement Terms & Conditions"
+        />
+        <div className="space-y-6">
           <div className="space-y-2">
-            <Label>Governing Law</Label>
-            <Input
-              placeholder="e.g., State of California"
-              {...register("terms_governingLaw")}
+            <Label>Termination Clause</Label>
+            <Textarea
+              placeholder="Define conditions under which the agreement can be terminated..."
+              {...register("terms_termination")}
             />
           </div>
           <div className="space-y-2">
-            <Label>Force Majeure</Label>
-            <Input
-              placeholder="Define Force majeure conditions..."
-              {...register("terms_forceMajeure")}
+            <Label>Renewal Terms</Label>
+            <Textarea
+              placeholder="Define how the agreement can be renewed..."
+              {...register("terms_renewal")}
             />
           </div>
+          <div className="space-y-2">
+            <Label>Modification Policy</Label>
+            <Textarea
+              placeholder="Define how changes to the agreement will be handled..."
+              {...register("terms_modification")}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>Dispute Resolution</Label>
+            <Textarea
+              placeholder="Define dispute resolution mechanisms..."
+              {...register("terms_dispute")}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>Governing Law</Label>
+              <Input
+                placeholder="e.g., State of California"
+                {...register("terms_governingLaw")}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Force Majeure</Label>
+              <Input
+                placeholder="Define Force majeure conditions..."
+                {...register("terms_forceMajeure")}
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
@@ -1432,7 +1499,6 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
         title="Clauses & Compliance Requirements"
       />
 
-      {/* Agreement Clauses */}
       <h3 className="text-xl font-semibold text-gray-800 flex justify-between items-center">
         Agreement Clauses
         <Button onClick={addClause} className="space-x-1">
@@ -1443,13 +1509,7 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
       <div className="space-y-6">
         {clauseFields.map((field, index) => (
           <Card key={field.id} className="p-4">
-            <div className="flex justify-end mb-3">
-              <Trash2
-                className="w-5 h-5 text-red-500 cursor-pointer hover:text-red-700"
-                onClick={() => removeClause(index)}
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+            <div className="flex justify-between mb-3">
               <div className="col-span-1">
                 <Label>Type</Label>
                 <Controller
@@ -1457,22 +1517,32 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
                   control={control}
                   render={({ field: controllerField }) => (
                     <Select {...controllerField}>
-                      <option value="House Rule">House Rule</option>
-                      <option value="Pet Policy">Pet Policy</option>
-                      <option value="Noise Policy">Noise Policy</option>
+                      <SelectTrigger className="w-[200px]">
+                        <SelectValue placeholder="Select policy type" />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectItem value="House Rule">House Rule</SelectItem>
+                        <SelectItem value="Pet Policy">Pet Policy</SelectItem>
+                        <SelectItem value="Noise Policy">
+                          Noise Policy
+                        </SelectItem>
+                      </SelectContent>
                     </Select>
                   )}
                 />
               </div>
-              <div className="col-span-3">
-                <Label>Clause Text</Label>
-                <Textarea
-                  placeholder="Enter clause text..."
-                  {...register(
-                    `clauses.${index}.text` as FieldPath<FormValues>
-                  )}
-                />
-              </div>
+              <Trash2
+                className="w-5 h-5 text-red-500 cursor-pointer hover:text-red-700"
+                onClick={() => removeClause(index)}
+              />
+            </div>
+            <div>
+              <Label>Clause Text</Label>
+              <Textarea
+                placeholder="Enter clause text..."
+                {...register(`clauses.${index}.text` as FieldPath<FormValues>)}
+              />
             </div>
           </Card>
         ))}
@@ -1489,14 +1559,8 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
       <div className="space-y-6">
         {complianceFields.map((field, index) => (
           <Card key={field.id} className="p-4">
-            <div className="flex justify-end mb-3">
-              <Trash2
-                className="w-5 h-5 text-red-500 cursor-pointer hover:text-red-700"
-                onClick={() => removeCompliance(index)}
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-4 mb-4">
-              <div className="col-span-1 md:col-span-3">
+            <div className="flex justify-between mb-3">
+              <div>
                 <Label>Category</Label>
                 <Controller
                   name={`compliance.${index}.category` as FieldPath<FormValues>}
@@ -1505,14 +1569,12 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
                     <Select
                       value={String(controllerField.value)}
                       onValueChange={controllerField.onChange}>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-[200px]">
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
-
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Type</SelectLabel>
-
                           <SelectItem value="Legal">Legal</SelectItem>
                           <SelectItem value="Safety">Safety</SelectItem>
                           <SelectItem value="Insurance">Insurance</SelectItem>
@@ -1522,6 +1584,12 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
                   )}
                 />
               </div>
+              <Trash2
+                className="w-5 h-5 text-red-500 cursor-pointer hover:text-red-700"
+                onClick={() => removeCompliance(index)}
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-4 mb-4">
               <div>
                 <Label>Description</Label>
                 <Textarea
@@ -1556,11 +1624,9 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
                       <SelectTrigger>
                         <SelectValue placeholder="Select Occupancy" />
                       </SelectTrigger>
-
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Occupancy</SelectLabel>
-
                           <SelectItem value="Owner">Owner</SelectItem>
                           <SelectItem value="Tenant">Tenant</SelectItem>
                         </SelectGroup>
@@ -1576,19 +1642,21 @@ export const ClausesComplianceStep: React.FC<StepProps> = ({
                   }
                   control={control}
                   render={({ field }) => (
-                    <Checkbox
-                      id={`doc-${field.name}`}
-                      checked={Boolean(field.value)}
-                      onCheckedChange={field.onChange}
-                    />
+                    <>
+                      <Checkbox
+                        id={`doc-${field.name}`}
+                        checked={Boolean(field.value)}
+                        onCheckedChange={field.onChange}
+                      />
+                      <Label
+                        htmlFor={`doc-${watch(
+                          `compliance.${index}.documentationRequired`
+                        )}`}>
+                        Documentation Required
+                      </Label>
+                    </>
                   )}
                 />
-                <Label
-                  htmlFor={`doc-${watch(
-                    `compliance.${index}.documentationRequired`
-                  )}`}>
-                  Documentation Required
-                </Label>
               </div>
             </div>
           </Card>
@@ -1874,9 +1942,7 @@ export function EnhancedAgreementCreation() {
     }
   };
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form Submitted:", data);
-  };
+  const onSubmit = (data: FormValues) => {};
 
   const stepProps: StepProps = useMemo(
     () => ({ register, control, watch, setValue }),
@@ -1905,7 +1971,7 @@ export function EnhancedAgreementCreation() {
           </Button>
         </DialogTrigger>
 
-        <DialogContent className="sm:max-w-2xl md:p-10 h-full overflow-y-auto">
+        <DialogContent className="sm:max-w-2xl md:p-10 h-full overflow-y-auto font-medium">
           <DialogHeader>
             <DialogTitle className="text-3xl font-black">
               🚀 Enhanced Agreement Builder
@@ -1922,7 +1988,7 @@ export function EnhancedAgreementCreation() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="py-4">{stepsMap[currentStep]}</div>
 
-            <DialogFooter className="flex justify-between pt-6 border-t border-gray-200">
+            <DialogFooter className="flex w-full justify-between! pt-6 border-t border-gray-200">
               <Button
                 variant="secondary"
                 onClick={goToPreviousStep}
@@ -1935,10 +2001,7 @@ export function EnhancedAgreementCreation() {
 
               {isStep8 ? (
                 <div className="flex space-x-3">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => console.log("Save as Draft:", getValues())}>
+                  <Button type="button" variant="outline">
                     Save as Draft
                   </Button>
 

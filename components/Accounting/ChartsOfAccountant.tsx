@@ -254,7 +254,7 @@ const ChartOfAccounts: React.FC = () => {
   const totalIncome = 189450; // Calculated from mock data
 
   return (
-    <div className="p-4 md:p-8 pl-0 md:pl-0 min-h-screen font-inter">
+    <div className="p-4 md:p-8 pl-0 md:pl-0 min-h-screen ">
       <header className="mb-8">
         <div className="flex items-center justify-between">
           <h1 className="flex  gap-2 text-2xl font-bold text-gray-900">

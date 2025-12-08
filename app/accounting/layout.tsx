@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import { Roboto } from "next/font/google";
-import Footer from "@/components/Footer";
 import AccountingLayout from "@/components/Accounting/AccountingLayout";
-
+import Footer from "@/components/Footer";
 const roboto = Roboto({
-  weight: ["400", "500", "600", "700", "300", "200"],
+  variable: "--font-roboto",
   subsets: ["latin"],
-  display: "swap",
+  weight: ["100", "300", "400", "500", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -24,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className}  antialiased`}>
+      <body className={`${roboto.variable} ${roboto.className}   antialiased`}>
         <AccountingLayout>{children}</AccountingLayout>
         <Footer />
       </body>

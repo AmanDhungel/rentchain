@@ -210,15 +210,11 @@ const RentLease: React.FC = () => {
             Rent/Lease Agreements
           </h1>
         </div>
-        <Button className="bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/50">
-          <Pencil className="w-4 h-4 mr-2" />
-          Enhanced Agreement Builder
-        </Button>
         <EnhancedAgreementCreation />
       </div>
 
       <div className="flex flex-col items-center sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-        <div className="flex items-center bg-[#f6f9ff] p-2 rounded-md">
+        <div className="flex items-center bg-[#f6f9ff] p-2 rounded-md w-full">
           <Search className="h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search agreements..."

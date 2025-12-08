@@ -325,7 +325,7 @@ const AccountingBilling: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen pl-0 p-4 sm:p-8 font-['Inter']">
+    <div className="min-h-screen pl-0 p-4 sm:p-8 ">
       <div className="bg-red-50 border border-red-500 p-4 rounded-sm mb-8">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">

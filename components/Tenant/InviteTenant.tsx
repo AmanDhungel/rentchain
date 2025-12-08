@@ -5,6 +5,7 @@ import {
   useFormContext,
   FieldValues,
 } from "react-hook-form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 
 // ----------------------------------------------------
@@ -18,11 +19,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormField,
@@ -31,6 +27,9 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
 import { Checkbox } from "../ui/checkbox";
 
 // Placeholder for a Date Picker component (you would use one like shadcn's DatePicker)
@@ -42,9 +41,6 @@ const DatePicker = ({ field }: { field: FieldValues }) => (
   />
 );
 
-// ----------------------------------------------------
-// 2. Type Definition (Replaced Zod)
-// ----------------------------------------------------
 export interface TenantInvitationFormData {
   firstName: string;
   lastName: string;

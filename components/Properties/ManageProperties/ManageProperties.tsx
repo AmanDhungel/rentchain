@@ -4,6 +4,13 @@ import React, { useMemo, useState } from "react";
 import { icons } from "../../../assets/icons/exports";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui";
 
 interface Metrics {
   unitsFilledPercent: number;
@@ -52,7 +59,7 @@ const sampleProperties: Property[] = [
       "https://randomuser.me/api/portraits/men/31.jpg",
       "https://randomuser.me/api/portraits/women/34.jpg",
       "https://randomuser.me/api/portraits/men/45.jpg",
-      "https://randomuser.me/api/portraits/women/56.jpg",
+      "https://randomuser.me/api/portraits/men/55.jpg",
       "https://randomuser.me/api/portraits/women/56.jpg",
       "https://randomuser.me/api/portraits/women/56.jpg",
     ],
@@ -87,7 +94,6 @@ const sampleProperties: Property[] = [
   },
 ];
 
-/* ---------- Helpers ---------- */
 const statusColor = (status: Property["status"]) =>
   status === "Active" ? "bg-green-600" : "bg-red-600";
 
@@ -132,13 +138,13 @@ const Header: React.FC<{
                     style={{ marginLeft: i === 0 ? 0 : -10 }}>
                     <AvatarImage src={t} alt={t} />
                     <AvatarFallback className="bg-orange-500 text-white">
-                      P
+                      ?
                     </AvatarFallback>
                   </Avatar>
                 ))}
                 {moreCount > 0 && (
                   <div
-                    className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-xs text-white font-medium"
+                    className="w-9 h-9 z-50 rounded-full border-2 border-white flex items-center justify-center text-xs text-white font-medium"
                     style={{
                       marginLeft: -10,
                       background: "#FF7A3D",
@@ -164,7 +170,7 @@ const Header: React.FC<{
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search Project"
-            className=" rounded-md  py-2  focus:outline-none focus:border-none"
+            className=" rounded-md  py-2 bg-white!  focus:outline-none focus:border-none"
           />
         </div>
       </div>
@@ -185,62 +191,68 @@ const Filters: React.FC<{
       </div>
 
       <div className="flex gap-3 items-center">
-        <div className="border border-gray-200 rounded-md px-3 py-2">
-          <select
-            value={filters.city}
-            onChange={(e) =>
-              setFilters((p) => ({ ...p, city: e.target.value }))
-            }
-            className="border-none  px-3  focus:outline-none ">
-            <option value="">All Cities</option>
+        <Select
+          value={filters.city}
+          onValueChange={(value) => setFilters((p) => ({ ...p, city: value }))}>
+          <SelectTrigger className="bg-white ring-1 data-placeholder:text-black! ring-gray-200 py-6! w-[170px] rounded-md px-3">
+            <SelectValue placeholder="All Cities" />
+          </SelectTrigger>
+          <SelectContent>
             {cities.map((c) => (
-              <option key={c} value={c}>
+              <SelectItem key={c} value={c}>
                 {c}
-              </option>
+              </SelectItem>
             ))}
-          </select>
-        </div>
-        <div className="border border-gray-200 rounded-md px-3 py-2">
-          <select
-            value={filters.status}
-            onChange={(e) =>
-              setFilters((p) => ({ ...p, status: e.target.value as any }))
-            }
-            className="border-none focus:outline-none"
-            style={{ backgroundPosition: "right 10px center" }}>
-            <option value="">All Status</option>
-            <option value="Active">Active</option>
-            <option value="Maintenance">Maintenance</option>
-          </select>
-        </div>
-        <div className="border border-gray-200 rounded-md px-3 py-2">
-          <select
-            value={filters.type}
-            onChange={(e) =>
-              setFilters((p) => ({ ...p, type: e.target.value }))
-            }
-            className="border-none px-2 focus:outline-none">
-            <option value="">All Types</option>
+          </SelectContent>
+        </Select>
+        <Select
+          value={filters.status}
+          onValueChange={(value) =>
+            setFilters((p) => ({ ...p, status: value }))
+          }>
+          <SelectTrigger className="bg-white ring-1 data-placeholder:text-black! ring-gray-200 py-6! w-[170px] rounded-md px-3">
+            <SelectValue placeholder="All Status" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value="Active">Active</SelectItem>
+            <SelectItem value="Maintenance">Maintenance</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select
+          value={filters.type}
+          onValueChange={(value) => setFilters((p) => ({ ...p, type: value }))}>
+          <SelectTrigger className="bg-white ring-1 data-placeholder:text-black! ring-gray-200 py-6! w-[170px] rounded-md px-3">
+            <SelectValue placeholder="All Types" />
+          </SelectTrigger>
+
+          <SelectContent>
             {types.map((t) => (
-              <option key={t} value={t}>
+              <SelectItem key={t} value={t}>
                 {t}
-              </option>
+              </SelectItem>
             ))}
-          </select>
-        </div>
-        <div className="border border-gray-200 rounded-md px-3 py-2">
-          <select
-            value={filters.occupancy}
-            onChange={(e) =>
-              setFilters((p) => ({ ...p, occupancy: e.target.value }))
-            }
-            className="border-none rounded-md px-3">
-            <option value="">All Occupancy</option>
-            <option value="Short Term">Short Term</option>
-            <option value="Long Term">Long Term</option>
-          </select>
-        </div>
-        <button className="px-3 py-2 border border-gray-200 rounded-md flex gap-2">
+          </SelectContent>
+        </Select>
+        <Select
+          value={filters.occupancy}
+          onValueChange={(value) =>
+            setFilters((p) => ({ ...p, occupancy: value }))
+          }>
+          <SelectTrigger className="bg-white ring-1 data-placeholder:text-black! ring-gray-200 py-6! w-[170px] rounded-md px-3">
+            <SelectValue placeholder="All Occupancy" className="" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value="Short Term">Short Term</SelectItem>
+            <SelectItem value="Long Term">Long Term</SelectItem>
+          </SelectContent>
+        </Select>
+        <button
+          className="px-3 py-3 border border-gray-200 rounded-md flex gap-2"
+          onClick={() =>
+            setFilters({ city: "", status: "", type: "", occupancy: "" })
+          }>
           {" "}
           <Funnel /> Filters
         </button>
@@ -288,6 +300,7 @@ const PropertyCard: React.FC<{ p: Property }> = ({ p }) => {
             alt={p.title}
             className="rounded-lg w-full h-44 object-cover"
           />
+
           <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
             <div>
               <div className="text-xs text-gray-400">
@@ -394,20 +407,20 @@ const PropertyCard: React.FC<{ p: Property }> = ({ p }) => {
               <div className="flex items-center -space-x3">
                 <div className="flex items-center">
                   {p.tenants.slice(0, 4).map((t, i) => (
-                    <Image
-                      width={100}
-                      height={100}
+                    <Avatar
                       key={t}
-                      src={t}
-                      alt="tenant"
                       className={`w-9 h-9 rounded-full border-2 border-white object-cover`}
-                      style={{ marginLeft: i === 0 ? 0 : -10 }}
-                    />
+                      style={{ marginLeft: i === 0 ? 0 : -10 }}>
+                      <AvatarImage src={t} alt={t} />
+                      <AvatarFallback className="bg-orange-500 text-white">
+                        ?
+                      </AvatarFallback>
+                    </Avatar>
                   ))}
 
                   {moreCount > 0 && (
                     <div
-                      className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-xs text-white font-medium"
+                      className="w-9 h-9 z-50 rounded-full border-2 border-white flex items-center justify-center text-xs text-white font-medium"
                       style={{
                         marginLeft: -10,
                         background: "#FF7A3D",

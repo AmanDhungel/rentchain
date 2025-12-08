@@ -171,7 +171,7 @@ const SettingRow: FC<{
   };
 
   return (
-    <div className="flex justify-between items-center py-4 border-b border-gray-100 last:border-b-0">
+    <div className="flex justify-between items-center py-4 pt-0  border-b border-gray-100 last:border-b-0">
       <div className="flex flex-col flex-1 min-w-0 pr-4">
         <span className="text-base font-semibold text-gray-800">
           {item.title}
@@ -190,7 +190,7 @@ const SettingSection: FC<{
   state: TenantSettings;
   setState: React.Dispatch<React.SetStateAction<TenantSettings>>;
 }> = ({ title, items, state, setState }) => (
-  <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 mb-8">
+  <div className="bg-white p-6 pt-0 rounded-xl shadow-md border border-gray-100 mb-8">
     <h2 className="text-xl font-semibold text-gray-800 mb-4 pb-2">{title}</h2>
     <div>
       {items.map((item) => (

@@ -312,7 +312,7 @@ export default function TaxMunicipalReporting() {
   );
 
   return (
-    <div className="p-4 md:p-8 md:pl-0 min-h-screen font-inter">
+    <div className="p-4 md:p-8 md:pl-0 min-h-screen ">
       <header className="mb-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">

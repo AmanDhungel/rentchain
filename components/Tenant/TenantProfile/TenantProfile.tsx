@@ -1,5 +1,4 @@
 "use client";
-import React, { FC } from "react";
 import {
   Home,
   DollarSign,
@@ -22,7 +21,14 @@ import {
   TrendingUp,
   Shield,
   MoveLeft,
+  KeyRound,
+  CreditCard,
+  Settings,
+  File,
 } from "lucide-react";
+import Image from "next/image";
+import React, { FC } from "react";
+import { icons } from "@/assets/icons/exports";
 import {
   Button,
   Card,
@@ -30,15 +36,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui";
-import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Billing from "./Billing";
+import Documents from "./Documents";
+import KYC from "./KYC";
 import Lease from "./Leases";
 import Payments from "./Payments";
-import KYC from "./KYC";
-import Documents from "./Documents";
-import Billing from "./Billing";
 import Setting from "./Settings";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { icons } from "@/assets/icons/exports";
 
 interface Stat {
   icon: LucideIcon;
@@ -181,7 +186,7 @@ const tenantData: TenantData = {
       label: "Payment Reliability",
       value: "75%",
       badge: false,
-      color: "[#AB47BC]",
+      color: "purple-500",
     },
     {
       icon: Shield,
@@ -286,9 +291,7 @@ const InfoItem: FC<InfoItemProps> = ({
             tempInput.select();
             document.execCommand("copy");
             document.body.removeChild(tempInput);
-            console.log("Copied to clipboard:", value);
           }}
-          title="Copy to clipboard"
         />
       )}
     </div>
@@ -318,7 +321,7 @@ const RatingBar: FC<RatingBreakdownItem> = ({ stars, percentage }) => (
   <div className="flex items-center space-x-2">
     <span className="text-xs text-gray-500 w-2">{stars}</span>
     <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
-    <Progress value={percentage} className="flex-grow h-1.5" />
+    <Progress value={percentage} className="grow h-1.5" />
     <span className="text-xs font-medium text-gray-700 w-8 text-right">
       {percentage}%
     </span>
@@ -331,16 +334,16 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
   data: TenantData;
 }) => (
   <div className="space-y-6">
-    <Card className="overflow-hidden">
-      <div className="h-24 w-full bg-orange-500"></div>
+    <Card className="overflow-hidden pt-0">
+      <div
+        className={`h-24 w-full p-0 bg-cover bg-[url('@/assets/tenant-profile-img.png')]`}></div>
       <div className="p-6 pt-0 flex flex-col items-center -mt-12">
-        <Image
-          src={data.profileImageUrl}
-          alt={data.name}
-          width={500}
-          height={500}
-          className="w-24 h-24 rounded-full border-4 border-white object-cover shadow-lg"
-        />
+        <Avatar className="w-24 h-24 rounded-full border-4 border-white object-cover shadow-lg">
+          <AvatarImage src={data.profileImageUrl} alt={data.name} />
+          <AvatarFallback className="bg-gray-400 text-white font-medium">
+            {data.name.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
         <div className="flex items-center mt-3">
           <h1 className="text-xl font-bold">{data.name}</h1>
           <Verified className="h-4 w-4 text-green-500 ml-2" />
@@ -446,7 +449,7 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
               {data.rating.totalReviews}
             </span>
           </div>
-          <div className="flex-grow space-y-1">
+          <div className="grow space-y-1">
             {data.rating.breakdown.map((item, index) => (
               <RatingBar
                 key={index}
@@ -472,13 +475,10 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
       <CardContent className="space-y-4">
         {data.contacts.map((contact, index) => (
           <div key={index} className="flex items-center space-x-3">
-            <Image
-              src={contact.avatar}
-              alt={contact.name}
-              width={500}
-              height={500}
-              className="w-8 h-8 rounded-full object-cover"
-            />
+            <Avatar className="w-8 h-8 rounded-full object-cover">
+              <AvatarImage src={contact.avatar} alt={contact.name} />
+              <AvatarFallback>{contact.name.charAt(0)}</AvatarFallback>
+            </Avatar>
             <span className="text-sm font-medium">{contact.name}</span>
           </div>
         ))}
@@ -494,10 +494,48 @@ const ProfileSidebar: React.FC<TenantProfileProps> = ({
         </div>
       </CardHeader>
       <CardContent className="flex space-x-4">
-        <Instagram className="h-6 w-6 text-pink-600 cursor-pointer" />
-        <Twitter className="h-6 w-6 text-blue-700 cursor-pointer" />
-        <Linkedin className="h-6 w-6 text-blue-700 cursor-pointer" />
-        <Facebook className="h-6 w-6 text-blue-600 cursor-pointer" />
+        <Image
+          src={icons.Instagram}
+          alt="Instagram"
+          width={500}
+          height={500}
+          className="w-10 h-10"
+        />
+        <Image
+          src={icons.Twitter}
+          alt="Twitter"
+          width={500}
+          height={500}
+          className="w-10 h-10"
+        />
+        <Image
+          src={icons.Whatsapp}
+          alt="Whatsapp"
+          width={500}
+          height={500}
+          className="w-10 h-10"
+        />
+        <Image
+          src={icons.Pintrest}
+          alt="Whatsapp"
+          width={500}
+          height={500}
+          className="w-10 h-10"
+        />
+        <Image
+          src={icons.LinkedIn}
+          alt="Linkedin"
+          width={500}
+          height={500}
+          className="w-10 h-10"
+        />
+        <Image
+          src={icons.Facebook}
+          alt="Facebook"
+          width={500}
+          height={500}
+          className="w-10 h-10"
+        />
       </CardContent>
     </Card>
   </div>
@@ -516,31 +554,42 @@ const MainContent: React.FC<TenantProfileProps> = ({ data }) => (
         <TabsTrigger
           value="leases"
           className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
-          Leases
+          <KeyRound className="-rotate-45" /> Leases
         </TabsTrigger>
         <TabsTrigger
           value="payments"
           className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
-          Payments
+          <Image src={icons.CreditScore} alt="Credit Card" /> Payments
         </TabsTrigger>
         <TabsTrigger
           value="kyc"
           className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
-          KYC
+          <Image src={icons.FilePresent} alt="RequestQuote" /> KYC
         </TabsTrigger>
         <TabsTrigger
           value="documents"
           className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          <Image src={icons.Description} alt="Description" />
           Documents
         </TabsTrigger>
         <TabsTrigger
           value="billing"
           className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          {/* <Image
+            src={icons.RequestQuote}
+            alt="Description"
+            className="w-5 h-5"
+          />{" "} */}
+          <div>
+            <File />
+            <DollarSign size={1} className="w-1 h-1 bottom-2.5" />
+          </div>
           Billing
         </TabsTrigger>
         <TabsTrigger
           value="settings"
           className="text-gray-600 data-[state=active]:border-b-2 data-[state=active]:border-b-orange-600 data-[state=active]:text-orange-600 data-[state=active]:shadow-none rounded-none">
+          <Settings />
           Settings
         </TabsTrigger>
       </TabsList>

@@ -1,6 +1,6 @@
-import FourDots from "./fourdots.svg";
 import DoorExit from "./doorexit.svg";
-import MailIcon from "./mailicon.svg";
+import FourDots from "./fourdots.svg";
+import RentChainLogo from "./RentChain.svg";
 import Notification from "./notification.svg";
 import ZoomInOut from "./zoominout.svg";
 import Message from "./message.svg";
@@ -16,6 +16,7 @@ import actionWorkOrder from "./action_workorder.svg";
 import ActionOccupancy from "./action_occupancy.svg";
 import TrendingUp from "./trending_up.svg";
 import InteractiveSpace from "./interactive_space.svg";
+import MailIcon from "./mailicon.svg";
 import Payments from "./payments.svg";
 import ActionOnActive from "./action_on_active.svg";
 import PropertiesMessage from "./properties_message.svg";
@@ -48,8 +49,16 @@ import ActivityZone from "./activity_zone.svg";
 import CreditCardClock from "./credit_card_clock.svg";
 import DataLossPrevention from "./data_loss_prevention.svg";
 import AutoPause from "./autopause.svg";
-import RentChainLogo from "./RentChain.svg";
 import Premium from "./premium.svg";
+import Instagram from "./instagram.svg";
+import Facebook from "./facebook.svg";
+import Twitter from "./twitter.svg";
+import Whatsapp from "./whatsapp.svg";
+import Pintrest from "./pintrest.svg";
+import LinkedIn from "./linkedIn.svg";
+import CreditScore from "./credit_score.svg";
+import Description from "./description.svg";
+import FilePresent from "./file_present.svg";
 
 export const icons = {
   FourDots,
@@ -104,4 +113,13 @@ export const icons = {
   AutoPause,
   RentChainLogo,
   Premium,
+  Instagram,
+  Facebook,
+  Twitter,
+  Whatsapp,
+  Pintrest,
+  LinkedIn,
+  CreditScore,
+  Description,
+  FilePresent,
 };
