@@ -137,8 +137,6 @@ export default function StepIndicator({
     };
   }, []);
 
-  console.log("Unknown step", currentStep);
-
   return (
     <div className="relative">
       {canScrollLeft && (

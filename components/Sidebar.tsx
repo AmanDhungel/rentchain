@@ -329,6 +329,19 @@ export default function Sidebar() {
         </svg>
       ),
       hasDropdown: true,
+      subItems: [
+        {
+          label: "Quick Setup",
+          location: "/parking/quicksetup",
+          active: pathname.startsWith("/parking/quicksetup"),
+        },
+        {
+          label: "Enhanced Parking",
+          location: "/parking/enhancedparking",
+          active: pathname.startsWith("/parking/enhancedparking"),
+          isPremium: true,
+        },
+      ],
     },
     {
       id: "analytics",

@@ -242,12 +242,10 @@ const UtilityStepForm: React.FC = () => {
   const onPrevious = () => setCurrentStep((s) => Math.max(s - 1, 1));
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    // final submit - here you have validated entire form
     console.log("Final form submit:", data);
     window.alert("Meter added successfully!");
   };
 
-  // simple Step renderers using Controller for custom components
   const Step1BasicInfo = ({ form }: { form: UseFormReturn<FormData> }) => (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-gray-800">Basic Information</h3>
@@ -256,7 +254,6 @@ const UtilityStepForm: React.FC = () => {
           <FormField
             label="Meter Number"
             description="e.g., EL-001, WM-123, GM-456">
-            {/* Using register for simple input — requires Input to forward ref */}
             <Input
               id="meterNumber"
               placeholder="e.g., EL-001, WM-123, GM-456"

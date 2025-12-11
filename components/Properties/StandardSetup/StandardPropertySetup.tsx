@@ -89,9 +89,7 @@ export default function StandardPropertySetup() {
         {step === 18 && (
           <AmenitiesForm onNext={handleNext} onPrev={handlePrev} />
         )}
-        {step === 19 && (
-          <PublishingForm onNext={handleNext} onPrev={handlePrev} />
-        )}
+        {step === 19 && <PublishingForm onPrev={handlePrev} />}
       </div>
     </FormProvider>
   );
