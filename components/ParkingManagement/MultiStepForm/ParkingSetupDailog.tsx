@@ -34,7 +34,7 @@ export default function ParkingSetupDialog() {
           </DialogTitle>
         </DialogHeader>
         <div className="w-full p-6 pt-0">
-          <ParkingQuickSetup />
+          <ParkingQuickSetup setIsOpen={setIsOpen} isOpen={open} />
         </div>
       </DialogContent>
     </Dialog>

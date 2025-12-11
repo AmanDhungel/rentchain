@@ -8,8 +8,21 @@ import { Button } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { facilityFormSchema, LocationSchema } from "./Parking.types";
+import { ParkingStructureBuilder } from "./ParkingFacilitySetup/ParkingStructureBuilder";
+import { StructureItem } from "./ParkingFacilitySetup/StructureItem";
+import OperatingHoursForm from "./OperatingHours/OperatingHoursForm";
+import AccessControlForm from "./AccessControl/AccessControlForm";
+import AmenitiesForm from "./AmenitiesandPricing/AmenitiesForm";
+import { Check } from "lucide-react";
+import ReviewSubmitForm from "./ReviewAndCreate";
 
-export default function ParkingQuickSetup() {
+export default function ParkingQuickSetup({
+  setIsOpen,
+  isOpen,
+}: {
+  setIsOpen: (isOpen: boolean) => void;
+  isOpen: boolean;
+}) {
   const [step, setStep] = useState(1);
   const FullSchema = facilityFormSchema.extend(LocationSchema.shape);
 
@@ -39,7 +52,9 @@ export default function ParkingQuickSetup() {
   const handlePrev = () => setStep((prev) => prev - 1);
 
   function onSubmit(data: FormValues) {
+    console.log("Submit", data);
     alert("Submitted! check console for values.");
+    setIsOpen(false);
   }
 
   return (
@@ -51,6 +66,11 @@ export default function ParkingQuickSetup() {
           <ParkingStepIndicator currentStep={step} />
           {step === 1 && <FacilityForm />}
           {step === 2 && <LocationForm />}
+          {step === 3 && <ParkingStructureBuilder />}
+          {step === 4 && <OperatingHoursForm />}
+          {step === 5 && <AccessControlForm />}
+          {step === 6 && <AmenitiesForm />}
+          {step === 7 && <ReviewSubmitForm />}
 
           <div className="flex justify-between gap-2 mt-4">
             {step > 0 && (
@@ -73,12 +93,13 @@ export default function ParkingQuickSetup() {
               </Button>
             )}
 
-            {step === 8 && (
-              <button
+            {step === 7 && (
+              <Button
                 type="submit"
-                className="px-4 py-2 bg-green-600 text-white rounded">
-                Submit
-              </button>
+                onClick={() => onSubmit(getValues())}
+                className="bg-orange-500 hover:bg-orange-600 font-semibold flex items-center">
+                <Check /> Complete Setup
+              </Button>
             )}
           </div>
         </div>

@@ -170,116 +170,108 @@ export function FacilityForm() {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 mx-auto p-4 px-0">
-        <Card className="p-6 space-y-4">
-          <h3 className="text-lg font-semibold text-gray-800">
-            Basic Information
-          </h3>
+    <>
+      <Card className="p-6 space-y-4">
+        <h3 className="text-lg font-semibold text-gray-800">
+          Basic Information
+        </h3>
 
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="facilityName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Facility Name *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g., Plaza Tower Parking" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="facilityCode"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Facility Code *</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g., PLAZA-PARK-01" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
+        <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="description"
+            name="facilityName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Facility Name *</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="Brief description of the parking facility"
-                    className="resize-none min-h-[80px]"
-                    {...field}
-                  />
+                  <Input placeholder="e.g., Plaza Tower Parking" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </Card>
 
-        <Card className="p-6 space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">
-            Facility Type & Ownership
-          </h3>
           <FormField
             control={form.control}
-            name="facilityType"
+            name="facilityCode"
             render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel className="text-base">Facility Type *</FormLabel>
-                <div className="grid grid-cols-3 gap-3">
-                  {facilityTypes.map((type) => (
-                    <FacilityTypeCard
-                      key={type.value}
-                      {...type}
-                      onSelect={(selectedValue) =>
-                        field.onChange(selectedValue)
-                      }
-                      isSelected={field.value === type.value}
-                    />
-                  ))}
-                </div>
+              <FormItem>
+                <FormLabel>Facility Code *</FormLabel>
+                <FormControl>
+                  <Input placeholder="e.g., PLAZA-PARK-01" {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="pt-2"></div> {/* Visual separation */}
-          {/* Ownership Model Selection (Stack) */}
-          <FormField
-            control={form.control}
-            name="ownershipModel"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel className="text-base">Ownership Model *</FormLabel>
-                <div className="space-y-2">
-                  {ownershipModels.map((model) => (
-                    <OwnershipModelCard
-                      key={model.value}
-                      {...model}
-                      onSelect={(selectedValue) =>
-                        field.onChange(selectedValue)
-                      }
-                      isSelected={field.value === model.value}
-                    />
-                  ))}
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Card>
-      </form>
-    </Form>
+        </div>
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Brief description of the parking facility"
+                  className="resize-none min-h-[80px]"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </Card>
+
+      <Card className="p-6 space-y-6">
+        <h3 className="text-lg font-semibold text-gray-800">
+          Facility Type & Ownership
+        </h3>
+        <FormField
+          control={form.control}
+          name="facilityType"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel className="text-base">Facility Type *</FormLabel>
+              <div className="grid grid-cols-3 gap-3">
+                {facilityTypes.map((type) => (
+                  <FacilityTypeCard
+                    key={type.value}
+                    {...type}
+                    onSelect={(selectedValue) => field.onChange(selectedValue)}
+                    isSelected={field.value === type.value}
+                  />
+                ))}
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="pt-2"></div> {/* Visual separation */}
+        {/* Ownership Model Selection (Stack) */}
+        <FormField
+          control={form.control}
+          name="ownershipModel"
+          render={({ field }) => (
+            <FormItem className="space-y-3">
+              <FormLabel className="text-base">Ownership Model *</FormLabel>
+              <div className="space-y-2">
+                {ownershipModels.map((model) => (
+                  <OwnershipModelCard
+                    key={model.value}
+                    {...model}
+                    onSelect={(selectedValue) => field.onChange(selectedValue)}
+                    isSelected={field.value === model.value}
+                  />
+                ))}
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </Card>
+    </>
   );
 }
