@@ -51,23 +51,23 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Overview",
-          location: "/dashboard/overview",
-          active: pathname === "/dashboard/overview",
+          location: "/owner/dashboard/overview",
+          active: pathname === "/owner/dashboard/overview",
         },
         {
           label: "Properties",
-          location: "/dashboard/properties",
-          active: pathname === "/dashboard/properties",
+          location: "/owner/dashboard/properties",
+          active: pathname === "/owner/dashboard/properties",
         },
         {
           label: "Financial",
-          location: "/dashboard/financial",
-          active: pathname === "/dashboard/financial",
+          location: "/owner/dashboard/financial",
+          active: pathname === "/owner/dashboard/financial",
         },
         {
           label: "Actions",
-          location: "/dashboard/actions",
-          active: pathname === "/dashboard/actions",
+          location: "/owner/dashboard/actions",
+          active: pathname === "/owner/dashboard/actions",
         },
       ],
     },
@@ -91,18 +91,18 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Manage Properties",
-          location: "/properties/manageproperties",
-          active: pathname === "/properties/manageproperties",
+          location: "/owner/properties/manageproperties",
+          active: pathname === "/owner/properties/manageproperties",
         },
         {
           label: "Standard Setup",
-          location: "/properties/standardsetup",
-          active: pathname === "/properties/standardsetup",
+          location: "/owner/properties/standardsetup",
+          active: pathname === "/owner/properties/standardsetup",
         },
         {
           label: "Enhanced Setup",
-          location: "/properties/enhancedsetup",
-          active: pathname === "/properties/enhancedsetup",
+          location: "/owner/properties/enhancedsetup",
+          active: pathname === "/owner/properties/enhancedsetup",
           isPremium: true,
         },
       ],
@@ -127,18 +127,18 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Manage Tenants",
-          location: "/tenant/managetenant",
-          active: pathname.startsWith("/tenant/managetenant"),
+          location: "/owner/tenant/managetenant",
+          active: pathname.startsWith("/owner/tenant/managetenant"),
         },
         {
           label: "Directory",
-          location: "/tenant/directory",
-          active: pathname === "/tenant/directory",
+          location: "/owner/tenant/directory",
+          active: pathname === "/owner/tenant/directory",
         },
         {
           label: "Invitations",
-          location: "/tenant/invitations",
-          active: pathname === "/tenant/invitations",
+          location: "/owner/tenant/invitations",
+          active: pathname === "/owner/tenant/invitations",
           isPremium: true,
         },
       ],
@@ -163,13 +163,13 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Accounting & Billing",
-          location: "/accounting/accountingandbilling",
-          active: pathname.startsWith("/accounting/accountingandbilling"),
+          location: "/owner/accounting/accountingandbilling",
+          active: pathname.startsWith("/owner/accounting/accountingandbilling"),
         },
         {
           label: "Financial Management",
-          location: "/accounting/financialmanagement",
-          active: pathname === "/accounting/financialmanagement",
+          location: "/owner/accounting/financialmanagement",
+          active: pathname === "/owner/accounting/financialmanagement",
         },
       ],
     },
@@ -193,24 +193,26 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Manage Agreements",
-          location: "/agreement/manageagreement",
-          active: pathname.startsWith("/agreement/manageagreement"),
+          location: "/owner/agreement/manageagreement",
+          active: pathname.startsWith("/owner/agreement/manageagreement"),
         },
         {
           label: "Agreements Builder",
-          location: "/agreement/managementagrrement",
-          active: pathname.startsWith("/agreement/managementagrrement"),
+          location: "/owner/agreement/managementagrrement",
+          active: pathname.startsWith("/owner/agreement/managementagrrement"),
         },
         {
           label: "Enhanced Agreement Builder",
-          location: "/agreement/enhancedagreementbuilder",
-          active: pathname.startsWith("/agreement/enhancedagreementbuilder"),
+          location: "/owner/agreement/enhancedagreementbuilder",
+          active: pathname.startsWith(
+            "/owner/agreement/enhancedagreementbuilder"
+          ),
           isPremium: true,
         },
         {
           label: "AI Assistance",
-          location: "/agreement/managementagrrement",
-          active: pathname.startsWith("/agreement/managementagrrement"),
+          location: "/owner/agreement/managementagrrement",
+          active: pathname.startsWith("/owner/agreement/managementagrrement"),
           isPremium: true,
         },
       ],
@@ -235,8 +237,8 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Manage Utilities",
-          location: "/utilities/metersandbilling",
-          active: pathname.startsWith("/utilities/metersandbilling"),
+          location: "/owner/utilities/metersandbilling",
+          active: pathname.startsWith("/owner/utilities/metersandbilling"),
         },
       ],
     },
@@ -260,22 +262,24 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Complaints and Disputes",
-          location: "/complaints/complaint-and-dispute",
-          active: pathname.startsWith("/complaints/complaint-and-dispute"),
+          location: "/owner/complaints/complaint-and-dispute",
+          active: pathname.startsWith(
+            "/owner/complaints/complaint-and-dispute"
+          ),
         },
         {
           label: "Work Orders",
-          location: "/complaints/complaint-and-dispute",
+          location: "/owner/complaints/complaint-and-dispute",
           active: pathname.startsWith(
-            "/occupancy/enhancedmanagement/asdsadsadsdads"
+            "/owner/occupancy/enhancedmanagement/asdsadsadsdads"
           ),
           isPremium: true,
         },
         {
           label: "Vendors",
-          location: "/complaints/complaint-and-dispute",
+          location: "/owner/complaints/complaint-and-dispute",
           active: pathname.startsWith(
-            "/occupancy/enhancedmanagement/asdsadsadsdads"
+            "/owner/occupancy/enhancedmanagement/asdsadsadsdads"
           ),
           isPremium: true,
         },
@@ -301,13 +305,13 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Occupants",
-          location: "/occupancy/occupants",
-          active: pathname.startsWith("/occupancy/occupants"),
+          location: "/owner/occupancy/occupants",
+          active: pathname.startsWith("/owner/occupancy/occupants"),
         },
         {
           label: "Enhanced Management",
-          location: "/occupancy/enhancedmanagement",
-          active: pathname.startsWith("/occupancy/enhancedmanagement"),
+          location: "/owner/occupancy/enhancedmanagement",
+          active: pathname.startsWith("/owner/occupancy/enhancedmanagement"),
           isPremium: true,
         },
       ],
@@ -332,13 +336,13 @@ export default function Sidebar() {
       subItems: [
         {
           label: "Quick Setup",
-          location: "/parking/quicksetup",
-          active: pathname.startsWith("/parking/quicksetup"),
+          location: "/owner/parking/quicksetup",
+          active: pathname.startsWith("/owner/parking/quicksetup"),
         },
         {
           label: "Enhanced Parking",
-          location: "/parking/enhancedparking",
-          active: pathname.startsWith("/parking/enhancedparking"),
+          location: "/owner/parking/enhancedparking",
+          active: pathname.startsWith("/owner/parking/enhancedparking"),
           isPremium: true,
         },
       ],

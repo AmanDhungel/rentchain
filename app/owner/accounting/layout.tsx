@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../../globals.css";
 import { Roboto } from "next/font/google";
 import AccountingLayout from "@/components/owner/Accounting/AccountingLayout";
-import Footer from "@/owner/components/Footer";
+import Footer from "@/components/owner/Footer";
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
