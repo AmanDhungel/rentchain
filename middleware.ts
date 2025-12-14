@@ -21,7 +21,9 @@ export async function middleware(req: NextRequest) {
     const { payload } = await jwtVerify(token, SECRET);
 
     if (payload && pathname === "/") {
-      return NextResponse.redirect(new URL("/dashboard/overview", req.url));
+      return NextResponse.redirect(
+        new URL("owner/dashboard/overview", req.url)
+      );
     }
 
     return NextResponse.next();
