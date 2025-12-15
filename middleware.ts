@@ -5,29 +5,23 @@ import type { NextRequest } from "next/server";
 const SECRET = new TextEncoder().encode(process.env.JWT_ACCESS_SECRET);
 
 export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-
-  if (pathname.startsWith("/api/auth") || pathname.startsWith("/auth")) {
-    return NextResponse.next();
-  }
-
   const token = req.cookies.get("access_token")?.value;
 
+  // No token at all → redirect
   if (!token) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
   try {
-    const { payload } = await jwtVerify(token, SECRET);
-
-    if (payload && pathname === "/") {
-      return NextResponse.redirect(
-        new URL("owner/dashboard/overview", req.url)
-      );
+    await jwtVerify(token, SECRET);
+    return NextResponse.next();
+  } catch (err: any) {
+    // 🔥 Allow expired access token
+    if (err.code === "ERR_JWT_EXPIRED") {
+      return NextResponse.next();
     }
 
-    return NextResponse.next();
-  } catch (err) {
+    // Any other error → logout
     return NextResponse.redirect(new URL("/", req.url));
   }
 }
@@ -35,13 +29,14 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/dashboard/:path*",
-    "/profile/:path*",
-    "/admin/:path*",
-    "/properties/:path*",
-    "/occupancy/:path*",
-    "/utilities/:path*",
-    "/agreement/:path*",
-    "/tenant/:path*",
-    "/accounting/:path*",
+    "/owner/dashboard/:path*",
+    "/owner/profile/:path*",
+    "/owner/admin/:path*",
+    "/owner/properties/:path*",
+    "/owner/occupancy/:path*",
+    "/owner/utilities/:path*",
+    "/owner/agreement/:path*",
+    "/owner/tenant/:path*",
+    "/owner/accounting/:path*",
   ],
 };
