@@ -87,10 +87,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           credentials: "include",
         });
 
-        if (res.status === 401 || res.status === 403) {
-          forceLogout();
-          return null;
-        }
+        // if (res.status === 401 || res.status === 403) {
+        //   forceLogout();
+        //   return null;
+        // }
 
         if (!res.ok) return null;
 
@@ -158,7 +158,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     [refreshAccessToken]
   );
 
-  // Login: set token and user on success
   const login = useCallback(
     async (email: string, password: string) => {
       setLoading(true);
@@ -173,10 +172,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setAccessToken(tok);
         setUser(u);
         if (u) loginData(u);
-        // Optionally set axios defaults for convenience
         if (tok)
           axios.defaults.headers.common["Authorization"] = `Bearer ${tok}`;
-        router.push("/owner/dashboard/overview");
+        router.push("/tenant/subtenant/contacts-directory");
       } catch (err) {
         throw err;
       } finally {

@@ -70,8 +70,6 @@ interface LinkItemProps {
   href?: string;
 }
 
-interface ActivityItemProps extends ActivityItemData {}
-
 const AR_AGING_DATA: ARAgingItem[] = [
   { label: "Current (0-30)", amount: "$24,500" },
   { label: "31-60 days", amount: "$8,200" },
@@ -174,7 +172,9 @@ const ARAgingCard: React.FC = () => {
       </div>
 
       <button
-        onClick={() => router.push("/accounting/accountingandbilling/araging")}
+        onClick={() =>
+          router.push("/owner/accounting/accountingandbilling/araging")
+        }
         className="w-full bg-orange-600 text-white font-semibold py-3 rounded-xl mt-auto transition hover:bg-orange-700">
         View Details
       </button>
@@ -210,7 +210,9 @@ const ReceiptsCard: React.FC = () => {
 
       <button
         onClick={() =>
-          router.push("/accounting/accountingandbilling/receiptandpayment")
+          router.push(
+            "/owner/accounting/accountingandbilling/receiptandpayment"
+          )
         }
         className="w-full bg-orange-600 text-white font-semibold py-3 rounded-xl mt-auto transition hover:bg-orange-700">
         View Payments
@@ -290,7 +292,7 @@ const LinkItem: React.FC<LinkItemProps> = ({
   </Link>
 );
 
-const ActivityItem: React.FC<ActivityItemProps> = ({
+const ActivityItem: React.FC<ActivityItemData> = ({
   type,
   description,
   time,
@@ -423,17 +425,17 @@ const AccountingBilling: React.FC = () => {
             <LinkItem
               icon={ListChecks}
               title="Chart of Accounts"
-              href="/accounting/accountingandbilling/chartsofaccounts"
+              href="/owner/accounting/accountingandbilling/chartsofaccounts"
             />
             <LinkItem
               icon={Files}
               title="Manage Invoices"
-              href="/accounting/accountingandbilling/invoices"
+              href="/owner/accounting/accountingandbilling/invoices"
             />
             <LinkItem
               icon={Lock}
               title="Security Deposits"
-              href="/accounting/accountingandbilling/security-deposits"
+              href="/owner/accounting/accountingandbilling/security-deposits"
             />
           </div>
         </DashboardCard>
@@ -446,17 +448,17 @@ const AccountingBilling: React.FC = () => {
             <LinkItem
               icon={BookOpen}
               title="Financial Reports"
-              href="/accounting/accountingandbilling/financialreport"
+              href="/owner/accounting/accountingandbilling/financialreport"
             />
             <LinkItem
               icon={Building}
               title="Tax & Municipal"
-              href="/accounting/accountingandbilling/taxandmunicipalreporting"
+              href="/owner/accounting/accountingandbilling/taxandmunicipalreporting"
             />
             <LinkItem
               icon={PieChart}
               title="AR Aging Analysis"
-              href="/accounting/accountingandbilling/araging"
+              href="/owner/accounting/accountingandbilling/araging"
             />
           </div>
         </DashboardCard>

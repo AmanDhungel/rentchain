@@ -1,36 +1,30 @@
 "use client";
 import React, { useState } from "react";
 import {
-  ArrowLeft,
   Search,
   SlidersHorizontal,
   Plus,
   Star,
   Zap,
   Droplet,
-  Gauge,
   Phone,
   Mail,
-  Users,
   FileText,
-  Clock,
-  Briefcase,
   Ticket,
-  Calendar,
   Eye,
   Edit,
   MoveLeft,
 } from "lucide-react";
 
-// Simulated Shadcn component imports
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-import { icons } from "@/assets/icons/exports";
 import Link from "next/link";
+import { icons } from "@/assets/icons/exports";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
 const providerData = {
   name: "City Electric Company",
@@ -204,7 +198,7 @@ const ProvidersTab = () => (
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8 text-sm">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-y-4 gap-x-8 text-sm">
         <div>
           <DetailRow
             label="Service Areas"
@@ -220,16 +214,25 @@ const ProvidersTab = () => (
             isTime={true}
           />
         </div>
-        <div className="mt-4 md:mt-0">
-          <DetailRow label="Reliability" value={providerData.reliability} />
-          <DetailRow label="Response Time" value={providerData.responseTime} />
+        <div className="flex justify-between items-center mt-4 md:mt-0">
+          <DetailRow
+            label="Reliability"
+            value={providerData.reliability}
+            className="flex-col"
+          />
+          <DetailRow
+            label="Response Time"
+            value={providerData.responseTime}
+            className="flex-col"
+          />
           <DetailRow
             label="Satisfaction"
             value={`${providerData.satisfaction} / 5`}
             isRating={true}
+            className="flex-col"
           />
         </div>
-        <div className="flex flex-col justify-end space-y-2 mt-4 md:mt-0">
+        <div className="flex items-center gap-4 mt-4 md:mt-0">
           <div className="flex items-center space-x-3 text-gray-600">
             <Phone className="h-4 w-4 text-gray-500" />
             <span>{providerData.phone}</span>
@@ -267,16 +270,18 @@ const ProvidersTab = () => (
 
 const DetailRow = ({
   label,
+  className,
   value,
   isTime = false,
   isRating = false,
 }: {
   label: string;
   value: string;
+  className?: string;
   isTime?: boolean;
   isRating?: boolean;
 }) => (
-  <div className="flex justify-between py-1 text-sm">
+  <div className={cn(className, `flex justify-between py-1 text-sm`)}>
     <span className="text-gray-500 font-medium">{label}</span>
     <span
       className={`font-semibold text-gray-800 flex items-center ${

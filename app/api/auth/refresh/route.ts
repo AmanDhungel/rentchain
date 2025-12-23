@@ -14,12 +14,10 @@ export async function POST(req: Request) {
   await connectToDatabase();
 
   const cookieHeader = req.headers.get("cookie") || "";
-  console.log("cookieHeader", req.headers.get("cookie"));
   const match = cookieHeader
     .split(";")
     .map((s) => s.trim())
     .find((s) => s.startsWith("refreshToken="));
-  console.log("match", match);
   if (!match)
     return NextResponse.json({ message: "No refresh token" }, { status: 401 });
 

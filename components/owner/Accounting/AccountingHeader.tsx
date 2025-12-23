@@ -18,7 +18,7 @@ const AccountingHeaderSection: React.FC = () => {
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: "", href: "/" },
-    { label: "Accounting", href: "/accounting/accountingandbilling" },
+    { label: "Accounting", href: "owner/accounting/accountingandbilling" },
     {
       label:
         pathname.split("/").pop() ||
@@ -63,7 +63,7 @@ const AccountingHeaderSection: React.FC = () => {
               <button
                 onClick={() =>
                   router.push(
-                    "/accounting/accountingandbilling/financialreport"
+                    "/owner/accounting/accountingandbilling/financialreport"
                   )
                 }
                 className="flex items-center bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md shadow-sm hover:bg-gray-100 transition">

@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.variable} ${roboto.variable} antialiased`}>
+      <body className={`${roboto.variable} font-sans antialiased`}>
         <AuthProvider> {children}</AuthProvider>
         <ToastContainer />
       </body>

@@ -126,11 +126,6 @@ const detectedAnomalies = [
   },
 ];
 
-// --- UTILITY/STYLE COMPONENTS ---
-
-/**
- * Renders a small status chip (like 'Active', 'Connected', 'Medium').
- */
 const StatusChip = ({
   label,
   color,
@@ -139,14 +134,14 @@ const StatusChip = ({
   color: "green" | "blue" | "red" | "yellow";
 }) => {
   const colorMap = {
-    green: "bg-green-100 text-green-700",
-    blue: "bg-blue-100 text-blue-700",
-    red: "bg-red-100 text-red-700",
-    yellow: "bg-yellow-100 text-yellow-700",
+    green: "bg-green-500 text-white",
+    blue: "bg-blue-500 text-white",
+    red: "bg-red-500 text-white",
+    yellow: "bg-yellow-500 text-white",
   };
   return (
     <span
-      className={`text-xs font-semibold px-3 py-1 rounded-full ${colorMap[color]} whitespace-nowrap`}>
+      className={`text-xs font-semibold px-3 py-1 rounded-sm ${colorMap[color]} whitespace-nowrap`}>
       {label}
     </span>
   );
@@ -405,7 +400,6 @@ const ReadingsTab = () => (
  */
 const AllocationsTab = () => (
   <TabsContent value="allocations" className="mt-6 space-y-6">
-    {/* Actions */}
     <div className="flex justify-end">
       <Button className="bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/30 h-10 px-4 flex items-center space-x-2">
         <Target className="h-4 w-4" />
@@ -415,20 +409,19 @@ const AllocationsTab = () => (
 
     <h3 className="text-lg font-bold text-gray-800">Allocation Rules</h3>
 
-    {/* Allocation List */}
     {allocationRules.map((rule) => (
       <Card key={rule.id} className="rounded-xl p-5 border-gray-100 shadow-md">
         <div className="flex justify-between items-start">
           <div className="flex items-start space-x-4">
-            <div className="w-10 h-10 flex items-center justify-center rounded-md bg-orange-500/10 flex-shrink-0">
+            <div className="w-10 h-10 flex items-center justify-center rounded-md bg-orange-500/10 shrink-0">
               <rule.icon className="h-5 w-5 text-orange-600" />
             </div>
             <div>
               <h4 className="text-lg font-bold text-gray-900">{rule.id}</h4>
-              <p className="text-sm text-gray-600 mt-1">{rule.allocation}</p>
-              <p className="text-base font-semibold text-gray-800">
-                {rule.rule}
+              <p className="text-sm font-bold text-gray-600 mt-1">
+                {rule.allocation}
               </p>
+              <p className="text-base  text-gray-800">{rule.rule}</p>
               <p className="text-sm text-gray-500">Read by: {rule.readBy}</p>
             </div>
           </div>
@@ -557,7 +550,7 @@ const MetersAndBillingDashboard = () => {
           </div>
           <div className="flex items-center text-center space-x-3">
             <Link
-              href={"/utilities/metersandbilling/utilityprovider"}
+              href={"/owner/utilities/metersandbilling/utilityprovider"}
               className="text-sm font-medium text-gray-700 ">
               <Button className="py-5.5" variant={"outline"}>
                 Providers
