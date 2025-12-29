@@ -1,15 +1,16 @@
+"use client";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { NewRequestForm } from "./NewRequestForm";
 import { ActiveRequests } from "./ActiveRequest";
-import { RequestHistory } from "./RequestHistory";
 import { RequestDetails } from "./RequestDetails";
+import RequestHistory from "./RequestHistory";
+import MaintenanceRequestForm from "./NewRequestForm";
 
 export default function MaintenanceMain() {
   return (
-    <div className="p-8 bg-slate-50 min-h-screen">
-      <div className="flex flex-col gap-6 max-w-7xl mx-auto">
+    <div className="p-8 pl-0 sm:pl-2 min-h-screen">
+      <div className="flex flex-col gap-6  mx-auto">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900">
             Maintenance & Repairs
@@ -42,7 +43,7 @@ export default function MaintenanceMain() {
           </TabsList>
 
           <TabsContent value="new" className="mt-6">
-            <NewRequestForm />
+            <MaintenanceRequestForm />
           </TabsContent>
           <TabsContent value="active" className="mt-6">
             <ActiveRequests />
@@ -66,7 +67,7 @@ function SummaryCard({ label, value, color, icon }: any) {
     red: "text-red-500 bg-red-50",
   };
   return (
-    <Card className="p-6 flex items-center gap-4">
+    <Card className="p-6 flex flex-row items-center gap-4">
       <div
         className={`h-10 w-10 rounded-full flex items-center justify-center font-bold ${colors[color]}`}>
         {icon}

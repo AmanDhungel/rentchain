@@ -1,3 +1,4 @@
+"use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash2, Plus, ArrowLeft, Send, Save, Eye } from "lucide-react";
 import React from "react";
