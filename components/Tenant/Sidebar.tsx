@@ -215,6 +215,8 @@ export default function Sidebar() {
           />
         </svg>
       ),
+      location: "/tenant/parking",
+      active: pathname.startsWith("/tenant/parking"),
     },
     {
       id: "analytics",
