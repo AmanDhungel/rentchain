@@ -122,6 +122,8 @@ export default function Sidebar() {
           />
         </svg>
       ),
+      location: "/tenant/accounting",
+      active: pathname.startsWith("/tenant/accounting"),
     },
     {
       id: "agreements",
@@ -156,6 +158,8 @@ export default function Sidebar() {
           />
         </svg>
       ),
+      location: "/tenant/utilities",
+      active: pathname.startsWith("/tenant/utilities"),
     },
     {
       id: "complaints",
@@ -173,6 +177,8 @@ export default function Sidebar() {
           />
         </svg>
       ),
+      location: "/tenant/complaints",
+      active: pathname.startsWith("/tenant/complaints"),
     },
     {
       id: "occupancy",
@@ -260,6 +266,8 @@ export default function Sidebar() {
           />
         </svg>
       ),
+      location: "/tenant/iam",
+      active: pathname.startsWith("/tenant/iam"),
     },
     {
       id: "files",
