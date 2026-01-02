@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       "placehold.co",
       "api.dicebear.com",
       "www.pexels.com",
+      "images.pexels.com",
     ],
   },
   typescript: {

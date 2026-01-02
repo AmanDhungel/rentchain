@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, type JSX } from "react";
 import "./Sidebar.css";
 import { icons } from "@/assets/icons/exports";
+import { Wrench } from "lucide-react";
 
 interface MenuItem {
   id: string;
@@ -141,6 +142,8 @@ export default function Sidebar() {
           />
         </svg>
       ),
+      location: "/tenant/agreement",
+      active: pathname.startsWith("/tenant/agreement"),
     },
     {
       id: "utilities",
@@ -287,6 +290,13 @@ export default function Sidebar() {
           />
         </svg>
       ),
+    },
+    {
+      id: "Repair & Maintenance",
+      label: "Repair & Maintenance",
+      icon: <Wrench />,
+      location: "/tenant/repair-maintenance",
+      active: pathname.startsWith("/tenant/repair-maintenance"),
     },
   ];
 

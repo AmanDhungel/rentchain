@@ -190,10 +190,6 @@ const RentLease: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // const [db, setDb] = useState<unknown>(null);
-  // const [auth, setAuth] = useState<unknown>(null);
-  // const [userId, setUserId] = useState<string | null>(null);
-
   const filteredAgreements = agreements.filter(
     (agreement) =>
       agreement.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -252,9 +248,7 @@ const RentLease: React.FC = () => {
         )}
         <div className="flex flex-col gap-3">
           {filteredAgreements.map((agreement, index) => (
-            <Link
-              href={`/agreement/manageagreement/${agreement.id}`}
-              key={index}>
+            <Link href={`/tenant/agreement/${agreement.id}`} key={index}>
               <AgreementCard key={index} agreement={agreement} />
             </Link>
           ))}
